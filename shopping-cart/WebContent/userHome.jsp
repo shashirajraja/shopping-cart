@@ -28,7 +28,7 @@
 
 
 
-<%@ include file="header.html" %>
+<%@ include file="userHeader.html" %>
 
 <!-- Start of Product Items List -->
 <div class="products">
@@ -54,7 +54,7 @@
       <p class="productinfo"><%=product.getProdInfo() %></p>
       <p class="price">Rs <%=product.getProdPrice() %> </p>
       <form method="post">
-      	<button type="submit" formaction="./AddtoCart?uid=?&pid=?">Add to Cart</button>&nbsp;&nbsp;&nbsp;
+      	<button type="submit" formaction="./AddtoCart?uid=<%=userName %>&pid=<%=product.getProdId() %>">Add to Cart</button>&nbsp;&nbsp;&nbsp;
       	<button type="submit" formaction="#">Buy Now</button>
       </form>
     </div>
