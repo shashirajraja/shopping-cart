@@ -60,16 +60,18 @@
 
 <!-- Start of Login Form List -->
 <div class="products">
+
+	<p class="tab"  align="center" style="color:brown;" id="message">Enter Login Details</p><br>
   <div class="tab"  align="center">
     
     <div style="margin: 5px">
       
-        <form action="adminlog" method="post">
-          Username: <input type="text" name="username"style="font-size: 15px;font-weight: normal;" placeholder="Enter Email-Id"><br/><br/>
-          Password: <input type="password" name="password"style="font-size: 15px;font-weight: normal;" placeholder="Enter Password"><br/><br/>
-          Login As: <select name="usertype" style="font-size: 16px;">
-                      <option value="Customer">Customer</option>
-                      <option value="Admin">Admin</option>
+        <form action="./LoginSrv" method="post">
+          Username: <input type="text" name="username"style="font-size: 15px;font-weight: normal;" placeholder="Enter Email-Id" required><br/><br/>
+          Password: <input type="password" name="password"style="font-size: 15px;font-weight: normal;" placeholder="Enter Password" required><br/><br/>
+          Login As: <select name="usertype" style="font-size: 16px;" required>
+                      <option value="customer">Customer</option>
+                      <option value="admin">Admin</option>
                     </select> 
                     &nbsp;&nbsp;
                     <input type="submit" value=" Login ">
