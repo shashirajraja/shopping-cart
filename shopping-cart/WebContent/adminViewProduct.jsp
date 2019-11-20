@@ -20,29 +20,16 @@
 		String password = (String)session.getAttribute("password");
 		String userType = (String)session.getAttribute("usertype");
 	
-		boolean isValidUser = true;
-		
-		if(userType == null || userName == null || password==null || !userType.equals("customer")){
+		if(!userType.equals("admin") || userType==null || userName == null || password==null){
 	
-			isValidUser = false;
+			response.sendRedirect("loginFirst.jsp");
 		}	
 		
 	%>
 
 
-<%
-	if(isValidUser) {
-%>
-<%@ include file="userHeader.html" %>
 
-<%
-	}
-	else{
-%>
-<%@ include file="header.html" %>
-<%
-	}
-%>
+<%@ include file="userHeader.html" %>
 
 <!-- Start of Product Items List -->
 <div class="products">
@@ -58,17 +45,6 @@
   	
   	for(ProductBean product : products){
   	
-  		String addToCartUrl = null;
-  		String buyNowUrl = null;
-  		
-  		if(isValidUser){
-  			addToCartUrl = "./AddtoCart?uid="+userName+"&pid="+product.getProdId()+"";
-  			buyNowUrl = "./BuyNow?uid="+userName+"&pid="+product.getProdId()+"";
-  		}
-  		else{
-  			addToCartUrl = "login.html";
-  			buyNowUrl = "login.html";
-  		}
   		
   %>
   
@@ -79,8 +55,8 @@
       <p class="productinfo"><%=product.getProdInfo() %></p>
       <p class="price">Rs <%=product.getProdPrice() %> </p>
       <form method="post">
-      	<button type="submit" formaction="<%= addToCartUrl%>">Add to Cart</button>&nbsp;&nbsp;&nbsp;
-      	<button type="submit" formaction="<%= buyNowUrl%>">Buy Now</button>
+      	<button type="submit" formaction="./RemoveProductSrv?prodid=<%=product.getProdId() %>">Remove Product</button>&nbsp;&nbsp;&nbsp;
+      	<button type="submit" formaction="updateProduct.jsp?prodid=<%=product.getProdId() %>">Update Product</button>
       </form>
     </div>
   </div>

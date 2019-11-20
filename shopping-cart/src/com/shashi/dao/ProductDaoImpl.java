@@ -81,6 +81,7 @@ public class ProductDaoImpl implements ProductDao{
 		Connection con = DBUtil.provideConnection();
 		
 		PreparedStatement ps = null;
+		PreparedStatement ps2 = null;
 		
 		try {
 			ps = con.prepareStatement("delete from product where pid=?");
@@ -88,8 +89,17 @@ public class ProductDaoImpl implements ProductDao{
 			
 			int k = ps.executeUpdate();
 			
-			if(k>0)
+			if(k>0) {
 				status = "Product Removed Successfully!";
+			
+			
+				ps2 = con.prepareStatement("delete from usercart where prodid=?");
+				
+				ps2.setString(1, prodId);
+				
+				ps2.executeUpdate();
+			
+			}
 			
 		} catch (SQLException e) {
 			status = "Error: "+e.getMessage();
@@ -98,6 +108,7 @@ public class ProductDaoImpl implements ProductDao{
 	
 		DBUtil.closeConnection(con);
 		DBUtil.closeConnection(ps);
+		DBUtil.closeConnection(ps2);
 		
 		return status;
 	}
@@ -244,6 +255,85 @@ public class ProductDaoImpl implements ProductDao{
 		DBUtil.closeConnection(rs);
 		
 		return image;
+	}
+
+	@Override
+	public ProductBean getProductDetails(String prodId) {
+		ProductBean product = null;
+		
+		Connection con = DBUtil.provideConnection();
+		
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		try {
+			ps = con.prepareStatement("select * from product where pid=?");
+			
+			ps.setString(1, prodId);
+			rs = ps.executeQuery();
+			
+			if(rs.next()) {
+				product = new ProductBean();
+				product.setProdId(rs.getString(1));
+				product.setProdName(rs.getString(2));
+				product.setProdType(rs.getString(3));
+				product.setProdInfo(rs.getString(4));
+				product.setProdPrice(rs.getDouble(5));
+				product.setProdQuantity(rs.getInt(6));
+				product.setProdImage(rs.getAsciiStream(7));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		DBUtil.closeConnection(con);
+		DBUtil.closeConnection(ps);
+		
+		return product;
+	}
+
+	@Override
+	public String updateProductWithoutImage(String prevProductId, ProductBean updatedProduct) {
+		String status = "Product Updation Failed!";
+		
+		if(!prevProductId.equals(updatedProduct.getProdId())) {
+			
+			status = "Both Products are Different, Updation Failed!";
+			
+			return status;
+		}
+		
+		Connection con = DBUtil.provideConnection();
+		
+		PreparedStatement ps = null;
+		
+		try {
+			ps = con.prepareStatement("update product set pname=?,ptype=?,pinfo=?,pprice=?,pquantity=? where pid=?");
+			
+			ps.setString(1, updatedProduct.getProdName());
+			ps.setString(2, updatedProduct.getProdType());
+			ps.setString(3, updatedProduct.getProdInfo());
+			ps.setDouble(4, updatedProduct.getProdPrice());
+			ps.setInt(5, updatedProduct.getProdQuantity());
+			ps.setString(6, prevProductId);
+			
+			int k = ps.executeUpdate();
+			
+			if(k>0)
+				status = "Product Updated Successfully!";
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		DBUtil.closeConnection(con);
+		DBUtil.closeConnection(ps);
+		
+		return status;
 	}
 
 }

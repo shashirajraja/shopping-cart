@@ -22,13 +22,13 @@ public class ShowImage extends HttpServlet {
 		
 		String prodId = request.getParameter("pid");
 		
-		System.out.print("ProdId= "+prodId+" Image is available: ");
+		//System.out.print("ProdId= "+prodId+" Image is available: ");
 
 		ProductDaoImpl dao = new ProductDaoImpl();
 		
 		byte[] image = dao.getImage(prodId);
 		
-		System.out.print("ProdId= "+prodId+" Image is available: ");
+		//System.out.print("ProdId= "+prodId+" Image is available: ");
 		
 		ServletOutputStream sos = null;
 

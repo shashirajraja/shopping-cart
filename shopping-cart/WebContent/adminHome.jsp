@@ -32,9 +32,10 @@
 	
 		<div class="tab" align="center">
 			<form>
+			<button type="submit" formaction="adminViewProduct.jsp">View products</button><br><br>
 			<button type="submit" formaction="addProduct.jsp">Add products</button><br><br>
-			<button type="submit" formaction="#">Remove Products</button><br><br>
-			<button type="submit" formaction="#">Update Products</button><br><br>
+			<button type="submit" formaction="removeProduct.jsp">Remove Products</button><br><br>
+			<button type="submit" formaction="updateProductById.jsp">Update Products</button><br><br>
 			</form>
 		</div>
 	</div>

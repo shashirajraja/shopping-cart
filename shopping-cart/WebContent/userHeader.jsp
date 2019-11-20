@@ -1,5 +1,6 @@
-<!DOCTYPE html>
-<html>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <head>
 <title>Shoping Center</title>
   <meta charset="utf-8">
@@ -38,11 +39,11 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="login.html">Login</a></li>
-        <li><a href="register.html">Register</a></li>
-        <li><a href="loginFirst.jsp"> <span class="glyphicon glyphicon-shopping-cart"></span>Cart</a></li>
+        <li><a href="./LogoutSrv">Logout</a></li>
+<!--         <li><a href="./ProfileSrv">Profile</a></li>
+ -->        <li><a href="cart.jsp"> <span class="glyphicon glyphicon-shopping-cart"></span>&nbsp;Cart</a></li>
         <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Products
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">MORE
             <span class="caret"></span>
           </a>
           <ul class="dropdown-menu">

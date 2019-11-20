@@ -151,7 +151,9 @@ public class UserDaoImpl implements UserDao {
 		ResultSet rs = null;
 		
 		try {
-			ps = con.prepareStatement("select * from user where emailId=? and password=?");
+			ps = con.prepareStatement("select * from user where email=? and password=?");
+			ps.setString(1, emailId);
+			ps.setString(2, password);
 			rs = ps.executeQuery();
 			
 			if(rs.next()) {

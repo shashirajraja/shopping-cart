@@ -67,7 +67,7 @@
             <tr><td><br></td><td><br></td></tr>
             <tr><td>Picture</td><td><input type="file" name="image"></td></tr>
                         <tr><td><br></td><td><br></td></tr>
-            <tr colspan="2" align="center"><td>&nbsp;</td><td><input type="submit" name="submit" value="Add Item"></td></tr>
+            <tr colspan="2" align="center"><td><button><a href="adminHome.jsp">Cancle</a></button>&nbsp;</td><td><input type="submit" name="submit" value="Add Item"></td></tr>
 
           </table>
         

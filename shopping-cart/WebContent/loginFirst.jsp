@@ -10,14 +10,39 @@
 
 	<%@ include file="header.html" %>
 	
-	<div class="product">
+	<!-- <div class="product">
 	
 		<div class="tab" align="center" style="color:red">
 			
-			<h1>Login Credentials Failed, Please Login Again!</h1>
+			<h1>Login Credentials Failed, Please Login First!</h1>
 		
 		</div>
 	</div>
+	 -->
+<div class="products">
+
+	<p class="tab"  align="center" style="color:brown;" id="message">Login Credential Failed, Please Login First!</p><br>
+  <div class="tab"  align="center">
+    
+    <div style="margin: 5px">
+      
+        <form action="./LoginSrv" method="post">
+          Username: <input type="text" name="username"style="font-size: 15px;font-weight: normal;" placeholder="Enter Email-Id" required><br/><br/>
+          Password: <input type="password" name="password"style="font-size: 15px;font-weight: normal;" placeholder="Enter Password" required><br/><br/>
+          Login As: <select name="usertype" style="font-size: 16px;" required>
+                      <option value="customer">Customer</option>
+                      <option value="admin">Admin</option>
+                    </select> 
+                    &nbsp;&nbsp;
+                    <input type="submit" value=" Login ">
+        </form>
+    </div>  
+  </div>
+  <div class="tab" style="margin-top: 10px;text-align: center">
+      <a href="register.html">New User ? Register Here</a>
+
+  </div>
+</div>
 	
 	<%@ include file="footer.html" %>
 
