@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.xml.ws.Response;
 
 import com.shashi.beans.ProductBean;
@@ -28,6 +29,23 @@ public class UpdateProductSrv extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		HttpSession session = request.getSession();
+		String userType = (String)session.getAttribute("usertype");
+		String userName = (String)session.getAttribute("username");
+		String password = (String)session.getAttribute("password");
+	
+		if(userType== null || !userType.equals("admin")){
+			
+			response.sendRedirect("loginFirst.jsp");
+			
+		}
+		
+		else if(userName == null || password==null){
+	
+			response.sendRedirect("loginFirst.jsp");
+		}	
+		
+		//Login success
 		PrintWriter pw = response.getWriter();
 		
 		response.setContentType("text/html");

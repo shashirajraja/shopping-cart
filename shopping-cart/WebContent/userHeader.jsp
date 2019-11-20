@@ -44,7 +44,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html"><span class="glyphicon glyphicon-home">&nbsp;</span>Shopping Center</a>  
+      <a class="navbar-brand" href="index.jsp"><span class="glyphicon glyphicon-home">&nbsp;</span>Shopping Center</a>  
 	</div>      
 	
     <div class="collapse navbar-collapse" id="myNavbar">

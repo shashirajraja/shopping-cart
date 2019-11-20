@@ -29,7 +29,7 @@
 
 
 
-<%@ include file="userHeader.html" %>
+<%@ include file="adminHeader.html" %>
 
 <!-- Start of Product Items List -->
 <div class="products">

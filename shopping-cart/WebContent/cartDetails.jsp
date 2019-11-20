@@ -58,38 +58,44 @@
 	<table class="table table-hover" >
 		<thead style="background-color:red;color:white;font-size:20px;font-weight:bold;">
 			<tr> 
-     			 <th>Picture </th> <th> Products </th> <th>Price</th> <th>Quantity</th> <th>Add</th><th>Remove</th><th>Amount</th>
+     			 <th>Picture </th> <th> Products </th> <th>Price</th> <th>Quantity</th> <th>Add</th><th>Remove</th><th style="background-color:green;">Amount</th>
      		</tr>
 		</thead>
 		<tbody style="background-color:white;font-size:20px;font-weight:bold;">	
-    <%
-  
-  		CartDaoImpl cart = new CartDaoImpl();
-  		List<CartBean> cartItems= new ArrayList<CartBean>();
-  		cartItems = cart.getAllCartItems(userName);
-  		double totAmount = 0;
-  		for(CartBean item : cartItems){
-  			
-  			String prodId = item.getProdId();
-  			int prodQuantity = item.getQuantity();
+		
+		
   	
-  			ProductBean product = new ProductDaoImpl().getProductDetails(prodId);
-  			
-  			double currAmount = product.getProdPrice()*prodQuantity;
-  %>
+<%
+    
+		CartDaoImpl cart = new CartDaoImpl();
+		List<CartBean> cartItems= new ArrayList<CartBean>();
+		cartItems = cart.getAllCartItems(userName);
+		double totAmount = 0;
+		for(CartBean item : cartItems){
+			
+			String prodId = item.getProdId();
+			int prodQuantity = item.getQuantity();
+	
+			ProductBean product = new ProductDaoImpl().getProductDetails(prodId);
+			
+			double currAmount = product.getProdPrice()*prodQuantity;
+			
+			totAmount += currAmount;
+%>
   	
-  	<tr> <td><img src="./ShowImage?pid=<%=product.getProdId() %>"  style="width:50px;height:50px;"></td> <td><%=product.getProdName() %></td> 
+  	   <tr> <td><img src="./ShowImage?pid=<%=product.getProdId() %>"  style="width:50px;height:50px;"></td> <td><%=product.getProdName() %></td> 
      				<td><%=product.getProdPrice() %></td> <td><%= prodQuantity %></td> 
      				<td><a href="cartDetails.jsp?add=1&uid=<%=userName %>&pid=<%= product.getProdId()%>"><i class="fa fa-plus"></i></a></td>
      				<td><a href="cartDetails.jsp?add=0&uid=<%=userName %>&pid=<%= product.getProdId()%>"><i class="fa fa-minus"></i></a>
      				</td>
      				<td><%=currAmount %></td>
-	</tr>     		
+		</tr>  		
      		
-  
-  <%
+<%
   		}
   %>
+  
+  	<tr style="background-color:grey;color:white;"><td colspan="6" style="text-align:center;">Total Amount to Pay (in Rupees)</td><td><%=totAmount %></td></tr>
   </tbody>
 </table>
 </div>
