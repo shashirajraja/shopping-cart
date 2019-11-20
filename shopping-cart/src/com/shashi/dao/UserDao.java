@@ -20,15 +20,10 @@ public interface UserDao {
 	public String registerUser(UserBean user);
 	
 	public boolean isRegistered(String emailId);
-	
-	public String addToCart(String emailId,String prodId);
-	
+		
 	public String isValidCredential(String emailId, String password);
 	
 	public UserBean getUserDetails(String emailId,String password);
 	
-	public String addProductToCart(String userId, String prodId);
-	
-	public List<CartBean> getAllCartItems(String userId);
 	
 }

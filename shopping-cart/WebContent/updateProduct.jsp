@@ -25,6 +25,7 @@
 		else if(uname == null || pwd==null){
 	
 			response.sendRedirect("loginFirst.jsp");
+			
 		}	
 		
 		
@@ -34,6 +35,8 @@
 		
 		
 		if(prodid != null && product !=null){
+			//out.println("Product ID: "+prodid);
+			
 	%>
 	
 	<%@ include file="adminHeader.html" %>
@@ -56,7 +59,7 @@
 		<div style="margin: 5px">
       
         <form action="./UpdateProductSrv" method="post" >
-        	<input type="hidden" name="pid" value=<%=product.getProdId() %>">
+        	<input type="hidden" name="pid" value="<%=product.getProdId() %>">
           <table border="0">
             <tr><td>Product Name: </td><td><input type="text" name="name"style="font-size: 15px;font-weight: normal; width:80%" value="<%=product.getProdName() %>" required></td></tr>
             <tr><td><br></td><td><br></td></tr>

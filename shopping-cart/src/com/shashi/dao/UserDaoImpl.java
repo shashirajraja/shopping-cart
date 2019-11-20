@@ -102,11 +102,6 @@ public class UserDaoImpl implements UserDao {
 		return flag;
 	}
 
-	@Override
-	public String addToCart(String emailId, String prodId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public String isValidCredential(String emailId, String password) {
@@ -180,118 +175,6 @@ public class UserDaoImpl implements UserDao {
 		return user;
 	}
 
-	@Override
-	public String addProductToCart(String userId, String prodId) {
-		String status= "Failed to Add into Cart";
-		
-		
-		Connection con = DBUtil.provideConnection();
-		
-		PreparedStatement ps = null;
-		PreparedStatement ps2 = null;
-		ResultSet rs = null;
-		
-		try {
-			
-			ps = con.prepareStatement("select * from usercart where username=? and prodid=?");
-			
-			ps.setString(1, userId);
-			ps.setString(2, prodId);
-			
-			rs = ps.executeQuery();
-			
-			if(rs.next()) {
-				
-				int prodQuantity = rs.getInt("quantity");
-				
-				prodQuantity += 1;
-				
-				ps2 = con.prepareStatement("update usercart set quantity=? where username=? and prodid=?");
-				
-				ps2.setInt(1, prodQuantity);
-				
-				ps2.setString(2, userId);
-				
-				ps2.setString(3, prodId);
-				
-				int k = ps2.executeUpdate();
-				
-				if(k>0) 
-					status  = "Product Successfully Added to Cart!";
-				
-			}
-			else {
-				
-				ps2 = con.prepareStatement("insert into usercart values(?,?,?)");
-				
-				ps2.setString(1, userId);
-				
-				ps2.setString(2, prodId);
-				
-				ps2.setInt(3, 1);
-				
-				int k = ps2.executeUpdate();
-				
-				if(k>0)
-					status = "Product Successfully Added to Cart!";
-				
-			}
-			
-		} catch (SQLException e) {
-				status = "Error: "+ e.getMessage();
-			e.printStackTrace();
-		}
-		
-		
-		DBUtil.closeConnection(con);
-		DBUtil.closeConnection(ps);
-		DBUtil.closeConnection(rs);
-		DBUtil.closeConnection(ps2);
-		
-		return status;
-	}
-
-	@Override
-	public List<CartBean> getAllCartItems(String userId) {
-		List<CartBean> items = new ArrayList<CartBean>();
-		
-		Connection con  = DBUtil.provideConnection();
-		
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		
-		try {
-			
-			ps = con.prepareStatement("select * from usercart where username=?");
-			
-			ps.setString(1, userId);
-			
-			rs = ps.executeQuery();
-			
-			while(rs.next()) {
-				CartBean cart = new CartBean();
-				
-				cart.setUserId(rs.getString("username"));
-				cart.setProdId(rs.getString("prodid"));
-				cart.setQuantity(Integer.parseInt(rs.getString("quantity")));
-				
-				items.add(cart);
-				
-			}
-			
-			
-		} catch (SQLException e) {
-			
-			e.printStackTrace();
-		}
-		
-		
-		DBUtil.closeConnection(con);
-		DBUtil.closeConnection(ps);
-		DBUtil.closeConnection(rs);
-		
-		
-		return items;
-	}
+	
 
 }

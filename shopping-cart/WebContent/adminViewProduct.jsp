@@ -20,7 +20,7 @@
 		String password = (String)session.getAttribute("password");
 		String userType = (String)session.getAttribute("usertype");
 	
-		if(!userType.equals("admin") || userType==null || userName == null || password==null){
+		if(userType==null || userName == null || password==null || !userType.equals("admin")){
 	
 			response.sendRedirect("loginFirst.jsp");
 		}	

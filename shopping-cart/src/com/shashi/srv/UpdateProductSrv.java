@@ -55,7 +55,7 @@ public class UpdateProductSrv extends HttpServlet {
 		
 		rd.include(request,response);
 		
-		pw.println("<script>doucment.getElementById('message').innerHTML='"+status+"'</script>");
+		pw.println("<script>document.getElementById('message').innerHTML='" + status +"'</script>");
 	
 	}
 

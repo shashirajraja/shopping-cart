@@ -306,6 +306,13 @@ public class ProductDaoImpl implements ProductDao{
 			return status;
 		}
 		
+		/*System.out.println("pId: "+updatedProduct.getProdId());
+		System.out.println("pName: "+updatedProduct.getProdName());
+		System.out.println("pType: "+updatedProduct.getProdType());
+		System.out.println("pInfo: "+updatedProduct.getProdInfo());
+		System.out.println("pPrice: "+updatedProduct.getProdPrice());
+		System.out.println("pQuantity: "+updatedProduct.getProdQuantity());*/
+		
 		Connection con = DBUtil.provideConnection();
 		
 		PreparedStatement ps = null;
@@ -324,6 +331,8 @@ public class ProductDaoImpl implements ProductDao{
 			
 			if(k>0)
 				status = "Product Updated Successfully!";
+			else
+				status = "Product Not available in the store!";
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -332,6 +341,7 @@ public class ProductDaoImpl implements ProductDao{
 		
 		DBUtil.closeConnection(con);
 		DBUtil.closeConnection(ps);
+		//System.out.println("Prod Update status : "+status);
 		
 		return status;
 	}

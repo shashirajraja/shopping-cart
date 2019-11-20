@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.shashi.dao.CartDaoImpl;
 import com.shashi.dao.UserDaoImpl;
 
 /**
@@ -28,9 +29,9 @@ public class AddtoCart extends HttpServlet {
 		String userId = request.getParameter("uid");
 		String prodId = request.getParameter("pid");
 		
-		UserDaoImpl user = new UserDaoImpl();
+		CartDaoImpl cart = new CartDaoImpl();
 		
-		String status = user.addProductToCart(userId, prodId);
+		String status = cart.addProductToCart(userId, prodId);
 		
 		PrintWriter pw = response.getWriter();
 		

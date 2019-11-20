@@ -1,16 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ page import="com.shashi.dao.*" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <head>
 <title>Shoping Center</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-   <link rel="stylesheet" href="css/changes.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/changes.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
+
+	<%
+		 
+		int notf = new CartDaoImpl().getCartCount((String)session.getAttribute("username"));
+	
+	%>
 <!--Company Header Starting  -->
 <div class="jumbotron text-center">
   <h1>Shopping Center</h1>
@@ -28,6 +36,7 @@
 
 <!-- Starting Navigation Bar -->
 <nav class="navbar navbar-default navbar-fixed-top">
+	
   <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -35,28 +44,47 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html"><span class="glyphicon glyphicon-home">&nbsp;</span>Shopping Center</a>
-    </div>
+      <a class="navbar-brand" href="index.html"><span class="glyphicon glyphicon-home">&nbsp;</span>Shopping Center</a>  
+	</div>      
+	
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="./LogoutSrv">Logout</a></li>
-<!--         <li><a href="./ProfileSrv">Profile</a></li>
- -->        <li><a href="cart.jsp"> <span class="glyphicon glyphicon-shopping-cart"></span>&nbsp;Cart</a></li>
+<!--         <li><a href="./ProfileSrv">Profile</a></li> -->
+			<% 
+				if(notf == 0) {
+				
+			%>
+			
+			<li> <a href="cartDetails.jsp" style="margin:0px;padding:0px;" id="mycart"><i class="fa fa-shopping-cart fa-3x icon-white" style="background-color:#333;margin:0px;padding:0px; margin-top:5px;" > 
+ </i>Cart</a></li>
+			
+			<%
+				}
+				else{
+			%>
+         <li> <a href="cartDetails.jsp" style="margin:0px;padding:0px;" id="mycart"><i data-count="<%=notf %>" class="fa fa-shopping-cart fa-3x icon-white badge" style="background-color:#333;margin:0px;padding:0px; margin-top:5px;" > 
+ </i>Cart</a></li>
+ 				<% 
+ 					} 
+ 				%>
+ 
+ 		<li><a href="./LogoutSrv">Logout</a></li>
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">MORE
             <span class="caret"></span>
           </a>
           <ul class="dropdown-menu">
-            <li><a href="mobile.jsp">Mobiles</a></li>
-            <li><a href="tv.jsp">Tvs</a></li>
-            <li><a href="laptop.jsp">Laptops</a></li>
+            <li><a href="userHome.jsp">Mobiles</a></li>
+            <li><a href="userHome.jsp">Tvs</a></li>
+            <li><a href="userHome.jsp">Laptops</a></li>
           </ul>
         </li>
-        <li><a href="#"><span class="glyphicon glyphicon-search"></span></a></li>
-      </ul>
+<!--         <li><a href="#"><span class="glyphicon glyphicon-search"></span></a></li>
+ -->      </ul>
     </div>
   </div>
 </nav>
-<!-- End of Navigation Bar -->
+
+
 </body>
 </html>
