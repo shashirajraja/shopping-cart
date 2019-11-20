@@ -157,4 +157,79 @@ public class CartDaoImpl implements CartDao{
 		
 		return count;
 	}
+
+	@Override
+	public String removeProductFromCart(String userId, String prodId) {
+		String status = "Product Removal Failed";
+		
+		Connection con = DBUtil.provideConnection();
+		
+		PreparedStatement ps = null;
+		PreparedStatement ps2 = null;
+		ResultSet rs = null;
+		
+		try {
+			
+			ps = con.prepareStatement("select * from usercart where username=? and prodid=?");
+			
+			ps.setString(1, userId);
+			ps.setString(2, prodId);
+			
+			rs = ps.executeQuery();
+			
+			if(rs.next()) {
+				
+				int prodQuantity = rs.getInt("quantity");
+				
+				prodQuantity -= 1;
+				
+				if(prodQuantity>0) {
+					ps2 = con.prepareStatement("update usercart set quantity=? where username=? and prodid=?");
+					
+					ps2.setInt(1, prodQuantity);
+					
+					ps2.setString(2, userId);
+					
+					ps2.setString(3, prodId);
+					
+					int k = ps2.executeUpdate();
+					
+					if(k>0) 
+						status  = "Product Successfully Added to Cart!";
+				}
+				else if(prodQuantity <=0) {
+					
+					ps2 = con.prepareStatement("delete from usercart where username=? and prodid=?");
+					
+					ps2.setString(1, userId);
+					
+					ps2.setString(2, prodId);
+					
+					int k = ps2.executeUpdate();
+					
+					if(k>0) 
+						status  = "Product Successfully Added to Cart!";
+				}
+
+			}
+			else {
+				
+					status = "Product Not Available in the cart!";
+				
+			}
+			
+		} catch (SQLException e) {
+				status = "Error: "+ e.getMessage();
+			e.printStackTrace();
+		}
+		
+		
+		DBUtil.closeConnection(con);
+		DBUtil.closeConnection(ps);
+		DBUtil.closeConnection(rs);
+		DBUtil.closeConnection(ps2);
+		
+		
+		return status;
+	}
 }

@@ -11,4 +11,6 @@ public interface CartDao{
 	public List<CartBean> getAllCartItems(String userId);
 	
 	public int getCartCount(String userId);
+	
+	public String removeProductFromCart(String userId,String prodId);
 }
