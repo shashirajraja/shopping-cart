@@ -11,6 +11,7 @@ import com.shashi.beans.CartBean;
 import com.shashi.beans.UserBean;
 import com.shashi.constants.IUserConstants;
 import com.shashi.utility.DBUtil;
+import com.shashi.utility.MailMessage;
 
 public class UserDaoImpl implements UserDao {
 
@@ -57,8 +58,10 @@ public class UserDaoImpl implements UserDao {
 			
 			int k = ps.executeUpdate();
 			
-			if(k>0)
+			if(k>0) {
 				status = "User Registered Successfully!";
+				MailMessage.registrationSuccess(user.getEmailId(), user.getUserName().split(" ")[0]);
+			}
 			
 		} catch (SQLException e) {
 			status = "Error: "+e.getMessage();
