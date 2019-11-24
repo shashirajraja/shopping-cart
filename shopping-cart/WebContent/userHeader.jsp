@@ -3,7 +3,7 @@
 <%@ page import="com.shashi.dao.*" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <head>
-<title>Shoping Center</title>
+<title>Ellison Electronics</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -21,7 +21,7 @@
 	%>
 <!--Company Header Starting  -->
 <div class="jumbotron text-center">
-  <h1>Shopping Center</h1>
+  <h1>Ellison Electronics</h1>
   <p>We specialize in Electronics</p>
   <form class="form-inline">
     <div class="input-group">
@@ -31,6 +31,7 @@
       </div>
     </div>
   </form>
+  <p  align="center" style="color:blue;font-weight:bold;margin-top:15px;margin-bottom:-15px;" id="message"></p>
 </div>
 <!-- Company Header Ending -->
 
@@ -49,6 +50,7 @@
 	
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
+              <li><a href="userHome.jsp"><span class="glyphicon glyphicon-home">Home</span></a></li>
 <!--         <li><a href="./ProfileSrv">Profile</a></li> -->
 			<% 
 				if(notf == 0) {
@@ -68,7 +70,7 @@
  					} 
  				%>
  
- 		<li><a href="./LogoutSrv">Logout</a></li>
+ 		
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">MORE
             <span class="caret"></span>
@@ -79,6 +81,8 @@
             <li><a href="userHome.jsp">Laptops</a></li>
           </ul>
         </li>
+        <li><a href="userHome.jsp">Profile</a></li>
+        <li><a href="./LogoutSrv">Logout</a></li>
 <!--         <li><a href="#"><span class="glyphicon glyphicon-search"></span></a></li>
  -->      </ul>
     </div>

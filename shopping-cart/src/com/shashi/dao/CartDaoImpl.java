@@ -232,4 +232,41 @@ public class CartDaoImpl implements CartDao{
 		
 		return status;
 	}
+
+	@Override
+	public boolean removeAProduct(String userId, String prodId) {
+		boolean flag = false;
+		
+		Connection con = DBUtil.provideConnection();
+		
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		try {
+			
+			ps = con.prepareStatement("delete from usercart where username=? and prodid=?");
+			ps.setString(1, userId);
+			ps.setString(2, prodId);
+			
+			int k = ps.executeUpdate();
+			
+			if(k>0)
+				flag = true;
+			
+			
+		} catch (SQLException e) {
+			flag = false;
+			e.printStackTrace();
+		}
+			
+			
+		
+		
+		DBUtil.closeConnection(con);
+		DBUtil.closeConnection(ps);
+		DBUtil.closeConnection(rs);
+		
+		
+		return flag;
+	}
 }

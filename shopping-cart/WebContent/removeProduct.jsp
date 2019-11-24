@@ -30,7 +30,7 @@
 	
 	<%@ include file="adminHeader.html" %>
 	
-	<div class="products">
+	<div class="products" style="background-color: #E6F9E6;">
 	
 		<p id="message" class="tab" align="center">
 			

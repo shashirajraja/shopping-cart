@@ -346,4 +346,66 @@ public class ProductDaoImpl implements ProductDao{
 		return status;
 	}
 
+	@Override
+	public double getProductPrice(String prodId) {
+		double price = 0;
+		
+		Connection con = DBUtil.provideConnection();
+		
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		try {
+			ps = con.prepareStatement("select * from product where pid=?");
+			
+			ps.setString(1, prodId);
+			rs = ps.executeQuery();
+			
+			if(rs.next()) {
+				price = rs.getDouble("pprice");
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		DBUtil.closeConnection(con);
+		DBUtil.closeConnection(ps);
+		
+		return price;
+	}
+
+	@Override
+	public boolean sellNProduct(String prodId,int n) {
+		boolean flag = false;
+		
+		Connection con = DBUtil.provideConnection();
+		
+		PreparedStatement ps = null;
+		
+		try {
+			
+			ps = con.prepareStatement("update product set pquantity=(pquantity - ?) where pid=?");
+			
+			ps.setInt(1, n);
+			
+			ps.setString(2, prodId);
+			
+			int k = ps.executeUpdate();
+			
+			if(k>0)
+				flag = true;
+		} catch (SQLException e) {
+			flag = false;
+			e.printStackTrace();
+		}
+		
+		DBUtil.closeConnection(con);
+		DBUtil.closeConnection(ps);
+		
+		return flag;
+	}
+
 }

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Shoping</title>
+<title>Ellison Electronics</title>
 <link href="../css/changes.css" rel="stylesheet" type="text/css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
@@ -12,7 +12,7 @@
 <body>
 	<%@ include file="header.html" %>
 	
-  <div class="products">
+  <div class="products" style="background-color: #E6F9E6;">
 	
 	<div class="tab" align="center" style="color:brown;">
 			<%=request.getAttribute("message") %>

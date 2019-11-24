@@ -24,4 +24,8 @@ public interface ProductDao {
 	public ProductBean getProductDetails(String prodId);
 	
 	public String updateProductWithoutImage(String prevProductId, ProductBean updatedProduct);
+	
+	public double getProductPrice(String prodId);
+	
+	public boolean sellNProduct(String prodId,int n);
 }

@@ -25,5 +25,7 @@ public interface UserDao {
 	
 	public UserBean getUserDetails(String emailId,String password);
 	
+	public String getFName(String emailId);
+	
 	
 }

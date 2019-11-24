@@ -178,6 +178,37 @@ public class UserDaoImpl implements UserDao {
 		return user;
 	}
 
+	@Override
+	public String getFName(String emailId) {
+		String fname = "";
+		
+		Connection con = DBUtil.provideConnection();
+		
+		PreparedStatement ps=null;
+		ResultSet rs = null;
+		
+		try {
+			ps = con.prepareStatement("select name from user where email=?");
+			ps.setString(1, emailId);
+			
+			rs = ps.executeQuery();
+			
+			if(rs.next()) {
+				fname = rs.getString(1);
+				
+				fname = fname.split(" ")[0];
+				
+			}
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		
+		
+		return fname;
+	}
+
 	
 
 }

@@ -32,7 +32,7 @@
 <%@ include file="adminHeader.html" %>
 
 <!-- Start of Product Items List -->
-<div class="products">
+<div class="products" style="background-color: #E6F9E6;">
 <div class="row text-center">
 
   <%

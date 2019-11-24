@@ -11,22 +11,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.shashi.dao.CartDaoImpl;
-import com.shashi.dao.UserDaoImpl;
+import com.shashi.dao.OrderDaoImpl;
 
 /**
- * Servlet implementation class AddtoCart
+ * Servlet implementation class OrderServlet
  */
-@WebServlet("/AddtoCart")
-public class AddtoCart extends HttpServlet {
+@WebServlet("/OrderServlet")
+public class OrderServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
       
-    public AddtoCart() {
+    public OrderServlet() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		
 		HttpSession session = request.getSession();
 		String userName = (String)session.getAttribute("username");
 		String password = (String)session.getAttribute("password");
@@ -36,31 +35,23 @@ public class AddtoCart extends HttpServlet {
 			response.sendRedirect("loginFirst.jsp");
 		}	
 		
-		//login Check Successfull
 		
-		
-		String userId = request.getParameter("uid");
-		String prodId = request.getParameter("pid");
-		
-		CartDaoImpl cart = new CartDaoImpl();
-		
-		String status = cart.addProductToCart(userId, prodId);
+		double paidAmount = Double.parseDouble(request.getParameter("amount"));
+		String status = new OrderDaoImpl().paymentSuccess(userName, paidAmount);
 		
 		PrintWriter pw = response.getWriter();
-		
 		response.setContentType("text/html");
 		
 		RequestDispatcher rd = request.getRequestDispatcher("userHome.jsp");
 		
 		rd.include(request, response);
 		
-		pw.print("<script>document.getElementById('message').innerHTML='"+status+"'</script>");
-		
-		
+		pw.println("<script>document.getElementById('message').innerHTML='"+status+"'</script>");
 	}
 
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		
 		doGet(request, response);
 	}
 

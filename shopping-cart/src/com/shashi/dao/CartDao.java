@@ -13,4 +13,7 @@ public interface CartDao{
 	public int getCartCount(String userId);
 	
 	public String removeProductFromCart(String userId,String prodId);
+	
+	public boolean removeAProduct(String userId,String prodId);
+	
 }

@@ -12,7 +12,7 @@
 <body>
 	<%@ include file="header.html" %>
 	
-  <div class="products">
+  <div class="products" style="background-color: #E6F9E6;">
 	
 	<div class="tab" align="center" style="color:brown;">
 			<%=request.getAttribute("message") %>

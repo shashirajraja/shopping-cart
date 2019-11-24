@@ -74,7 +74,7 @@ button:hover{
 .bg-1 p {font-style: italic;}
 
 .products{
-  background-color: black;
+  background-color: #E6F9E6 !important;
   padding:5%;
 }
 

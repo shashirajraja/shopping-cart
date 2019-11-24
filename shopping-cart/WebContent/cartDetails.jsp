@@ -53,7 +53,7 @@
 	<!-- <script>document.getElementById('mycart').innerHTML='<i data-count="20" class="fa fa-shopping-cart fa-3x icon-white badge" style="background-color:#333;margin:0px;padding:0px; margin-top:5px;"></i>'</script>
  -->
 <!-- Start of Product Items List -->
-<div class="products">
+<div class="products" style="background-color: #E6F9E6;">
 
 	<table class="table table-hover" >
 		<thead style="background-color:red;color:white;font-size:20px;font-weight:bold;">
@@ -96,6 +96,14 @@
   %>
   
   	<tr style="background-color:grey;color:white;"><td colspan="6" style="text-align:center;">Total Amount to Pay (in Rupees)</td><td><%=totAmount %></td></tr>
+    <% if(totAmount !=0) {%>
+    <tr style="background-color:grey;color:white;"><td colspan="4" style="text-align:center;">
+    	
+    	<td><form method="post"><button formaction="userHome.jsp" style="background-color:black;color:white;">Cancle</button></form></td>
+    	<td colspan="2" align="center"><form method="post"><button style="background-color:blue;color:white;" formaction="payment.jsp?amount=<%=totAmount %>">Pay Now</button></form></td>
+    	
+    </tr>
+    <%} %>
   </tbody>
 </table>
 </div>
