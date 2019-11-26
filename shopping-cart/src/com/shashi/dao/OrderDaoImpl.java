@@ -3,6 +3,7 @@ package com.shashi.dao;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +48,7 @@ public class OrderDaoImpl implements OrderDao{
 				
 				OrderBean order = new OrderBean(transactionId, item.getProdId(), item.getQuantity(), amount);
 				
-				flag = new OrderDaoImpl().addOrder(order);
+				flag = addOrder(order);
 				if(!flag)
 					break;
 				else {
@@ -88,12 +89,13 @@ public class OrderDaoImpl implements OrderDao{
 		PreparedStatement ps = null;
 		
 		try {
-			ps = con.prepareStatement("insert into orders values(?,?,?,?)");
+			ps = con.prepareStatement("insert into orders values(?,?,?,?,?)");
 			
 			ps.setString(1, order.getTransactionId());
 			ps.setString(2, order.getProductId());
 			ps.setInt(3, order.getQuantity());
 			ps.setDouble(4, order.getAmount());
+			ps.setInt(5, 0);
 			
 			int k = ps.executeUpdate();
 			
@@ -137,6 +139,73 @@ public class OrderDaoImpl implements OrderDao{
 		}
 		
 		return flag;
+	}
+
+	@Override
+	public int countSoldItem(String prodId) {
+		int count = 0;
+		
+		Connection  con = DBUtil.provideConnection();
+		
+		PreparedStatement ps = null;
+		
+		ResultSet rs = null;
+		
+		try {
+			ps = con.prepareStatement("select sum(quantity) from orders where prodid=?");
+			
+			ps.setString(1, prodId);
+			
+			rs = ps.executeQuery();
+			
+			if(rs.next())
+				count = rs.getInt(1);
+			
+		} catch (SQLException e) {
+			count = 0;
+			e.printStackTrace();
+		}
+		
+		DBUtil.closeConnection(con);
+		DBUtil.closeConnection(ps);
+		DBUtil.closeConnection(rs);
+		
+		
+		return count;
+	}
+
+	@Override
+	public List<OrderBean> getAllOrders() {
+		List<OrderBean> orderList = new ArrayList<OrderBean>();
+		
+		Connection con = DBUtil.provideConnection();
+		
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		try {
+			
+			ps = con.prepareStatement("select * from orders");
+			
+			rs = ps.executeQuery();
+			
+			
+			while(rs.next()) {
+				
+				OrderBean order = new OrderBean(rs.getString("transid"),rs.getString("prodid"),rs.getInt("quantity"),rs.getDouble("amount"),rs.getInt("shipped"));
+				
+				orderList.add(order);
+
+			}
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		
+		
+		
+		return orderList;
 	}
 
 }

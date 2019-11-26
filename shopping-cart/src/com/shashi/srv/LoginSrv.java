@@ -42,7 +42,7 @@ public class LoginSrv extends HttpServlet {
 			if(password.equals("Admin") && userName.equals("Admin")) {
 				//valid
 				
-				RequestDispatcher rd = request.getRequestDispatcher("adminHome.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("adminViewProduct.jsp");
 				
 				HttpSession session = request.getSession();
 				

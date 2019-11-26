@@ -10,8 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.shashi.beans.ProductBean;
+import com.shashi.beans.DemandBean;
 import com.shashi.utility.DBUtil;
 import com.shashi.utility.IDUtil;
+import com.shashi.utility.MailMessage;
 
 public class ProductDaoImpl implements ProductDao{
 
@@ -313,6 +315,7 @@ public class ProductDaoImpl implements ProductDao{
 		System.out.println("pPrice: "+updatedProduct.getProdPrice());
 		System.out.println("pQuantity: "+updatedProduct.getProdQuantity());*/
 		
+		int prevQuantity = new ProductDaoImpl().getProductQuantity(prevProductId);
 		Connection con = DBUtil.provideConnection();
 		
 		PreparedStatement ps = null;
@@ -328,8 +331,25 @@ public class ProductDaoImpl implements ProductDao{
 			ps.setString(6, prevProductId);
 			
 			int k = ps.executeUpdate();
-			
-			if(k>0)
+			//System.out.println("prevQuantity: "+prevQuantity);
+			if((k>0) && (prevQuantity < updatedProduct.getProdQuantity())) {
+				status = "Product Updated Successfully!";
+				//System.out.println("updated!");
+				List<DemandBean> demandList = new DemandDaoImpl().haveDemanded(prevProductId);
+				
+				for(DemandBean demand : demandList) {
+					
+					String userFName = new UserDaoImpl().getFName(demand.getUserName());
+					
+					MailMessage.productAvailableNow(demand.getUserName(), userFName, updatedProduct.getProdName(), prevProductId);
+					
+					boolean flag = new DemandDaoImpl().removeProduct(demand.getUserName(), prevProductId);
+					
+					if(flag)
+						status += " And Mail Send to the customers who were waiting for this product!";
+				}
+			}
+			else if(k>0)
 				status = "Product Updated Successfully!";
 			else
 				status = "Product Not available in the store!";
@@ -406,6 +426,38 @@ public class ProductDaoImpl implements ProductDao{
 		DBUtil.closeConnection(ps);
 		
 		return flag;
+	}
+
+	@Override
+	public int getProductQuantity(String prodId) {
+		
+		int quantity=0;
+		
+		Connection con = DBUtil.provideConnection();
+		
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		try {
+			ps = con.prepareStatement("select * from product where pid=?");
+			
+			ps.setString(1, prodId);
+			rs = ps.executeQuery();
+			
+			if(rs.next()) {
+				quantity = rs.getInt("pquantity");
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		DBUtil.closeConnection(con);
+		DBUtil.closeConnection(ps);
+		
+		return quantity;
 	}
 
 }

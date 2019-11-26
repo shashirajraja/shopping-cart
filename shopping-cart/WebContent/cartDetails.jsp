@@ -32,11 +32,12 @@
 			int add = Integer.parseInt(addS);
 			String uid = request.getParameter("uid");
 			String pid = request.getParameter("pid");
+			
 			CartDaoImpl cart = new CartDaoImpl();
 
 			if(add == 1){
 				//Add Product into the cart
-				cart.addProductToCart(uid, pid);
+				cart.addProductToCart(uid, pid,1);
 			}
 			else if(add == 0){
 				//Remove Product from the cart
@@ -74,6 +75,7 @@
 		for(CartBean item : cartItems){
 			
 			String prodId = item.getProdId();
+			
 			int prodQuantity = item.getQuantity();
 	
 			ProductBean product = new ProductDaoImpl().getProductDetails(prodId);
@@ -81,10 +83,17 @@
 			double currAmount = product.getProdPrice()*prodQuantity;
 			
 			totAmount += currAmount;
+			
+			if(prodQuantity>0){
 %>
   	
   	   <tr> <td><img src="./ShowImage?pid=<%=product.getProdId() %>"  style="width:50px;height:50px;"></td> <td><%=product.getProdName() %></td> 
-     				<td><%=product.getProdPrice() %></td> <td><%= prodQuantity %></td> 
+     				<td><%=product.getProdPrice() %></td> 
+     				<td><form method="post" action="./UpdateToCart">
+     						<input type="number" name="pqty" value="<%= prodQuantity %>" style="max-width:70px;" min="0">
+     						<input type="hidden" name="pid" value="<%= product.getProdId()%>">
+     						<input type="submit" name="Update" value="Update" style="max-width:80px;">
+     					</form></td> 
      				<td><a href="cartDetails.jsp?add=1&uid=<%=userName %>&pid=<%= product.getProdId()%>"><i class="fa fa-plus"></i></a></td>
      				<td><a href="cartDetails.jsp?add=0&uid=<%=userName %>&pid=<%= product.getProdId()%>"><i class="fa fa-minus"></i></a>
      				</td>
@@ -103,7 +112,7 @@
     	<td colspan="2" align="center"><form method="post"><button style="background-color:blue;color:white;" formaction="payment.jsp?amount=<%=totAmount %>">Pay Now</button></form></td>
     	
     </tr>
-    <%} %>
+    <%} }%>
   </tbody>
 </table>
 </div>

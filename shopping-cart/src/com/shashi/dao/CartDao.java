@@ -6,7 +6,9 @@ import com.shashi.beans.CartBean;
 
 public interface CartDao{
 		
-	public String addProductToCart(String userId, String prodId);
+	public String addProductToCart(String userId, String prodId, int prodQty);
+	
+	public String updateProductToCart(String userId, String prodId, int prodQty);
 	
 	public List<CartBean> getAllCartItems(String userId);
 	

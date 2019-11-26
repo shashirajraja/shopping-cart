@@ -58,8 +58,8 @@
       <p class="productinfo"><%=product.getProdInfo() %></p>
       <p class="price">Rs <%=product.getProdPrice() %> </p>
       <form method="post">
-      	<button type="submit" formaction="./AddtoCart?uid=<%=userName %>&pid=<%=product.getProdId() %>">Add to Cart</button>&nbsp;&nbsp;&nbsp;
-      	<button type="submit" formaction="./BuyNow?uid=<%=userName %>&pid=<%=product.getProdId() %>">Buy Now</button>
+      	<button type="submit" formaction="./AddtoCart?uid=<%=userName %>&pid=<%=product.getProdId() %>&pqty=1">Add to Cart</button>&nbsp;&nbsp;&nbsp;
+      	<button type="submit" formaction="./AddtoCart?uid=<%=userName %>&pid=<%=product.getProdId() %>&pqty=1">Buy Now</button>
       </form>
     </div>
   </div>

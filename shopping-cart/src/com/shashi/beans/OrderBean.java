@@ -8,6 +8,7 @@ public class OrderBean implements Serializable{
 	private String productId;
 	private int quantity;
 	private Double amount;
+	private int shipped;
 	
 	public OrderBean() {
 		super();
@@ -19,7 +20,18 @@ public class OrderBean implements Serializable{
 		this.productId = productId;
 		this.quantity = quantity;
 		this.amount = amount;
+		this.shipped = 0;
 	}
+	
+	public OrderBean(String transactionId, String productId, int quantity, Double amount,int shipped) {
+		super();
+		this.transactionId = transactionId;
+		this.productId = productId;
+		this.quantity = quantity;
+		this.amount = amount;
+		this.shipped = shipped;
+	}
+	
 	public String getTransactionId() {
 		return transactionId;
 	}
@@ -43,6 +55,14 @@ public class OrderBean implements Serializable{
 	}
 	public void setAmount(Double amount) {
 		this.amount = amount;
+	}
+
+	public int getShipped() {
+		return shipped;
+	}
+
+	public void setShipped(int shipped) {
+		this.shipped = shipped;
 	}
 	
 	

@@ -209,6 +209,32 @@ public class UserDaoImpl implements UserDao {
 		return fname;
 	}
 
+	@Override
+	public String getUserAddr(String userId) {
+		String userAddr = "";
+		
+		Connection con = DBUtil.provideConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		try {
+			ps = con.prepareStatement("select address from user where email=?");
+			
+			ps.setString(1, userId);
+			
+			rs = ps.executeQuery();
+			
+			if(rs.next())
+				userAddr = rs.getString(1);
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		
+		return userAddr;
+	}
+
 	
 
 }

@@ -27,5 +27,7 @@ public interface UserDao {
 	
 	public String getFName(String emailId);
 	
+	public String getUserAddr(String userId);
+	
 	
 }

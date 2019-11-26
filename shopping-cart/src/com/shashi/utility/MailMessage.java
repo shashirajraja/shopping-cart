@@ -66,4 +66,44 @@ public class MailMessage {
 			e.printStackTrace();
 		}
 	}
+	
+	public static void productAvailableNow(String recipientEmail,String name,String prodName, String prodId) {
+		String recipient = recipientEmail;
+		String subject = "Product "+prodName+" is Now Available at Ellison Electronics";
+		String htmlTextMessage = 
+				"<html>" + 
+				"  <body>" + 
+				"    <p>" + 
+				"      Hey "+name+",<br/><br/>" + 
+				"      We are glad that you shop with Ellison Electronics!" + 
+				"      <br/><br/>" + 
+				"      As per your recent browsing history, we seen that you were searching for an item that was not available in sufficient amount"
+				+ " at that time. <br/><br/>"
+				+ "We are glad to say that the product named <font style=\"color:green;font-weight:bold;\">"+prodName+"</font> with "
+						+ "product Id <font style=\"color:green;font-weight:bold;\">"+prodId+"</font> is now available to shop in our store!"
+				+ 		"<br/><h6>Please Note that this is a demo projet Email and you have not made any real transaction with us and not ordered anything till now!</h6>" + 
+				"      <br/>" + 
+				"      Here is The product detail which is now available to shop:<br/>" + 
+				"      <br/>" + 
+				"      <font style=\"color:red;font-weight:bold;\">Product Id: </font><font style=\"color:green;font-weight:bold;\">" +prodId+" "+
+				"      </font><br/>" + 
+				"      <br/>" + 
+				"      <font style=\"color:red;font-weight:bold;\">Product Name: </font> <font style=\"color:green;font-weight:bold;\">"+prodName+"</font>" + 
+				"      <br/><br/>" + 
+				"      Thanks for shopping with us!<br/><br/>" + 
+				"      Come Shop Again! <br/<br/><br/> <font style=\"color:green;font-weight:bold;\">Ellison Electronics.</font>" + 
+				"    </p>" + 
+				"    " + 
+				"  </body>" + 
+				"</html>";
+		
+		try {
+			JavaMailUtil.sendMail(recipient,subject,htmlTextMessage);
+		}
+		catch(MessagingException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
 }
