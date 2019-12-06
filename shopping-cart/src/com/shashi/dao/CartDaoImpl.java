@@ -143,7 +143,7 @@ public class CartDaoImpl implements CartDao{
 			
 			rs = ps.executeQuery();
 			
-			if(rs.next()) 
+			if(!rs.wasNull() && rs.next()) 
 				count = rs.getInt(1);
 			
 		} catch (SQLException e) {
@@ -349,5 +349,30 @@ public class CartDaoImpl implements CartDao{
 		DBUtil.closeConnection(ps2);
 		
 		return status;
+	}
+
+	public int getProductCount(String userId, String prodId) {
+		int count = 0;
+		
+		Connection con = DBUtil.provideConnection();
+		
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		try {
+			ps = con.prepareStatement("select sum(quantity) from usercart where username=? and prodid=?");
+			ps.setString(1, userId);
+			ps.setString(2, prodId);
+			rs = ps.executeQuery();
+			
+			if(!rs.wasNull() && rs.next())
+				count = rs.getInt(1);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return count;
 	}
 }

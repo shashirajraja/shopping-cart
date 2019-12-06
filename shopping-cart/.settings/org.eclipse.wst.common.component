@@ -2,7 +2,7 @@
     <wb-module deploy-name="shopping-cart">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
-        <property name="context-root" value="shopping-cart"/>
         <property name="java-output-path" value="/shopping-cart/build/classes"/>
+        <property name="context-root" value="shopping-cart"/>
     </wb-module>
 </project-modules>

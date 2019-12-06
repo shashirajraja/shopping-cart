@@ -76,10 +76,9 @@ public class AddtoCart extends HttpServlet {
 		
 		String userId = userName;
 		String prodId = request.getParameter("pid");		
-		int pQty = Integer.parseInt(request.getParameter("pqty"));
+		int pQty = Integer.parseInt(request.getParameter("pqty")); //1
 		
 		CartDaoImpl cart = new CartDaoImpl();
-		
 		
 		ProductDaoImpl productDao = new  ProductDaoImpl();
 		
@@ -87,7 +86,7 @@ public class AddtoCart extends HttpServlet {
 		
 		int availableQty = product.getProdQuantity();
 		
-		int cartQty = cart.getCartCount(userId);
+		int cartQty = cart.getProductCount(userId,prodId);
 		
 		pQty += cartQty;
 		
@@ -128,7 +127,7 @@ public class AddtoCart extends HttpServlet {
 		else {
 			String status = cart.updateProductToCart(userId, prodId, pQty);
 			
-			RequestDispatcher rd = request.getRequestDispatcher("cartDetails.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("userHome.jsp");
 			
 			rd.include(request, response);
 			

@@ -101,7 +101,8 @@
 		</tr>  		
      		
 <%
-  		}
+  		} 
+			}
   %>
   
   	<tr style="background-color:grey;color:white;"><td colspan="6" style="text-align:center;">Total Amount to Pay (in Rupees)</td><td><%=totAmount %></td></tr>
@@ -112,7 +113,7 @@
     	<td colspan="2" align="center"><form method="post"><button style="background-color:blue;color:white;" formaction="payment.jsp?amount=<%=totAmount %>">Pay Now</button></form></td>
     	
     </tr>
-    <%} }%>
+    <%} %>
   </tbody>
 </table>
 </div>
