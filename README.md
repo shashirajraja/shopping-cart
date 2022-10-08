@@ -1,4 +1,5 @@
 # Online Shopping Cart E-Commerce Website
+- Live site url: https://ellisonelectronics.herokuapp.com [Register as customer before login, for admin login use : username: Admin and password: Admin] <br><br>
 This is an ecommerse website build for selling of any products online.
 In this project we have mainly considered to adding the products to the users cart and again let them decide the amount of item to buy.
 The users can increase or decrease the items amount in the cart. 
@@ -20,6 +21,31 @@ The Project also uses the mail facilities to the users.
 - JSP
 - Servlets
 - MySql
+
+## database commands
+```MySQL
+create database shopping;
+use shopping;
+create table user(name varchar(20),mobile bigint,email varchar(40) primary key, address varchar(150),pincode integer,password varchar(20));
+create table admin(username varchar(30) primary key, password varchar(30));
+
+
+create table product(pid varchar(16) primary key,pname varchar(20),ptype varchar(20),pinfo varchar(150),pprice decimal(12,2),pquantity int,image blob);
+
+create table usercart(username varchar(40), prodid varchar(16),quantity int);
+
+
+create table admins(company varchar(30), email varchar(30), username varchar(30), password varchar(30));
+
+
+alter table usercart add foreign key (prodid) references product(pid) on delete cascade;
+
+alter table usercart add foreign key (username) references users(email) on delete cascade;
+
+create table transactions(transid varchar(16) primary key,username varchar(40) references users(email) on delete cascade,time datetime, amount decimal(10,2));
+
+create table orders(transid varchar(16) references transactions(transid) on delete cascade, prodid varchar(16) references product(pid) on delete cascade,quantity int, amount decimal(10,2), primary key(transid,prodid));
+```
 
 ### IDE Used:-
 - Eclipse Express Edition
