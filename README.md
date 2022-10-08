@@ -47,8 +47,6 @@ create table orders(transid varchar(16) references transactions(transid) on dele
 
 create table user_demand(username varchar(40) references user(email) on delete cascade, prodid varchar(16) references product(pid) on delete cascade, quantity int(4), primary key(username,prodid));
 
-create table shipping();
-
 ```
 
 ### IDE Used:-
