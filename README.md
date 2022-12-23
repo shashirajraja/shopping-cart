@@ -1,6 +1,7 @@
 # Online Shopping Cart E-Commerce Website
 - Youtube video for step by step local setup of similar project: https://www.youtube.com/watch?v=mLFPodZO8Iw&t=8s
-- Live site url: https://ellisonelectronics.herokuapp.com [Register as customer before login, for admin login use : username: Admin and password: Admin] <br><br>
+- Live site url: https://ellisonelectronics.herokuapp.com 
+- [Register as customer before login, for admin login use : username: Admin and password: Admin] <br><br>
 This is an ecommerse website build for selling of any products online.
 In this project we have mainly considered to adding the products to the users cart and again let them decide the amount of item to buy.
 The users can increase or decrease the items amount in the cart. 
