@@ -42,7 +42,7 @@ public class OrderServlet extends HttpServlet {
 		PrintWriter pw = response.getWriter();
 		response.setContentType("text/html");
 
-		RequestDispatcher rd = request.getRequestDispatcher("userHome.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("orderDetails.jsp");
 
 		rd.include(request, response);
 

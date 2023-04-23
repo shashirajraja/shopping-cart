@@ -43,6 +43,7 @@ CREATE TABLE IF NOT EXISTS `shopping-cart`.`orders` (
   `prodid` VARCHAR(45) NOT NULL,
   `quantity` INT NULL DEFAULT NULL,
   `amount` DECIMAL(10,2) NULL DEFAULT NULL,
+  `shipped` INT NOT NULL DEFAULT 0,
   PRIMARY KEY (`orderid`, `prodid`),
   INDEX `productid_idx` (`prodid` ASC) VISIBLE,
   CONSTRAINT `productid`
@@ -67,7 +68,6 @@ CREATE TABLE IF NOT EXISTS `shopping-cart`.`user` (
   `address` VARCHAR(250) NULL DEFAULT NULL,
   `pincode` INT NULL DEFAULT NULL,
   `password` VARCHAR(20) NULL DEFAULT NULL,
-  `role` VARCHAR(45) NULL,
   PRIMARY KEY (`email`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
@@ -153,6 +153,17 @@ DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
 
+-- -----------------------------------------------------
+-- Table `shopping-cart`.`Mailer`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `shopping-cart`.`Mailer` ;
+
+CREATE TABLE IF NOT EXISTS `shopping-cart`.`Mailer` (
+  `email` VARCHAR(255) NOT NULL,
+  `password` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`email`));
+
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
@@ -175,7 +186,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `shopping-cart`;
-INSERT INTO `shopping-cart`.`orders` (`orderid`, `prodid`, `quantity`, `amount`) VALUES ('TR10001', 'P20230423082243', 1, 125999);
+INSERT INTO `shopping-cart`.`orders` (`orderid`, `prodid`, `quantity`, `amount`, `shipped`) VALUES ('TR10001', 'P20230423082243', 1, 125999, 0);
 
 COMMIT;
 
@@ -185,8 +196,8 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `shopping-cart`;
-INSERT INTO `shopping-cart`.`user` (`email`, `name`, `mobile`, `address`, `pincode`, `password`, `role`) VALUES ('guest@gmail.com', 'Guest User', 9876543234, 'K.P Road, Gaya, Bihar - India', 879767, 'guest', 'CUSTOMER');
-INSERT INTO `shopping-cart`.`user` (`email`, `name`, `mobile`, `address`, `pincode`, `password`, `role`) VALUES ('admin@gmail.com', 'Admin User', 9876543459, 'ABC Colony, Newtown, West Bengal', 786890, 'admin', 'ADMIN');
+INSERT INTO `shopping-cart`.`user` (`email`, `name`, `mobile`, `address`, `pincode`, `password`) VALUES ('guest@gmail.com', 'Guest User', 9876543234, 'K.P Road, Gaya, Bihar - India', 879767, 'guest');
+INSERT INTO `shopping-cart`.`user` (`email`, `name`, `mobile`, `address`, `pincode`, `password`) VALUES ('admin@gmail.com', 'Admin User', 9876543459, 'ABC Colony, Newtown, West Bengal', 786890, 'admin');
 
 COMMIT;
 
@@ -217,6 +228,16 @@ COMMIT;
 START TRANSACTION;
 USE `shopping-cart`;
 INSERT INTO `shopping-cart`.`usercart` (`username`, `prodid`, `quantity`) VALUES ('guest@gmail.com', 'P20230423082243', 2);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `shopping-cart`.`Mailer`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `shopping-cart`;
+INSERT INTO `shopping-cart`.`Mailer` (`email`, `password`) VALUES ('ellison.alumni@gmail.com', '90NnJEzbQxx4IaQgEBXXh2jheZi8Cy2UE5+7LJwxcBY=');
 
 COMMIT;
 

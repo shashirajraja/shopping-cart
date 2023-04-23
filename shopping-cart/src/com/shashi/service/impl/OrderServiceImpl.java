@@ -9,6 +9,7 @@ import java.util.List;
 
 import com.shashi.beans.CartBean;
 import com.shashi.beans.OrderBean;
+import com.shashi.beans.OrderDetails;
 import com.shashi.beans.TransactionBean;
 import com.shashi.service.OrderService;
 import com.shashi.utility.DBUtil;
@@ -186,7 +187,7 @@ public class OrderServiceImpl implements OrderService {
 
 			while (rs.next()) {
 
-				OrderBean order = new OrderBean(rs.getString("transid"), rs.getString("prodid"), rs.getInt("quantity"),
+				OrderBean order = new OrderBean(rs.getString("orderid"), rs.getString("prodid"), rs.getInt("quantity"),
 						rs.getDouble("amount"), rs.getInt("shipped"));
 
 				orderList.add(order);
@@ -199,6 +200,107 @@ public class OrderServiceImpl implements OrderService {
 		}
 
 		return orderList;
+	}
+
+	@Override
+	public List<OrderBean> getOrdersByUserId(String emailId) {
+		List<OrderBean> orderList = new ArrayList<OrderBean>();
+
+		Connection con = DBUtil.provideConnection();
+
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		try {
+
+			ps = con.prepareStatement(
+					"SELECT * FROM orders o inner join transactions t on o.orderid = t.transid where username=?");
+			ps.setString(1, emailId);
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+
+				OrderBean order = new OrderBean(rs.getString("t.transid"), rs.getString("t.prodid"),
+						rs.getInt("quantity"), rs.getDouble("t.amount"), rs.getInt("shipped"));
+
+				orderList.add(order);
+
+			}
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+
+		return orderList;
+	}
+
+	@Override
+	public List<OrderDetails> getAllOrderDetails(String userEmailId) {
+		List<OrderDetails> orderList = new ArrayList<OrderDetails>();
+
+		Connection con = DBUtil.provideConnection();
+
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		try {
+
+			ps = con.prepareStatement(
+					"SELECT  p.pid as prodid, o.orderid as orderid, p.image as image, p.pname as pname, o.quantity as qty, o.amount as amount, t.time as time FROM orders o, product p, transactions t where o.orderid=t.transid and o.orderid = t.transid and p.pid=o.prodid and t.username=?");
+			ps.setString(1, userEmailId);
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+
+				OrderDetails order = new OrderDetails();
+				order.setOrderId(rs.getString("orderid"));
+				order.setProdImage(rs.getAsciiStream("image"));
+				order.setProdName(rs.getString("pname"));
+				order.setQty(rs.getString("qty"));
+				order.setAmount(rs.getString("amount"));
+				order.setTime(rs.getTimestamp("time"));
+				order.setProductId(rs.getString("prodid"));
+				orderList.add(order);
+
+			}
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+
+		return orderList;
+	}
+
+	@Override
+	public String shipNow(String orderId) {
+		String status = "FAILURE";
+
+		Connection con = DBUtil.provideConnection();
+
+		PreparedStatement ps = null;
+
+		try {
+			ps = con.prepareStatement("update orders set shipped=1 where orderid=? and shipped=0");
+
+			ps.setString(1, orderId);
+
+			int k = ps.executeUpdate();
+
+			if (k > 0) {
+				status = "Order Has been shipped successfully!!";
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		DBUtil.closeConnection(con);
+		DBUtil.closeConnection(ps);
+
+		return status;
 	}
 
 }

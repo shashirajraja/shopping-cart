@@ -18,7 +18,7 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
-<body>
+<body style="background-color: #E6F9E6;">
 
 	<%
 	/* Checking the user credentials */
@@ -29,39 +29,54 @@
 
 		response.sendRedirect("loginFirst.jsp");
 	}
+
+	ProductServiceImpl prodDao = new ProductServiceImpl();
+	List<ProductBean> products = new ArrayList<ProductBean>();
+
+	String search = request.getParameter("search");
+	String type = request.getParameter("type");
+	String message = "All Products";
+	if (search != null) {
+		products = prodDao.searchAllProducts(search);
+		message = "Showing Results for '" + search + "'";
+	} else if (type != null) {
+		products = prodDao.getAllProductsByType(type);
+		message = "Showing Results for '" + type + "'";
+	} else {
+		products = prodDao.getAllProducts();
+	}
+	if (products.isEmpty()) {
+		message = "No items found for the search '" + (search != null ? search : type) + "'";
+		products = prodDao.getAllProducts();
+	}
 	%>
 
 
 
 	<%@ include file="userHeader.jsp"%>
-
+	<div class="text-center"
+		style="color: black; font-size: 14px; font-weight: bold;"><%=message%></div>
 	<!-- <script>document.getElementById('mycart').innerHTML='<i data-count="20" class="fa fa-shopping-cart fa-3x icon-white badge" style="background-color:#333;margin:0px;padding:0px; margin-top:5px;"></i>'</script>
  -->
 	<!-- Start of Product Items List -->
-	<div class="products" style="background-color: #E6F9E6;">
+	<div class="container">
 		<div class="row text-center">
 
 			<%
-			ProductServiceImpl prodDao = new ProductServiceImpl();
-
-			List<ProductBean> products = new ArrayList<ProductBean>();
-
-			products = prodDao.getAllProducts();
-
 			for (ProductBean product : products) {
 			%>
-
-			<div class="col-sm-4">
+			<div class="col-sm-4" style="margin-top: 2px;">
 				<div class="thumbnail">
 					<img src="./ShowImage?pid=<%=product.getProdId()%>" alt="Product"
-						style="height: 200px; max-width: 200px">
+						style="height: 150px; max-width: 180px">
 					<p class="productname"><%=product.getProdName()%>
 					</p>
 					<%
 					String description = product.getProdInfo();
 					description = description.substring(0, Math.min(description.length(), 100));
 					%>
-					<p class="productinfo"><%=description%>..</p>
+					<p class="productinfo"><%=description%>..
+					</p>
 					<p class="price">
 						Rs
 						<%=product.getProdPrice()%>

@@ -75,7 +75,7 @@ button:hover{
 
 .products{
   background-color: #E6F9E6 !important;
-  padding:5%;
+  padding:20px;
 }
 
 .jumbotron {
@@ -110,8 +110,8 @@ button:hover{
     font-weight: bold;
     font-style:normal;
     font-size: 20px;
-    margin-left:20%;
-    margin-right: 20%;
+    margin-left:20px;
+    margin-right: 20px;
     padding-top: 20px;
     padding-bottom: 15px;
   }

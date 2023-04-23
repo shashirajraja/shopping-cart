@@ -20,6 +20,10 @@ public interface ProductService {
 
 	public List<ProductBean> getAllProducts();
 
+	public List<ProductBean> getAllProductsByType(String type);
+
+	public List<ProductBean> searchAllProducts(String search);
+
 	public byte[] getImage(String prodId);
 
 	public ProductBean getProductDetails(String prodId);
