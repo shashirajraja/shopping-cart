@@ -1,10 +1,10 @@
-package com.shashi.dao;
+package com.shashi.service;
 
 import java.util.List;
 
 import com.shashi.beans.DemandBean;
 
-public interface DemandDao {
+public interface DemandService {
 
 	public boolean addProduct(String userId, String prodId, int demandQty);
 

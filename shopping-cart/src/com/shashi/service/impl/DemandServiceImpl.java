@@ -1,4 +1,4 @@
-package com.shashi.dao;
+package com.shashi.service.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,9 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.shashi.beans.DemandBean;
+import com.shashi.service.DemandService;
 import com.shashi.utility.DBUtil;
 
-public class DemandDaoImpl implements DemandDao {
+public class DemandServiceImpl implements DemandService {
 
 	@Override
 	public boolean addProduct(String userId, String prodId, int demandQty) {

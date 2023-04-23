@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ page import="com.shashi.beans.*,com.shashi.dao.*,java.util.*" %>
+<%@ page import="com.shashi.service.impl.*, com.shashi.beans.*,com.shashi.service.*,java.util.*" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -42,20 +42,20 @@
 		<tbody style="background-color:white;font-size:20px;font-weight:bold;">	
 		  	
 <%
-		OrderDaoImpl orderdao = new OrderDaoImpl();
+			  	OrderServiceImpl orderdao = new OrderServiceImpl();
 
-		List<OrderBean> orders = new ArrayList<OrderBean>();
-		orders = orderdao.getAllOrders();
-		
-		for(OrderBean order: orders){
-			String transId = order.getTransactionId();
-			String prodId = order.getProductId();
-			int quantity = order.getQuantity();
-			int shipped = order.getShipped();
-			String userId = new TransDaoImpl().getUserId(transId);
-			String userAddr = new UserDaoImpl().getUserAddr(userId);
-			if(shipped ==0 ){
-%>
+			  		  		  			List<OrderBean> orders = new ArrayList<OrderBean>();
+			  		  		  			orders = orderdao.getAllOrders();
+			  		  		  			
+			  		  		  			for(OrderBean order: orders){
+			  		  		  		String transId = order.getTransactionId();
+			  		  		  		String prodId = order.getProductId();
+			  		  		  		int quantity = order.getQuantity();
+			  		  		  		int shipped = order.getShipped();
+			  		  		  		String userId = new TransServiceImpl().getUserId(transId);
+			  		  		  		String userAddr = new UserServiceImpl().getUserAddr(userId);
+			  		  		  		if(shipped ==0 ){
+			  	%>
   	
   	   <tr> <td><%=transId %></td> <td><a href="./updateProduct.jsp?prodid=<%=prodId%>"><%=prodId %></a></td><td><%=userId %></td> 
      				<td><%=userAddr %></td> <td><%=quantity %></td>

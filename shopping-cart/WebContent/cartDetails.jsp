@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ page import="com.shashi.dao.*,com.shashi.beans.*,java.util.*,javax.servlet.ServletOutputStream,java.io.*" %>
+<%@ page import="com.shashi.service.impl.*, com.shashi.service.*,com.shashi.beans.*,java.util.*,javax.servlet.ServletOutputStream,java.io.*" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -18,33 +18,32 @@
 
 	<%
 	/* Checking the user credentials */
-		String userName = (String)session.getAttribute("username");
-		String password = (String)session.getAttribute("password");
-	
-		if(userName == null || password==null){
-	
-			response.sendRedirect("loginFirst.jsp");
-		}	
+			String userName = (String)session.getAttribute("username");
+			String password = (String)session.getAttribute("password");
 		
-		String addS = request.getParameter("add");
-		if(addS!=null){
+			if(userName == null || password==null){
+		
+		response.sendRedirect("loginFirst.jsp");
+			}	
 			
-			int add = Integer.parseInt(addS);
-			String uid = request.getParameter("uid");
-			String pid = request.getParameter("pid");
-			
-			CartDaoImpl cart = new CartDaoImpl();
+			String addS = request.getParameter("add");
+			if(addS!=null){
+		
+		int add = Integer.parseInt(addS);
+		String uid = request.getParameter("uid");
+		String pid = request.getParameter("pid");
+		
+		CartServiceImpl cart = new CartServiceImpl();
 
-			if(add == 1){
-				//Add Product into the cart
-				cart.addProductToCart(uid, pid,1);
-			}
-			else if(add == 0){
-				//Remove Product from the cart
-				cart.removeProductFromCart(uid, pid);
-			}
+		if(add == 1){
+			//Add Product into the cart
+			cart.addProductToCart(uid, pid,1);
 		}
-		
+		else if(add == 0){
+			//Remove Product from the cart
+			cart.removeProductFromCart(uid, pid);
+		}
+			}
 	%>
 
 
@@ -67,25 +66,24 @@
 		
   	
 <%
-    
-		CartDaoImpl cart = new CartDaoImpl();
-		List<CartBean> cartItems= new ArrayList<CartBean>();
-		cartItems = cart.getAllCartItems(userName);
-		double totAmount = 0;
-		for(CartBean item : cartItems){
-			
-			String prodId = item.getProdId();
-			
-			int prodQuantity = item.getQuantity();
-	
-			ProductBean product = new ProductDaoImpl().getProductDetails(prodId);
-			
-			double currAmount = product.getProdPrice()*prodQuantity;
-			
-			totAmount += currAmount;
-			
-			if(prodQuantity>0){
-%>
+					  	CartServiceImpl cart = new CartServiceImpl();
+					  				  			List<CartBean> cartItems= new ArrayList<CartBean>();
+					  				  			cartItems = cart.getAllCartItems(userName);
+					  				  			double totAmount = 0;
+					  				  			for(CartBean item : cartItems){
+					  				  		
+					  				  		String prodId = item.getProdId();
+					  				  		
+					  				  		int prodQuantity = item.getQuantity();
+					  				  		
+					  				  		ProductBean product = new ProductServiceImpl().getProductDetails(prodId);
+					  				  		
+					  				  		double currAmount = product.getProdPrice()*prodQuantity;
+					  				  		
+					  				  		totAmount += currAmount;
+					  				  		
+					  				  		if(prodQuantity>0){
+					  	%>
   	
   	   <tr> <td><img src="./ShowImage?pid=<%=product.getProdId() %>"  style="width:50px;height:50px;"></td> <td><%=product.getProdName() %></td> 
      				<td><%=product.getProdPrice() %></td> 

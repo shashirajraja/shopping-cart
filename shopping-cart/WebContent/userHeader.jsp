@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ page import="com.shashi.dao.*" %>
+<%@ page import="com.shashi.service.impl.*, com.shashi.service.*" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <head>
 <title>Ellison Electronics</title>
@@ -15,9 +15,7 @@
 <body>
 
 	<%
-		 
-		int notf = new CartDaoImpl().getCartCount((String)session.getAttribute("username"));
-	
+	int notf = new CartServiceImpl().getCartCount((String)session.getAttribute("username"));
 	%>
 <!--Company Header Starting  -->
 <div class="jumbotron text-center">

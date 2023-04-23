@@ -1,4 +1,4 @@
-package com.shashi.dao;
+package com.shashi.service.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,10 +7,11 @@ import java.sql.SQLException;
 
 import com.shashi.beans.UserBean;
 import com.shashi.constants.IUserConstants;
+import com.shashi.service.UserService;
 import com.shashi.utility.DBUtil;
 import com.shashi.utility.MailMessage;
 
-public class UserDaoImpl implements UserDao {
+public class UserServiceImpl implements UserService {
 
 	@Override
 	public String registerUser(String userName, Long mobileNo, String emailId, String address, int pinCode,
@@ -28,7 +29,7 @@ public class UserDaoImpl implements UserDao {
 
 		String status = "User Registration Failed!";
 
-		boolean isRegtd = isRegistered(user.getEmailId());
+		boolean isRegtd = isRegistered(user.getEmail());
 
 		if (isRegtd) {
 			status = "Email Id Already Registered!";
@@ -42,20 +43,21 @@ public class UserDaoImpl implements UserDao {
 
 		try {
 
-			ps = conn.prepareStatement("insert into " + IUserConstants.TABLE_USER + " values(?,?,?,?,?,?)");
+			ps = conn.prepareStatement("insert into " + IUserConstants.TABLE_USER + " values(?,?,?,?,?,?,?)");
 
-			ps.setString(1, user.getUserName());
-			ps.setLong(2, user.getMobileNo());
-			ps.setString(3, user.getEmailId());
+			ps.setString(1, user.getEmail());
+			ps.setString(2, user.getName());
+			ps.setLong(3, user.getMobile());
 			ps.setString(4, user.getAddress());
 			ps.setInt(5, user.getPinCode());
 			ps.setString(6, user.getPassword());
+			ps.setString(7, user.getRole());
 
 			int k = ps.executeUpdate();
 
 			if (k > 0) {
 				status = "User Registered Successfully!";
-				MailMessage.registrationSuccess(user.getEmailId(), user.getUserName().split(" ")[0]);
+				MailMessage.registrationSuccess(user.getEmail(), user.getName().split(" ")[0]);
 			}
 
 		} catch (SQLException e) {
@@ -150,12 +152,13 @@ public class UserDaoImpl implements UserDao {
 
 			if (rs.next()) {
 				user = new UserBean();
-				user.setUserName(rs.getString("name"));
-				user.setMobileNo(rs.getLong("mobile"));
-				user.setEmailId(rs.getString("email"));
+				user.setName(rs.getString("name"));
+				user.setMobile(rs.getLong("mobile"));
+				user.setEmail(rs.getString("email"));
 				user.setAddress(rs.getString("address"));
 				user.setPinCode(rs.getInt("pincode"));
 				user.setPassword(rs.getString("password"));
+				user.setRole(rs.getString("role"));
 
 				return user;
 			}

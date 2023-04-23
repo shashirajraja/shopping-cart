@@ -1,13 +1,14 @@
-package com.shashi.dao;
+package com.shashi.service.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.shashi.service.TransService;
 import com.shashi.utility.DBUtil;
 
-public class TransDaoImpl implements TransDao {
+public class TransServiceImpl implements TransService {
 
 	@Override
 	public String getUserId(String transId) {

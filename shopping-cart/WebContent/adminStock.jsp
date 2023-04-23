@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ page import="com.shashi.beans.*,com.shashi.dao.*,java.util.*" %>
+<%@ page import="com.shashi.service.impl.*, com.shashi.beans.*,com.shashi.service.*,java.util.*" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -44,16 +44,14 @@
 		
   	
 <%
-    
-		ProductDaoImpl productDao = new ProductDaoImpl();
-		List<ProductBean> products= new ArrayList<ProductBean>();
-		products = productDao.getAllProducts();
-		for(ProductBean product : products){
-
-%>
+					  	ProductServiceImpl productDao = new ProductServiceImpl();
+					  			List<ProductBean> products= new ArrayList<ProductBean>();
+					  			products = productDao.getAllProducts();
+					  			for(ProductBean product : products){
+					  	%>
   	
   	   <tr> <td><img src="./ShowImage?pid=<%=product.getProdId() %>"  style="width:50px;height:50px;"></td> <td><a href="./updateProduct.jsp?prodid=<%=product.getProdId()%>"><%=product.getProdId() %></a></td><td><%=product.getProdName() %></td> 
-     				<td><%=product.getProdPrice() %></td> <td><%=new OrderDaoImpl().countSoldItem(product.getProdId()) %></td><td><%= product.getProdQuantity() %></td> 
+     				<td><%=product.getProdPrice() %></td> <td><%=new OrderServiceImpl().countSoldItem(product.getProdId())%></td><td><%= product.getProdQuantity() %></td> 
      				
 		</tr>  		
      		

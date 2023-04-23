@@ -13,9 +13,9 @@ import javax.servlet.http.HttpSession;
 
 import com.shashi.beans.DemandBean;
 import com.shashi.beans.ProductBean;
-import com.shashi.dao.CartDaoImpl;
-import com.shashi.dao.DemandDaoImpl;
-import com.shashi.dao.ProductDaoImpl;
+import com.shashi.service.impl.CartServiceImpl;
+import com.shashi.service.impl.DemandServiceImpl;
+import com.shashi.service.impl.ProductServiceImpl;
 
 /**
  * Servlet implementation class AddtoCart
@@ -77,9 +77,9 @@ public class AddtoCart extends HttpServlet {
 		String prodId = request.getParameter("pid");
 		int pQty = Integer.parseInt(request.getParameter("pqty")); // 1
 
-		CartDaoImpl cart = new CartDaoImpl();
+		CartServiceImpl cart = new CartServiceImpl();
 
-		ProductDaoImpl productDao = new ProductDaoImpl();
+		ProductServiceImpl productDao = new ProductServiceImpl();
 
 		ProductBean product = productDao.getProductDetails(prodId);
 
@@ -109,7 +109,7 @@ public class AddtoCart extends HttpServlet {
 			}
 			DemandBean demandBean = new DemandBean(userName, product.getProdId(), pQty - availableQty);
 
-			DemandDaoImpl demand = new DemandDaoImpl();
+			DemandServiceImpl demand = new DemandServiceImpl();
 
 			boolean flag = demand.addProduct(demandBean);
 

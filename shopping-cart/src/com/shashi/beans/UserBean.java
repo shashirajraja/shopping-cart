@@ -10,51 +10,45 @@ public class UserBean implements Serializable {
 
 	public UserBean(String userName, Long mobileNo, String emailId, String address, int pinCode, String password) {
 		super();
-		this.userName = userName;
-		this.mobileNo = mobileNo;
-		this.emailId = emailId;
+		this.name = userName;
+		this.mobile = mobileNo;
+		this.email = emailId;
 		this.address = address;
 		this.pinCode = pinCode;
 		this.password = password;
+		this.role = "CUSTOMER";
 	}
 
-	private String userName;
-	private Long mobileNo;
-	private String emailId;
+	private String name;
+	private Long mobile;
+	private String email;
 	private String address;
 	private int pinCode;
 	private String password;
+	private String role;
 
-	public String getUserName() {
-		return userName;
+	public String getName() {
+		return name;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public Long getMobileNo() {
-		return mobileNo;
+	public Long getMobile() {
+		return mobile;
 	}
 
-	public void setMobileNo(Long mobileNo) {
-		this.mobileNo = mobileNo;
+	public void setMobile(Long mobile) {
+		this.mobile = mobile;
 	}
 
-	public String getEmailId() {
-		return emailId;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setEmailId(String emailId) {
-		this.emailId = emailId;
-	}
-
-	public int getPinCode() {
-		return pinCode;
-	}
-
-	public void setPinCode(int pinCode) {
-		this.pinCode = pinCode;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getAddress() {
@@ -65,12 +59,28 @@ public class UserBean implements Serializable {
 		this.address = address;
 	}
 
+	public int getPinCode() {
+		return pinCode;
+	}
+
+	public void setPinCode(int pinCode) {
+		this.pinCode = pinCode;
+	}
+
 	public String getPassword() {
 		return password;
 	}
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 
 }

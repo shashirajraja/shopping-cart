@@ -1,4 +1,4 @@
-package com.shashi.dao;
+package com.shashi.service.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,17 +10,18 @@ import java.util.List;
 import com.shashi.beans.CartBean;
 import com.shashi.beans.OrderBean;
 import com.shashi.beans.TransactionBean;
+import com.shashi.service.OrderService;
 import com.shashi.utility.DBUtil;
 import com.shashi.utility.MailMessage;
 
-public class OrderDaoImpl implements OrderDao {
+public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public String paymentSuccess(String userName, double paidAmount) {
 		String status = "Order Placement Failed!";
 
 		List<CartBean> cartItems = new ArrayList<CartBean>();
-		cartItems = new CartDaoImpl().getAllCartItems(userName);
+		cartItems = new CartServiceImpl().getAllCartItems(userName);
 
 		if (cartItems.size() == 0)
 			return status;
@@ -41,7 +42,7 @@ public class OrderDaoImpl implements OrderDao {
 
 			for (CartBean item : cartItems) {
 
-				double amount = new ProductDaoImpl().getProductPrice(item.getProdId()) * item.getQuantity();
+				double amount = new ProductServiceImpl().getProductPrice(item.getProdId()) * item.getQuantity();
 
 				OrderBean order = new OrderBean(transactionId, item.getProdId(), item.getQuantity(), amount);
 
@@ -49,23 +50,23 @@ public class OrderDaoImpl implements OrderDao {
 				if (!flag)
 					break;
 				else {
-					flag = new CartDaoImpl().removeAProduct(item.getUserId(), item.getProdId());
+					flag = new CartServiceImpl().removeAProduct(item.getUserId(), item.getProdId());
 				}
 
 				if (!flag)
 					break;
 				else
-					flag = new ProductDaoImpl().sellNProduct(item.getProdId(), item.getQuantity());
+					flag = new ProductServiceImpl().sellNProduct(item.getProdId(), item.getQuantity());
 
 				if (!flag)
 					break;
 			}
 
 			if (flag) {
-				flag = new OrderDaoImpl().addTransaction(transaction);
+				flag = new OrderServiceImpl().addTransaction(transaction);
 				if (flag) {
 
-					MailMessage.transactionSuccess(userName, new UserDaoImpl().getFName(userName),
+					MailMessage.transactionSuccess(userName, new UserServiceImpl().getFName(userName),
 							transaction.getTransactionId(), transaction.getTransAmount());
 
 					status = "Order Placed Successfully!";
@@ -86,13 +87,13 @@ public class OrderDaoImpl implements OrderDao {
 		PreparedStatement ps = null;
 
 		try {
-			ps = con.prepareStatement("insert into orders values(?,?,?,?,?)");
+			ps = con.prepareStatement("insert into orders values(?,?,?,?)");
 
 			ps.setString(1, order.getTransactionId());
 			ps.setString(2, order.getProductId());
 			ps.setInt(3, order.getQuantity());
 			ps.setDouble(4, order.getAmount());
-			ps.setInt(5, 0);
+//			ps.setInt(5, 0);
 
 			int k = ps.executeUpdate();
 

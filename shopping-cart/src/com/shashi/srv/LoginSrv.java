@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.shashi.beans.UserBean;
-import com.shashi.dao.UserDaoImpl;
+import com.shashi.service.impl.UserServiceImpl;
 
 /**
  * Servlet implementation class LoginSrv
@@ -40,7 +40,7 @@ public class LoginSrv extends HttpServlet {
 
 		if (userType.equals("admin")) { // Login as Admin
 
-			if (password.equals("Admin") && userName.equals("Admin")) {
+			if (password.equals("admin") && userName.equals("admin@gmail.com")) {
 				// valid
 
 				RequestDispatcher rd = request.getRequestDispatcher("adminViewProduct.jsp");
@@ -63,7 +63,7 @@ public class LoginSrv extends HttpServlet {
 
 		} else { // Login as customer
 
-			UserDaoImpl udao = new UserDaoImpl();
+			UserServiceImpl udao = new UserServiceImpl();
 
 			status = udao.isValidCredential(userName, password);
 

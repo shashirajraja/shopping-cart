@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.shashi.dao.OrderDaoImpl;
+import com.shashi.service.impl.OrderServiceImpl;
 
 /**
  * Servlet implementation class OrderServlet
@@ -37,7 +37,7 @@ public class OrderServlet extends HttpServlet {
 		}
 
 		double paidAmount = Double.parseDouble(request.getParameter("amount"));
-		String status = new OrderDaoImpl().paymentSuccess(userName, paidAmount);
+		String status = new OrderServiceImpl().paymentSuccess(userName, paidAmount);
 
 		PrintWriter pw = response.getWriter();
 		response.setContentType("text/html");

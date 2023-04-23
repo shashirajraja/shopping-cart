@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     
-<%@ page import="java.sql.*, com.shashi.beans.*,com.shashi.dao.*" %>    
+<%@ page import="com.shashi.service.impl.*, java.sql.*, com.shashi.beans.*,com.shashi.service.*" %>    
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -14,31 +14,30 @@
 <body>
 	<%
 	/* Checking the user credentials */
-		String utype = (String)session.getAttribute("usertype");
-		String uname = (String)session.getAttribute("username");
-		String pwd = (String)session.getAttribute("password");
-	
-		if(utype== null || !utype.equals("admin")){
+			String utype = (String)session.getAttribute("usertype");
+			String uname = (String)session.getAttribute("username");
+			String pwd = (String)session.getAttribute("password");
+		
+			if(utype== null || !utype.equals("admin")){
+		
+		response.sendRedirect("loginFirst.jsp");
+		
+			}
 			
-			response.sendRedirect("loginFirst.jsp");
+			else if(uname == null || pwd==null){
+		
+		response.sendRedirect("loginFirst.jsp");
+		
+			}	
 			
-		}
-		
-		else if(uname == null || pwd==null){
-	
-			response.sendRedirect("loginFirst.jsp");
 			
-		}	
-		
-		
-		String prodid = request.getParameter("prodid");
-		
-		ProductBean product = new ProductDaoImpl().getProductDetails(prodid);
-		
-		
-		if(prodid != null && product !=null){
-			//out.println("Product ID: "+prodid);
+			String prodid = request.getParameter("prodid");
 			
+			ProductBean product = new ProductServiceImpl().getProductDetails(prodid);
+			
+			
+			if(prodid != null && product !=null){
+		//out.println("Product ID: "+prodid);
 	%>
 	
 	<%@ include file="adminHeader.html" %>

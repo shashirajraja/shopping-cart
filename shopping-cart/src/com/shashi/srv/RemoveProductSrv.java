@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.shashi.dao.ProductDaoImpl;
+import com.shashi.service.impl.ProductServiceImpl;
 
 @WebServlet("/RemoveProductSrv")
 public class RemoveProductSrv extends HttpServlet {
@@ -51,7 +51,7 @@ public class RemoveProductSrv extends HttpServlet {
 		PrintWriter pw = response.getWriter();
 		response.setContentType("removeProduct.jsp");
 
-		ProductDaoImpl product = new ProductDaoImpl();
+		ProductServiceImpl product = new ProductServiceImpl();
 
 		String status = product.removeProduct(prodId);
 

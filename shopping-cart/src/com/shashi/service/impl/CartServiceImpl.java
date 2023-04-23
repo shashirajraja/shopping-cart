@@ -1,4 +1,4 @@
-package com.shashi.dao;
+package com.shashi.service.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,9 +10,10 @@ import java.util.List;
 import com.shashi.beans.CartBean;
 import com.shashi.beans.DemandBean;
 import com.shashi.beans.ProductBean;
+import com.shashi.service.CartService;
 import com.shashi.utility.DBUtil;
 
-public class CartDaoImpl implements CartDao {
+public class CartServiceImpl implements CartService {
 
 	@Override
 	public String addProductToCart(String userId, String prodId, int prodQty) {
@@ -37,7 +38,7 @@ public class CartDaoImpl implements CartDao {
 
 				int cartQuantity = rs.getInt("quantity");
 
-				ProductBean product = new ProductDaoImpl().getProductDetails(prodId);
+				ProductBean product = new ProductServiceImpl().getProductDetails(prodId);
 
 				int availableQty = product.getProdQuantity();
 
@@ -53,7 +54,7 @@ public class CartDaoImpl implements CartDao {
 
 					DemandBean demandBean = new DemandBean(userId, product.getProdId(), prodQty - availableQty);
 
-					DemandDaoImpl demand = new DemandDaoImpl();
+					DemandServiceImpl demand = new DemandServiceImpl();
 
 					boolean flag = demand.addProduct(demandBean);
 
@@ -137,7 +138,7 @@ public class CartDaoImpl implements CartDao {
 
 			rs = ps.executeQuery();
 
-			if (!rs.wasNull() && rs.next())
+			if (rs.next() && !rs.wasNull())
 				count = rs.getInt(1);
 
 		} catch (SQLException e) {
@@ -346,7 +347,7 @@ public class CartDaoImpl implements CartDao {
 			ps.setString(2, prodId);
 			rs = ps.executeQuery();
 
-			if (!rs.wasNull() && rs.next())
+			if (rs.next() && !rs.wasNull() )
 				count = rs.getInt(1);
 
 		} catch (SQLException e) {

@@ -87,18 +87,19 @@ button:hover{
   .price{
       color:red;
       font-weight: bold;
-      font-size: 30px;
+      font-size: 20px;
   }
 
   .productname{
       color:green;
-      font-size: 20px;
+      font-size: 15px;
       font-family: fantasy; 
   }
 
   .productinfo{
       color:black;
-      text-align: center;
+      /* text-align: center; */
+      font-size:12px;
   }
 
   /* If the screen size is 601px or more, set the font-size of <div> to 80px */

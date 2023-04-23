@@ -1,11 +1,11 @@
-package com.shashi.dao;
+package com.shashi.service;
 
 import java.io.InputStream;
 import java.util.List;
 
 import com.shashi.beans.ProductBean;
 
-public interface ProductDao {
+public interface ProductService {
 
 	public String addProduct(String prodName, String prodType, String prodInfo, double prodPrice, int prodQuantity,
 			InputStream prodImage);

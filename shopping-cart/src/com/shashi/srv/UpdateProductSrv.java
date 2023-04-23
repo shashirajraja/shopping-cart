@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.shashi.beans.ProductBean;
-import com.shashi.dao.ProductDaoImpl;
+import com.shashi.service.impl.ProductServiceImpl;
 
 /**
  * Servlet implementation class UpdateProductSrv
@@ -65,7 +65,7 @@ public class UpdateProductSrv extends HttpServlet {
 		product.setProdQuantity(prodQuantity);
 		product.setProdType(prodType);
 
-		ProductDaoImpl dao = new ProductDaoImpl();
+		ProductServiceImpl dao = new ProductServiceImpl();
 
 		String status = dao.updateProductWithoutImage(prodId, product);
 

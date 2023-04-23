@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
-import com.shashi.dao.ProductDaoImpl;
+import com.shashi.service.impl.ProductServiceImpl;
 
 /**
  * Servlet implementation class AddProductSrv
@@ -60,7 +60,7 @@ public class AddProductSrv extends HttpServlet {
 
 		InputStream prodImage = inputStream;
 
-		ProductDaoImpl product = new ProductDaoImpl();
+		ProductServiceImpl product = new ProductServiceImpl();
 
 		status = product.addProduct(prodName, prodType, prodInfo, prodPrice, prodQuantity, prodImage);
 

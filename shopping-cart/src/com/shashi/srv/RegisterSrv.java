@@ -1,7 +1,6 @@
 package com.shashi.srv;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.shashi.beans.UserBean;
-import com.shashi.dao.UserDaoImpl;
+import com.shashi.service.impl.UserServiceImpl;
 
 /**
  * Servlet implementation class RegisterSrv
@@ -28,7 +27,6 @@ public class RegisterSrv extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		PrintWriter pw = response.getWriter();
 		response.setContentType("text/html");
 		String userName = request.getParameter("username");
 		Long mobileNo = Long.parseLong(request.getParameter("mobile"));
@@ -39,7 +37,7 @@ public class RegisterSrv extends HttpServlet {
 
 		UserBean user = new UserBean(userName, mobileNo, emailId, address, pinCode, password);
 
-		UserDaoImpl dao = new UserDaoImpl();
+		UserServiceImpl dao = new UserServiceImpl();
 
 		String status = dao.registerUser(user);
 

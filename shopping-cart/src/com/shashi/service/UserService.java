@@ -1,8 +1,8 @@
-package com.shashi.dao;
+package com.shashi.service;
 
 import com.shashi.beans.UserBean;
 
-public interface UserDao {
+public interface UserService {
 
 	/*
 	 * private String userName; private Long mobileNo; private String emailId;

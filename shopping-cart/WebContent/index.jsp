@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ page import="com.shashi.dao.*,com.shashi.beans.*,java.util.*,javax.servlet.ServletOutputStream,java.io.*" %>
+<%@ page import="com.shashi.service.impl.*, com.shashi.service.*,com.shashi.beans.*,java.util.*,javax.servlet.ServletOutputStream,java.io.*" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -49,27 +49,25 @@
 <div class="row text-center" >
 
   <%
-  
-  	ProductDaoImpl prodDao = new ProductDaoImpl(); 
-  	
-  	List<ProductBean> products = new ArrayList<ProductBean>();
-  	
-  	products = prodDao.getAllProducts();
-  	
-  	for(ProductBean product : products){
-  	
-  		String addToCartUrl = null;
-  		String buyNowUrl = null;
-  		
-  		if(isValidUser){
-  			addToCartUrl = "./AddtoCart?uid="+userName+"&pid="+product.getProdId()+"";
-  			buyNowUrl = "./BuyNow?uid="+userName+"&pid="+product.getProdId()+"";
-  		}
-  		else{
-  			addToCartUrl = "login.html";
-  			buyNowUrl = "login.html";
-  		}
-  		
+  ProductServiceImpl prodDao = new ProductServiceImpl(); 
+    	
+    	List<ProductBean> products = new ArrayList<ProductBean>();
+    	
+    	products = prodDao.getAllProducts();
+    	
+    	for(ProductBean product : products){
+    	
+    		String addToCartUrl = null;
+    		String buyNowUrl = null;
+    		
+    		if(isValidUser){
+    			addToCartUrl = "./AddtoCart?uid="+userName+"&pid="+product.getProdId()+"";
+    			buyNowUrl = "./BuyNow?uid="+userName+"&pid="+product.getProdId()+"";
+    		}
+    		else{
+    			addToCartUrl = "login.html";
+    			buyNowUrl = "login.html";
+    		}
   %>
   
   <div class="col-sm-4">

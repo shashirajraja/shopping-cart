@@ -1,11 +1,11 @@
-package com.shashi.dao;
+package com.shashi.service;
 
 import java.util.List;
 
 import com.shashi.beans.OrderBean;
 import com.shashi.beans.TransactionBean;
 
-public interface OrderDao {
+public interface OrderService {
 
 	public String paymentSuccess(String userName, double paidAmount);
 

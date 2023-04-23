@@ -1,4 +1,4 @@
-package com.shashi.dao;
+package com.shashi.service.impl;
 
 import java.io.InputStream;
 import java.sql.Connection;
@@ -10,11 +10,12 @@ import java.util.List;
 
 import com.shashi.beans.DemandBean;
 import com.shashi.beans.ProductBean;
+import com.shashi.service.ProductService;
 import com.shashi.utility.DBUtil;
 import com.shashi.utility.IDUtil;
 import com.shashi.utility.MailMessage;
 
-public class ProductDaoImpl implements ProductDao {
+public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public String addProduct(String prodName, String prodType, String prodInfo, double prodPrice, int prodQuantity,
@@ -311,7 +312,7 @@ public class ProductDaoImpl implements ProductDao {
 		 * System.out.println("pQuantity: "+updatedProduct.getProdQuantity());
 		 */
 
-		int prevQuantity = new ProductDaoImpl().getProductQuantity(prevProductId);
+		int prevQuantity = new ProductServiceImpl().getProductQuantity(prevProductId);
 		Connection con = DBUtil.provideConnection();
 
 		PreparedStatement ps = null;
@@ -331,16 +332,16 @@ public class ProductDaoImpl implements ProductDao {
 			if ((k > 0) && (prevQuantity < updatedProduct.getProdQuantity())) {
 				status = "Product Updated Successfully!";
 				// System.out.println("updated!");
-				List<DemandBean> demandList = new DemandDaoImpl().haveDemanded(prevProductId);
+				List<DemandBean> demandList = new DemandServiceImpl().haveDemanded(prevProductId);
 
 				for (DemandBean demand : demandList) {
 
-					String userFName = new UserDaoImpl().getFName(demand.getUserName());
+					String userFName = new UserServiceImpl().getFName(demand.getUserName());
 
 					MailMessage.productAvailableNow(demand.getUserName(), userFName, updatedProduct.getProdName(),
 							prevProductId);
 
-					boolean flag = new DemandDaoImpl().removeProduct(demand.getUserName(), prevProductId);
+					boolean flag = new DemandServiceImpl().removeProduct(demand.getUserName(), prevProductId);
 
 					if (flag)
 						status += " And Mail Send to the customers who were waiting for this product!";
