@@ -1,6 +1,6 @@
 package com.shashi.utility;
 
-import javax.mail.MessagingException;
+import jakarta.mail.MessagingException;
 
 public class TestMail {
 	public static void main(String[] args) {

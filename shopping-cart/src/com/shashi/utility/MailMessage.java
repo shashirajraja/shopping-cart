@@ -1,6 +1,6 @@
 package com.shashi.utility;
 
-import javax.mail.MessagingException;
+import jakarta.mail.MessagingException;
 
 public class MailMessage {
 	public static void registrationSuccess(String emailId, String name) {
