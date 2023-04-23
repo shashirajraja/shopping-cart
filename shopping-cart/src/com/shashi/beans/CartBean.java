@@ -2,14 +2,16 @@ package com.shashi.beans;
 
 import java.io.Serializable;
 
-public class CartBean implements Serializable{
+@SuppressWarnings("serial")
+public class CartBean implements Serializable {
 
-	public CartBean() {}
-	
+	public CartBean() {
+	}
+
 	public String userId;
-	
+
 	public String prodId;
-	
+
 	public int quantity;
 
 	public String getUserId() {
@@ -42,7 +44,5 @@ public class CartBean implements Serializable{
 		this.prodId = prodId;
 		this.quantity = quantity;
 	}
-	
-	
-	
+
 }

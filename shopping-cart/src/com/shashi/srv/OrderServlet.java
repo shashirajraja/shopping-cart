@@ -19,39 +19,39 @@ import com.shashi.dao.OrderDaoImpl;
 @WebServlet("/OrderServlet")
 public class OrderServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-      
-    public OrderServlet() {
-        super();
-    }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		HttpSession session = request.getSession();
-		String userName = (String)session.getAttribute("username");
-		String password = (String)session.getAttribute("password");
-	
-		if(userName == null || password==null){
-	
-			response.sendRedirect("loginFirst.jsp");
-		}	
-		
-		
-		double paidAmount = Double.parseDouble(request.getParameter("amount"));
-		String status = new OrderDaoImpl().paymentSuccess(userName, paidAmount);
-		
-		PrintWriter pw = response.getWriter();
-		response.setContentType("text/html");
-		
-		RequestDispatcher rd = request.getRequestDispatcher("userHome.jsp");
-		
-		rd.include(request, response);
-		
-		pw.println("<script>document.getElementById('message').innerHTML='"+status+"'</script>");
+	public OrderServlet() {
+		super();
 	}
 
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		HttpSession session = request.getSession();
+		String userName = (String) session.getAttribute("username");
+		String password = (String) session.getAttribute("password");
+
+		if (userName == null || password == null) {
+
+			response.sendRedirect("loginFirst.jsp");
+		}
+
+		double paidAmount = Double.parseDouble(request.getParameter("amount"));
+		String status = new OrderDaoImpl().paymentSuccess(userName, paidAmount);
+
+		PrintWriter pw = response.getWriter();
+		response.setContentType("text/html");
+
+		RequestDispatcher rd = request.getRequestDispatcher("userHome.jsp");
+
+		rd.include(request, response);
+
+		pw.println("<script>document.getElementById('message').innerHTML='" + status + "'</script>");
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		doGet(request, response);
 	}
 

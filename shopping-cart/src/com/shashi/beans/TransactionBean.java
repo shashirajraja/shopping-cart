@@ -6,69 +6,63 @@ import java.text.SimpleDateFormat;
 
 import com.shashi.utility.IDUtil;
 
-public class TransactionBean implements Serializable{
-	
+@SuppressWarnings("serial")
+public class TransactionBean implements Serializable {
+
 	private String transactionId;
-	
+
 	private String userName;
-	
+
 	private Timestamp transDateTime;
-	
+
 	private double transAmount;
 
-	
 	public TransactionBean() {
 		super();
 		this.transactionId = IDUtil.generateTransId();
-		
-		SimpleDateFormat sdf=new SimpleDateFormat("YYYY-MM-DD hh:mm:ss");
-		
+
+		SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-DD hh:mm:ss");
+
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-		
+
 		sdf.format(timestamp);
-		
+
 		this.transDateTime = timestamp;
 	}
 
-	
-	
 	public TransactionBean(String userName, double transAmount) {
 		super();
 		this.userName = userName;
 		this.transAmount = transAmount;
-		
+
 		this.transactionId = IDUtil.generateTransId();
-		
-		SimpleDateFormat sdf=new SimpleDateFormat("YYYY-MM-DD hh:mm:ss");
-		
+
+		SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-DD hh:mm:ss");
+
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-		
+
 		sdf.format(timestamp);
-		
-		//System.out.println(timestamp);
-		
+
+		// System.out.println(timestamp);
+
 		this.transDateTime = timestamp;
-		
+
 	}
-
-
 
 	public TransactionBean(String transactionId, String userName, double transAmount) {
 		super();
 		this.transactionId = transactionId;
 		this.userName = userName;
 		this.transAmount = transAmount;
-		
-		SimpleDateFormat sdf=new SimpleDateFormat("YYYY-MM-DD hh:mm:ss");
-		
+
+		SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-DD hh:mm:ss");
+
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-		
+
 		sdf.format(timestamp);
-		
+
 		this.transDateTime = timestamp;
 	}
-
-
 
 	public TransactionBean(String userName, Timestamp transDateTime, double transAmount) {
 		super();
@@ -118,7 +112,5 @@ public class TransactionBean implements Serializable{
 	public void setTransAmount(double transAmount) {
 		this.transAmount = transAmount;
 	}
-	
-	
-	
+
 }

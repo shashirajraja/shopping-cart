@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.xml.ws.Response;
 
 import com.shashi.beans.ProductBean;
 import com.shashi.dao.ProductDaoImpl;
@@ -21,42 +20,43 @@ import com.shashi.dao.ProductDaoImpl;
 @WebServlet("/UpdateProductSrv")
 public class UpdateProductSrv extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-      
-    public UpdateProductSrv() {
-        super();
 
-    }
+	public UpdateProductSrv() {
+		super();
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
 		HttpSession session = request.getSession();
-		String userType = (String)session.getAttribute("usertype");
-		String userName = (String)session.getAttribute("username");
-		String password = (String)session.getAttribute("password");
-	
-		if(userType== null || !userType.equals("admin")){
-			
+		String userType = (String) session.getAttribute("usertype");
+		String userName = (String) session.getAttribute("username");
+		String password = (String) session.getAttribute("password");
+
+		if (userType == null || !userType.equals("admin")) {
+
 			response.sendRedirect("loginFirst.jsp");
-			
+
 		}
-		
-		else if(userName == null || password==null){
-	
+
+		else if (userName == null || password == null) {
+
 			response.sendRedirect("loginFirst.jsp");
-		}	
-		
-		//Login success
+		}
+
+		// Login success
 		PrintWriter pw = response.getWriter();
-		
+
 		response.setContentType("text/html");
-		
+
 		String prodId = request.getParameter("pid");
 		String prodName = request.getParameter("name");
 		String prodType = request.getParameter("type");
 		String prodInfo = request.getParameter("info");
 		double prodPrice = Double.parseDouble(request.getParameter("price"));
 		int prodQuantity = Integer.parseInt(request.getParameter("quantity"));
-		
+
 		ProductBean product = new ProductBean();
 		product.setProdId(prodId);
 		product.setProdName(prodName);
@@ -64,22 +64,22 @@ public class UpdateProductSrv extends HttpServlet {
 		product.setProdPrice(prodPrice);
 		product.setProdQuantity(prodQuantity);
 		product.setProdType(prodType);
-		
+
 		ProductDaoImpl dao = new ProductDaoImpl();
-		
+
 		String status = dao.updateProductWithoutImage(prodId, product);
-		
-		RequestDispatcher rd = request.getRequestDispatcher("updateProduct.jsp?prodid="+prodId+"");
-		
-		rd.include(request,response);
-		
-		pw.println("<script>document.getElementById('message').innerHTML='" + status +"'</script>");
-	
+
+		RequestDispatcher rd = request.getRequestDispatcher("updateProduct.jsp?prodid=" + prodId + "");
+
+		rd.include(request, response);
+
+		pw.println("<script>document.getElementById('message').innerHTML='" + status + "'</script>");
+
 	}
 
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		doGet(request, response);
 	}
 

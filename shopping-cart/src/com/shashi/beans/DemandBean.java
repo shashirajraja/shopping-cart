@@ -2,12 +2,13 @@ package com.shashi.beans;
 
 import java.io.Serializable;
 
-public class DemandBean implements Serializable{
-	
-	private String userName ;
+@SuppressWarnings("serial")
+public class DemandBean implements Serializable {
+
+	private String userName;
 	private String prodId;
 	private int demandQty;
-	
+
 	public DemandBean() {
 		super();
 	}
@@ -42,7 +43,5 @@ public class DemandBean implements Serializable{
 	public void setDemandQty(int demandQty) {
 		this.demandQty = demandQty;
 	}
-	
-	
-	
+
 }

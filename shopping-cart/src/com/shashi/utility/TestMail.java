@@ -1,5 +1,5 @@
 package com.shashi.utility;
-import javax.mail.Message;
+
 import javax.mail.MessagingException;
 
 public class TestMail {
@@ -7,11 +7,9 @@ public class TestMail {
 		try {
 			String recipient = "shashiraj.972@gmail.com";
 			String subject = "Registration Successfull";
-			String htmlTextMessage = ""
-					+ "<html>"
+			String htmlTextMessage = "" + "<html>"
 					+ "<head><title>Java Mail Message</title><style>.greenText{color:green;} p{font-size:14;}</style></head><body>"
-					+ "<h2 style='color:red;'>Welcome to Ellison Electronics</h2>"
-					+ "<p>Hey,<br>"
+					+ "<h2 style='color:red;'>Welcome to Ellison Electronics</h2>" + "<p>Hey,<br>"
 					+ "Thanks for singing up with Ellison Electronics.<br>"
 					+ "We are glad that you choose <bold>us. We invite you to check out our latest collection of new electonics appliances."
 					+ "<br>We are providing upto 60% OFF on most of the electronic gadgets. So please visit our site and explore the collections. <br>"
@@ -19,17 +17,14 @@ public class TestMail {
 					+ "making us up to that level. We Deliver Product to your house with no extra delivery charges and we also have collection of most of the"
 					+ "branded items. As a Welcome gift for our New Customers we are providing additional 10% OFF Upto 500 Rs for the first product purchase. To avail this offer you only have "
 					+ "to enter the promo code given below.<br><br> PROMO CODE: "
-					+ "<span class='greenText'>ELLISON500</span><br><br>"
-					+ "Have a good day!<br>"
-					+ "</p>"
-					+ "</body>"
+					+ "<span class='greenText'>ELLISON500</span><br><br>" + "Have a good day!<br>" + "</p>" + "</body>"
 					+ "</html>";
-		JavaMailUtil.sendMail(recipient,subject,htmlTextMessage);
-			
+			JavaMailUtil.sendMail(recipient, subject, htmlTextMessage);
+
 		} catch (MessagingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
+
 }
