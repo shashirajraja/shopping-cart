@@ -16,7 +16,6 @@ public class UserBean implements Serializable {
 		this.address = address;
 		this.pinCode = pinCode;
 		this.password = password;
-		this.role = "CUSTOMER";
 	}
 
 	private String name;
@@ -25,7 +24,6 @@ public class UserBean implements Serializable {
 	private String address;
 	private int pinCode;
 	private String password;
-	private String role;
 
 	public String getName() {
 		return name;
@@ -73,14 +71,6 @@ public class UserBean implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public String getRole() {
-		return role;
-	}
-
-	public void setRole(String role) {
-		this.role = role;
 	}
 
 }

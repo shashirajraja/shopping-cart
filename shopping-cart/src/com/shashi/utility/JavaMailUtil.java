@@ -35,7 +35,7 @@ public class JavaMailUtil {
 		ResultSet rs = null;
 
 		try {
-			ps = con.prepareStatement("select * from admin");
+			ps = con.prepareStatement("select * from mailer");
 
 			rs = ps.executeQuery();
 			if (rs.next()) {
@@ -103,7 +103,7 @@ public class JavaMailUtil {
 		ResultSet rs = null;
 
 		try {
-			ps = con.prepareStatement("select * from admin");
+			ps = con.prepareStatement("select * from mailer");
 
 			rs = ps.executeQuery();
 			if (rs.next()) {

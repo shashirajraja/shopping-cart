@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
 
 		try {
 
-			ps = conn.prepareStatement("insert into " + IUserConstants.TABLE_USER + " values(?,?,?,?,?,?,?)");
+			ps = conn.prepareStatement("insert into " + IUserConstants.TABLE_USER + " values(?,?,?,?,?,?)");
 
 			ps.setString(1, user.getEmail());
 			ps.setString(2, user.getName());
@@ -51,7 +51,6 @@ public class UserServiceImpl implements UserService {
 			ps.setString(4, user.getAddress());
 			ps.setInt(5, user.getPinCode());
 			ps.setString(6, user.getPassword());
-			ps.setString(7, user.getRole());
 
 			int k = ps.executeUpdate();
 
@@ -158,7 +157,6 @@ public class UserServiceImpl implements UserService {
 				user.setAddress(rs.getString("address"));
 				user.setPinCode(rs.getInt("pincode"));
 				user.setPassword(rs.getString("password"));
-				user.setRole(rs.getString("role"));
 
 				return user;
 			}

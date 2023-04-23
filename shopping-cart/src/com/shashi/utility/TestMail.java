@@ -5,7 +5,7 @@ import javax.mail.MessagingException;
 public class TestMail {
 	public static void main(String[] args) {
 		try {
-			String recipient = "shashiraj.972@gmail.com";
+			String recipient = "thebittercode@gmail.com";
 			String subject = "Registration Successfull";
 			String htmlTextMessage = "" + "<html>"
 					+ "<head><title>Java Mail Message</title><style>.greenText{color:green;} p{font-size:14;}</style></head><body>"
