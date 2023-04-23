@@ -43,7 +43,7 @@
 	<!-- Company Header Ending -->
 
 	<!-- Starting Navigation Bar -->
-	<div class="navbar navbar-default navbar-fixed-top">
+	<nav class="navbar navbar-default navbar-fixed-top">
 
 		<div class="container-fluid">
 			<div class="navbar-header">
@@ -95,7 +95,7 @@
 				</ul>
 			</div>
 		</div>
-	</div>
+	</nav>
 
 
 </body>

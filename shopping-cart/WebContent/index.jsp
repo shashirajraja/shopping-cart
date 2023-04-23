@@ -72,7 +72,6 @@
 		<div class="row text-center">
 
 			<%
-
 			for (ProductBean product : products) {
 
 				String addToCartUrl = null;
@@ -87,7 +86,7 @@
 				}
 			%>
 
-			<div class="col-sm-4" style='height:350px;'>
+			<div class="col-sm-4" style='height: 350px;'>
 				<div class="thumbnail">
 					<img src="./ShowImage?pid=<%=product.getProdId()%>" alt="Product"
 						style="height: 150px; max-width: 180px;">
@@ -102,10 +101,11 @@
 						<%=product.getProdPrice()%>
 					</p>
 					<form method="post">
-						<button type="submit" formaction="<%=addToCartUrl%>">Add
-							to Cart</button>
+						<button type="submit" formaction="<%=addToCartUrl%>"
+							class="btn btn-success">Add to Cart</button>
 						&nbsp;&nbsp;&nbsp;
-						<button type="submit" formaction="<%=buyNowUrl%>">Buy Now</button>
+						<button type="submit" formaction="<%=buyNowUrl%>"
+							class="btn btn-primary">Buy Now</button>
 					</form>
 				</div>
 			</div>
