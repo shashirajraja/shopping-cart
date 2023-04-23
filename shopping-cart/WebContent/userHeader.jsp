@@ -73,12 +73,10 @@
 					<%
 					if (notf == 0) {
 					%>
-					<!-- <li><a href="cartDetails.jsp"
-						style="padding-bottom:0px;margin:0px;margin-top:-6px; height:10px;"><i class="fa fa-shopping-cart"></i></a></li> -->
-					<li><a href="cartDetails.jsp"
-						style="margin:0px; padding:0px;"
-						id="mycart"><i class="fa fa-shopping-cart icon-white" style="background-color: #333;margin:0px; padding:0px; padding-bottom:0px;padding-top:5px;"></i></a></li>
-
+					<li><a href="cartDetails.jsp"> <span
+							class="glyphicon glyphicon-shopping-cart"></span>Cart
+					</a></li>
+					
 					<%
 					} else {
 					%>

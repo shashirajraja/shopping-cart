@@ -47,6 +47,8 @@
 					<th>Product Price</th>
 					<th>Sold Items</th>
 					<th>Remaining Quantity</th>
+					<th>Update Product</th>
+					<th>Remove Product</th>
 				</tr>
 			</thead>
 			<tbody
@@ -70,6 +72,20 @@
 					<td><%=product.getProdPrice()%></td>
 					<td><%=new OrderServiceImpl().countSoldItem(product.getProdId())%></td>
 					<td><%=product.getProdQuantity()%></td>
+					<td>
+						<form method="post">
+							<button type="submit"
+								formaction="updateProduct.jsp?prodid=<%=product.getProdId()%>"
+								class="btn btn-primary">Update</button>
+						</form>
+					</td>
+					<td>
+						<form method="post">
+							<button type="submit"
+								formaction="./RemoveProductSrv?prodid=<%=product.getProdId()%>"
+								class="btn btn-danger">Remove</button>
+						</form>
+					</td>
 
 				</tr>
 

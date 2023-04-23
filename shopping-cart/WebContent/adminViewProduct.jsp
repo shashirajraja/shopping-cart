@@ -61,8 +61,7 @@
 			<%
 			for (ProductBean product : products) {
 			%>
-
-			<div class="col-sm-4">
+			<div class="col-sm-4" style='height:350px;'>
 				<div class="thumbnail">
 					<img src="./ShowImage?pid=<%=product.getProdId()%>" alt="Product"
 						style="height: 150px; max-width: 180px;">
@@ -78,12 +77,12 @@
 					</p>
 					<form method="post">
 						<button type="submit"
-							formaction="./RemoveProductSrv?prodid=<%=product.getProdId()%>">Remove
-							Product</button>
+							formaction="./RemoveProductSrv?prodid=<%=product.getProdId()%>"
+							class="btn btn-danger">Remove Product</button>
 						&nbsp;&nbsp;&nbsp;
 						<button type="submit"
-							formaction="updateProduct.jsp?prodid=<%=product.getProdId()%>">Update
-							Product</button>
+							formaction="updateProduct.jsp?prodid=<%=product.getProdId()%>"
+							class="btn btn-primary">Update Product</button>
 					</form>
 				</div>
 			</div>

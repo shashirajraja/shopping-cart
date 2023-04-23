@@ -2,130 +2,196 @@
 <html>
 <head>
 <title>Shoping Center</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-   <link rel="stylesheet" href="css/changes.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="css/changes.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
-<!--Company Header Starting  -->
-<div class="jumbotron text-center">
-  <h1>Ellison Electronics</h1>
-  <p>We specialize in Electronics</p>
-  <form class="form-inline">
-    <div class="input-group">
-      <input type="text" class="form-control" size="50" placeholder="Search Items" required>
-      <div class="input-group-btn">
-        <button type="button" class="btn btn-danger">Search</button>
-      </div>
-    </div>
-  </form>
-</div>
-<!-- Company Header Ending -->
+	<!--Company Header Starting  -->
+	<div class="container-fluid text-center"
+		style="margin-top: 45px; background-color: #33cc33; color: white; padding: 5px;">
+		<h2>Ellison Electronics</h2>
+		<h6>We specialize in Electronics</h6>
+		<form class="form-inline" action="index.jsp" method="get">
+			<div class="input-group">
+				<input type="text" class="form-control" size="50" name="search"
+					placeholder="Search Items" required>
+				<div class="input-group-btn">
+					<input type="submit" class="btn btn-danger" value="Search" />
+				</div>
+			</div>
+		</form>
+		<p align="center"
+			style="color: blue; font-weight: bold; margin-top: 5px; margin-bottom: 5px;"
+			id="message"></p>
+	</div>
+	<!-- Company Header Ending -->
 
-<!-- Starting Navigation Bar -->
-<nav class="navbar navbar-default navbar-fixed-top">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="index.jsp"><span class="glyphicon glyphicon-home">&nbsp;</span>Ellison Electronics</a>
-    </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="login.html">Login</a></li>
-        <li><a href="register.html">Register</a></li>
-        <li><a href="loginFirst.jsp"> <span class="glyphicon glyphicon-shopping-cart"></span>Cart</a></li>
-        <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="#">MORE
-            <span class="caret"></span>
-          </a>
-          <ul class="dropdown-menu">
-            <li><a href="index.jsp">Mobiles</a></li>
-            <li><a href="index.jsp">Tvs</a></li>
-            <li><a href="index.jsp">Laptops</a></li>
-          </ul>
-        </li>
-<!--         <li><a href="./SearchProd?ptype=?"><span class="glyphicon glyphicon-search"></span></a></li>
- -->      </ul>
-    </div>
-  </div>
-</nav>
-<!-- End of Navigation Bar -->
+	<!-- Starting Navigation Bar -->
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target="#myNavbar">
+					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="index.jsp"><span
+					class="glyphicon glyphicon-home">&nbsp;</span>Ellison Electronics</a>
+			</div>
+			<div class="collapse navbar-collapse" id="myNavbar">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="login.html">Login</a></li>
+					<li><a href="register.html">Register</a></li>
+					<li><a href="index.jsp"> Products </a></li>
+					<li class="dropdown"><a class="dropdown-toggle"
+						data-toggle="dropdown" href="#">MORE <span class="caret"></span>
+					</a>
+						<ul class="dropdown-menu">
+							<li><a href="index.jsp?type=mobile">Mobiles</a></li>
+							<li><a href="index.jsp?type=tv">Tvs</a></li>
+							<li><a href="index.jsp?type=laptop">Laptops</a></li>
+						</ul></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<!-- End of Navigation Bar -->
 
-<!-- Start of Login Form List -->
-<div class="products" style="background-color: #E6F9E6;">
-  <div class="tab"  align="center">
-    
-    <div style="margin: 5px">
-      
-        <form action="./RegisterSrv" method="post">
-          <table border="0">
-            <tr><td>Name: </td><td><input type="text" name="username"style="font-size: 15px;font-weight: normal; width:100%" required></td></tr>
-            <tr><td><br></td><td><br></td></tr>
-            <tr><td>Mobile No.&nbsp;</td><td><input type="Phone" name="mobile"style="font-size: 15px;font-weight: normal;" required></td></tr>
-            <tr><td><br></td><td><br></td></tr>            
-            <tr><td>Email Id</td><td><input type="email" name="email"style="font-size: 15px;font-weight: normal;" required></td></tr>
-            <tr><td><br></td><td><br></td></tr>
-            <tr><td>Address</td><td><textarea name="address"style="font-size: 15px;font-weight: normal;width: 100%; height: 80px" required></textarea></td></tr>
-            <tr><td><br></td><td><br></td></tr>
-            <tr><td>PinCode</td><td><input type="text" name="pincode"style="font-size: 15px;font-weight: normal;" required></td></tr>
-            <tr><td><br></td><td><br></td></tr>
-            <tr><td>Password</td><td><input type="password" name="password"style="font-size: 15px;font-weight: normal;" required></td></tr>
-            <tr><td><br></td><td><br></td></tr>
-            <tr colspan="2" align="center"><td>&nbsp;</td><td><input type="submit" name="submit" value="Register"></td></tr>
+	<!-- Start of Login Form List -->
+	<div class="products" style="background-color: #E6F9E6;">
+		<div class="tab" align="center">
 
-          </table>
-        
-        </form>
-    </div>  
-  </div>
-  <div class="tab" style="margin-top: 10px;text-align: center">
-      <a href="login.html">Existing User Login Here</a>
+			<div style="margin: 5px">
 
-  </div>
-</div>
+				<form action="./RegisterSrv" method="post">
+					<table border="0">
+						<tr>
+							<td>Name:</td>
+							<td><input type="text" name="username"
+								style="font-size: 15px; font-weight: normal; width: 100%"
+								required></td>
+						</tr>
+						<tr>
+							<td><br></td>
+							<td><br></td>
+						</tr>
+						<tr>
+							<td>Mobile No.&nbsp;</td>
+							<td><input type="Phone" name="mobile"
+								style="font-size: 15px; font-weight: normal;" required></td>
+						</tr>
+						<tr>
+							<td><br></td>
+							<td><br></td>
+						</tr>
+						<tr>
+							<td>Email Id</td>
+							<td><input type="email" name="email"
+								style="font-size: 15px; font-weight: normal;" required></td>
+						</tr>
+						<tr>
+							<td><br></td>
+							<td><br></td>
+						</tr>
+						<tr>
+							<td>Address</td>
+							<td><textarea name="address"
+									style="font-size: 15px; font-weight: normal; width: 100%; height: 80px"
+									required></textarea></td>
+						</tr>
+						<tr>
+							<td><br></td>
+							<td><br></td>
+						</tr>
+						<tr>
+							<td>PinCode</td>
+							<td><input type="text" name="pincode"
+								style="font-size: 15px; font-weight: normal;" required></td>
+						</tr>
+						<tr>
+							<td><br></td>
+							<td><br></td>
+						</tr>
+						<tr>
+							<td>Password</td>
+							<td><input type="password" name="password"
+								style="font-size: 15px; font-weight: normal;" required></td>
+						</tr>
+						<tr>
+							<td><br></td>
+							<td><br></td>
+						</tr>
+						<tr colspan="2" align="center">
+							<td>&nbsp;</td>
+							<td><input type="submit" name="submit" value="Register"></td>
+						</tr>
+
+					</table>
+
+				</form>
+			</div>
+		</div>
+		<div class="tab" style="margin-top: 10px; text-align: center">
+			<a href="login.html">Existing User Login Here</a>
+
+		</div>
+	</div>
 
 
-<!-- ENd of Product Items List -->
+	<!-- ENd of Product Items List -->
 
 
-<!-- Start the footer Contacts -->
-<a name="contact"></a>
-<div class="container">
-  <h3 class="text-center">Contact</h3>
-  <p class="text-center"><em>We love our fans!</em></p>
-  <div class="row test">
-    <div class="col-md-4">
-      <p>Fan? Drop a note.</p>
-      <p><span class="glyphicon glyphicon-map-marker"></span>HIT, Haldia</p>
-      <p><span class="glyphicon glyphicon-phone"></span>Phone: +91 1515151515</p>
-      <p><span class="glyphicon glyphicon-envelope"></span>Email: mail@mail.com</p>
-    </div>
-    <div class="col-md-8">
-      <div class="row">
-        <div class="col-sm-6 form-group">
-          <input class="form-control" id="name" name="name" placeholder="Name" type="text" required>
-        </div>
-        <div class="col-sm-6 form-group">
-          <input class="form-control" id="email" name="email" placeholder="Email" type="email" required>
-        </div>
-      </div>
-      <textarea class="form-control" id="comments" name="comments" placeholder="Comment" rows="5"></textarea>
-      <div class="row">
-        <div class="col-md-12 form-group">
-          <button class="btn pull-right" type="submit">Send</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- End of Contact or about us -->
+	<!-- Start the footer Contacts -->
+	<a name="contact"></a>
+	<div class="container">
+		<h3 class="text-center">Contact</h3>
+		<p class="text-center">
+			<em>We love our fans!</em>
+		</p>
+		<div class="row test">
+			<div class="col-md-4">
+				<p>Fan? Drop a note.</p>
+				<p>
+					<span class="glyphicon glyphicon-map-marker"></span>HIT, Haldia
+				</p>
+				<p>
+					<span class="glyphicon glyphicon-phone"></span>Phone: +91
+					1515151515
+				</p>
+				<p>
+					<span class="glyphicon glyphicon-envelope"></span>Email:
+					mail@mail.com
+				</p>
+			</div>
+			<div class="col-md-8">
+				<div class="row">
+					<div class="col-sm-6 form-group">
+						<input class="form-control" id="name" name="name"
+							placeholder="Name" type="text" required>
+					</div>
+					<div class="col-sm-6 form-group">
+						<input class="form-control" id="email" name="email"
+							placeholder="Email" type="email" required>
+					</div>
+				</div>
+				<textarea class="form-control" id="comments" name="comments"
+					placeholder="Comment" rows="5"></textarea>
+				<div class="row">
+					<div class="col-md-12 form-group">
+						<button class="btn pull-right" type="submit">Send</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End of Contact or about us -->
 
 </body>
 </html>
