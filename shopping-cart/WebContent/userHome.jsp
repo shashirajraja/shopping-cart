@@ -2,7 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ page
 	import="com.shashi.service.impl.*, com.shashi.service.*,com.shashi.beans.*,java.util.*,javax.servlet.ServletOutputStream,java.io.*"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <title>Ellison Electronics</title>
@@ -13,8 +13,6 @@
 <link rel="stylesheet" href="css/changes.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
@@ -27,7 +25,7 @@
 
 	if (userName == null || password == null) {
 
-		response.sendRedirect("loginFirst.jsp");
+		response.sendRedirect("login.jsp?message=Session Expired, Login Again!!");
 	}
 
 	ProductServiceImpl prodDao = new ProductServiceImpl();
@@ -64,8 +62,9 @@
 
 			<%
 			for (ProductBean product : products) {
+				int cartQty = new CartServiceImpl().getCartItemCount(userName, product.getProdId());
 			%>
-			<div class="col-sm-4" style='height:350px;'>
+			<div class="col-sm-4" style='height: 350px;'>
 				<div class="thumbnail">
 					<img src="./ShowImage?pid=<%=product.getProdId()%>" alt="Product"
 						style="height: 150px; max-width: 180px">
@@ -82,6 +81,9 @@
 						<%=product.getProdPrice()%>
 					</p>
 					<form method="post">
+						<%
+						if (cartQty == 0) {
+						%>
 						<button type="submit"
 							formaction="./AddtoCart?uid=<%=userName%>&pid=<%=product.getProdId()%>&pqty=1"
 							class="btn btn-success">Add to Cart</button>
@@ -89,8 +91,20 @@
 						<button type="submit"
 							formaction="./AddtoCart?uid=<%=userName%>&pid=<%=product.getProdId()%>&pqty=1"
 							class="btn btn-primary">Buy Now</button>
+						<%
+						} else {
+						%>
+						<button type="submit"
+							formaction="./AddtoCart?uid=<%=userName%>&pid=<%=product.getProdId()%>&pqty=0"
+							class="btn btn-danger">Remove From Cart</button>
+						&nbsp;&nbsp;&nbsp;
+						<button type="submit" formaction="cartDetails.jsp"
+							class="btn btn-success">Checkout</button>
+						<%
+						}
+						%>
 					</form>
-					<br/>
+					<br />
 				</div>
 			</div>
 

@@ -14,6 +14,8 @@ public interface CartService {
 
 	public int getCartCount(String userId);
 
+	public int getCartItemCount(String userId, String itemId);
+
 	public String removeProductFromCart(String userId, String prodId);
 
 	public boolean removeAProduct(String userId, String prodId);

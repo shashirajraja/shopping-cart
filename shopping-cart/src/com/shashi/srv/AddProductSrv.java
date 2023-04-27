@@ -2,7 +2,6 @@ package com.shashi.srv;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -24,10 +23,6 @@ import com.shashi.service.impl.ProductServiceImpl;
 public class AddProductSrv extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public AddProductSrv() {
-		super();
-	}
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -38,13 +33,13 @@ public class AddProductSrv extends HttpServlet {
 
 		if (userType == null || !userType.equals("admin")) {
 
-			response.sendRedirect("loginFirst.jsp");
+			response.sendRedirect("login.jsp?message=Access Denied!");
 
 		}
 
 		else if (userName == null || password == null) {
 
-			response.sendRedirect("loginFirst.jsp");
+			response.sendRedirect("login.jsp?message=Session Expired, Login Again to Continue!");
 		}
 
 		String status = "Product Registration Failed!";
@@ -64,11 +59,8 @@ public class AddProductSrv extends HttpServlet {
 
 		status = product.addProduct(prodName, prodType, prodInfo, prodPrice, prodQuantity, prodImage);
 
-		RequestDispatcher rd = request.getRequestDispatcher("addProduct.jsp");
-		PrintWriter pw = response.getWriter();
-		response.setContentType("text/html");
-		rd.include(request, response);
-		pw.println("<script>document.getElementById('message').innerHTML='" + status + "'</script>");
+		RequestDispatcher rd = request.getRequestDispatcher("addProduct.jsp?message=" + status);
+		rd.forward(request, response);
 
 	}
 

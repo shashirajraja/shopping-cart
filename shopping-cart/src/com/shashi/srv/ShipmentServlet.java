@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.shashi.beans.UserBean;
 import com.shashi.service.impl.OrderServiceImpl;
+import com.shashi.service.impl.UserServiceImpl;
 import com.shashi.utility.MailMessage;
 
 /**
@@ -35,10 +35,9 @@ public class ShipmentServlet extends HttpServlet {
 
 		if (userName == null || password == null) {
 
-			response.sendRedirect("loginFirst.jsp");
+			response.sendRedirect("login.jsp?message=Session Expired, Login Again!!");
 		}
 
-		UserBean user = (UserBean) session.getAttribute("userdata");
 		String orderId = request.getParameter("orderid");
 		Double amount = Double.parseDouble(request.getParameter("amount"));
 		String status = new OrderServiceImpl().shipNow(orderId);
@@ -46,7 +45,7 @@ public class ShipmentServlet extends HttpServlet {
 		if ("FAILURE".equalsIgnoreCase(status)) {
 			pagename = "unshippedItems.jsp";
 		} else {
-			MailMessage.orderShipped(userName, user.getName(), orderId, amount);
+			MailMessage.orderShipped(userName, new UserServiceImpl().getFName(userName), orderId, amount);
 		}
 		PrintWriter pw = response.getWriter();
 		response.setContentType("text/html");

@@ -1,7 +1,6 @@
 package com.shashi.srv;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -26,7 +25,6 @@ public class LogoutSrv extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		PrintWriter pw = response.getWriter();
 		response.setContentType("text/html");
 
 		HttpSession session = request.getSession();
@@ -36,11 +34,9 @@ public class LogoutSrv extends HttpServlet {
 		session.setAttribute("usertype", null);
 		session.setAttribute("userdata", null);
 
-		RequestDispatcher rd = request.getRequestDispatcher("login.html");
+		RequestDispatcher rd = request.getRequestDispatcher("login.jsp?message=Successfully Logged Out!");
 
-		rd.include(request, response);
-
-		pw.print("<script>document.getElementById('message').innerHTML='Successfully Logged Out!'</script>");
+		rd.forward(request, response);
 
 	}
 

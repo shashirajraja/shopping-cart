@@ -28,8 +28,6 @@ public class ShowImage extends HttpServlet {
 
 		String prodId = request.getParameter("pid");
 
-		// System.out.print("ProdId= "+prodId+" Image is available: ");
-
 		ProductServiceImpl dao = new ProductServiceImpl();
 
 		byte[] image = dao.getImage(prodId);
@@ -41,18 +39,12 @@ public class ShowImage extends HttpServlet {
 			ImageIO.write(originalImage, "jpg", baos);
 			image = baos.toByteArray();
 		}
-		// System.out.print("ProdId= "+prodId+" Image is available: ");
 
 		ServletOutputStream sos = null;
 
 		sos = response.getOutputStream();
 
 		sos.write(image);
-		/*
-		 * sos.flush();
-		 * 
-		 * sos.close();
-		 */
 
 	}
 

@@ -21,17 +21,18 @@
 
 	if (userType == null || !userType.equals("admin")) {
 
-		response.sendRedirect("loginFirst.jsp");
+		response.sendRedirect("login.jsp?message=Access Denied, Login as admin!!");
 
 	}
 
-	if (userName == null || password == null) {
+	else if (userName == null || password == null) {
 
-		response.sendRedirect("loginFirst.jsp");
+		response.sendRedirect("login.jsp?message=Session Expired, Login Again!!");
+
 	}
 	%>
 
-	<%@ include file="adminHeader.html"%>
+	<%@ include file="adminHeader.jsp"%>
 	<div class="text-center"
 		style="color: green; font-size: 24px; font-weight: bold;">Shipped
 		Orders</div>

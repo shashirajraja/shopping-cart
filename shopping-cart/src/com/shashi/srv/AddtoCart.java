@@ -30,37 +30,6 @@ public class AddtoCart extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		/*
-		 * HttpSession session = request.getSession(); String userName =
-		 * (String)session.getAttribute("username"); String password =
-		 * (String)session.getAttribute("password");
-		 * 
-		 * if(userName == null || password==null){
-		 * 
-		 * response.sendRedirect("loginFirst.jsp"); }
-		 * 
-		 * //login Check Successfull
-		 * 
-		 * 
-		 * String userId = request.getParameter("uid"); String prodId =
-		 * request.getParameter("pid"); int pQty =
-		 * Integer.parseInt(request.getParameter("pqty"));
-		 * 
-		 * CartDaoImpl cart = new CartDaoImpl();
-		 * 
-		 * String status = cart.addProductToCart(userId, prodId, pQty);
-		 * 
-		 * PrintWriter pw = response.getWriter();
-		 * 
-		 * response.setContentType("text/html");
-		 * 
-		 * RequestDispatcher rd = request.getRequestDispatcher("userHome.jsp");
-		 * 
-		 * rd.include(request, response);
-		 * 
-		 * pw.print("<script>document.getElementById('message').innerHTML='"+status+
-		 * "'</script>");
-		 */
 
 		HttpSession session = request.getSession();
 		String userName = (String) session.getAttribute("username");
@@ -68,7 +37,7 @@ public class AddtoCart extends HttpServlet {
 
 		if (userName == null || password == null) {
 
-			response.sendRedirect("loginFirst.jsp");
+			response.sendRedirect("login.jsp?message=Session Expired, Login Again to Continue!");
 		}
 
 		// login Check Successfull
@@ -92,8 +61,15 @@ public class AddtoCart extends HttpServlet {
 		PrintWriter pw = response.getWriter();
 
 		response.setContentType("text/html");
+		if (pQty == cartQty) {
+			String status = cart.removeProductFromCart(userId, prodId);
 
-		if (availableQty < pQty) {
+			RequestDispatcher rd = request.getRequestDispatcher("userHome.jsp");
+
+			rd.include(request, response);
+
+			pw.println("<script>document.getElementById('message').innerHTML='" + status + "'</script>");
+		} else if (availableQty < pQty) {
 
 			String status = null;
 

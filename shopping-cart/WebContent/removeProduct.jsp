@@ -1,68 +1,80 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+	pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Admin Home</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<title>Remove Product</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="css/changes.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
 	<%
 	/* Checking the user credentials */
-		String userType = (String)session.getAttribute("usertype");
-		String userName = (String)session.getAttribute("username");
-		String password = (String)session.getAttribute("password");
-	
-		if(userType== null || !userType.equals("admin")){
-			
-			response.sendRedirect("loginFirst.jsp");
-			
-		}
-		
-		else if(userName == null || password==null){
-	
-			response.sendRedirect("loginFirst.jsp");
-		}	
-		
+	String userType = (String) session.getAttribute("usertype");
+	String userName = (String) session.getAttribute("username");
+	String password = (String) session.getAttribute("password");
+
+	if (userType == null || !userType.equals("admin")) {
+
+		response.sendRedirect("login.jsp?message=Access Denied, Login as admin!!");
+
+	}
+
+	else if (userName == null || password == null) {
+
+		response.sendRedirect("login.jsp?message=Session Expired, Login Again!!");
+
+	}
 	%>
-	
-	<%@ include file="adminHeader.html" %>
-	
-	<div class="products" style="background-color: #E6F9E6;">
-	
-		<p id="message" class="tab" align="center">
-			
-			Remove Product
-			<!-- <form>
-			<button type="submit" formaction="addProduct.jsp" style="background-color:red; color:white">Add products</button>
-			<button type="submit" formaction="#">Remove Products</button>
-			<button type="submit" formaction="#">Update Products</button>
-			</form> -->
-		
-		</p><br>
-		
-		<div class="tab" align="center">
-			
-		<div style="margin: 5px">
-      
-        <form action="./RemoveProductSrv" method="post">
-          <table border="0">
-            <tr><td>Enter Product Id: </td><td><input type="text" name="prodid"style="font-size: 15px;font-weight: normal; width:80%" required ></td></tr>
-            
-            <tr><td><br></td><td><br></td></tr>
-            
-            <tr colspan="2" align="center"><td><button><a href="adminHome.jsp">Cancle</a></button>&nbsp;</td><td><input type="submit" name="submit" value="Delete Item"></td></tr>
 
-          </table>
-        
-        </form>
-    </div>  
+	<%@ include file="adminHeader.jsp"%>
 
-		</div>
+	<%
+	String message = request.getParameter("message");
+	%>
+	<div class="container" style="margin: 5px; margin-top: 15px;">
+		<form action="./RemoveProductSrv" method="post"
+			class="col-md-4 col-md-offset-4"
+			style="border: 2px solid black; border-radius: 10px; background-color: #FFE5CC; padding: 10px;">
+			<div style="font-weight: bold;" class="text-center">
+				<h3 style="color: green;">Product Deletion Form</h3>
+				<%
+				if (message != null) {
+				%>
+				<p style="color: blue;">
+					<%=message%>
+				</p>
+				<%
+				}
+				%>
+			</div>
+			<div></div>
+			<div class="row">
+				<div class="col-md-12 form-group">
+					<label for="last_name">Product Id</label> <input type="text"
+						placeholder="Enter Product Id" name="prodid" class="form-control"
+						id="last_name" required>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6 text-center">
+					<button type="reset" class="btn btn-info">Reset</button>
+				</div>
+				<div class="col-md-6 text-center">
+					<button type="submit" class="btn btn-danger">Remove
+						Product</button>
+				</div>
+			</div>
+		</form>
 	</div>
-	
-	<%@ include file="footer.html" %>
+
+	<%@ include file="footer.html"%>
 </body>
 </html>

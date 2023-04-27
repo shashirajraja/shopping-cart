@@ -1,7 +1,6 @@
 package com.shashi.srv;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -31,9 +30,6 @@ public class LoginSrv extends HttpServlet {
 		String userName = request.getParameter("username");
 		String password = request.getParameter("password");
 		String userType = request.getParameter("usertype");
-
-		PrintWriter pw = response.getWriter();
-
 		response.setContentType("text/html");
 
 		String status = "Login Denied! Invalid Username or password.";
@@ -55,10 +51,8 @@ public class LoginSrv extends HttpServlet {
 
 			} else {
 				// Invalid;
-				RequestDispatcher rd = request.getRequestDispatcher("login.html");
-
+				RequestDispatcher rd = request.getRequestDispatcher("login.jsp?message=" + status);
 				rd.include(request, response);
-				pw.println("<script>document.getElementById('message').innerHTML='" + status + "'</script>");
 			}
 
 		} else { // Login as customer
@@ -87,14 +81,11 @@ public class LoginSrv extends HttpServlet {
 			} else {
 				// invalid user;
 
-				RequestDispatcher rd = request.getRequestDispatcher("login.html");
+				RequestDispatcher rd = request.getRequestDispatcher("login.jsp?message=" + status);
 
-				rd.include(request, response);
-
-				pw.println("<script>document.getElementById('message').innerHTML='" + status + "'</script>");
+				rd.forward(request, response);
 
 			}
-
 		}
 
 	}

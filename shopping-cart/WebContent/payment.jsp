@@ -1,18 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<%@ page import="com.shashi.service.impl.*, com.shashi.service.*,com.shashi.beans.*,java.util.*,javax.servlet.ServletOutputStream,java.io.*" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+	pageEncoding="ISO-8859-1"%>
+<%@ page
+	import="com.shashi.service.impl.*, com.shashi.service.*,com.shashi.beans.*,java.util.*,javax.servlet.ServletOutputStream,java.io.*"%>
+<!DOCTYPE html>
 <html>
 <head>
-<title>Online Shopping Card</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-   <link rel="stylesheet" href="css/changes.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-  
+<title>Payments</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="css/changes.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
 
@@ -23,7 +25,7 @@
 	
 		if(userName == null || password==null){
 	
-			response.sendRedirect("loginFirst.jsp");
+			response.sendRedirect("login.jsp?message=Session Expired, Login Again!!");
 		}	
 		
 		String sAmount = request.getParameter("amount");
@@ -55,7 +57,7 @@
       
         <form action="./OrderServlet" method="post">
           <table border="0">
-            <tr><td>Name on Card: </td><td><input type="text" name"cardname" style="font-size: 15px;font-weight: normal;" placeholder="John More Doe" required>
+            <tr><td>Name on Card: </td><td><input type="text" name="cardname" style="font-size: 15px;font-weight: normal;" placeholder="John More Doe" required>
 </td></tr>
             <tr><td><br></td><td><br></td></tr>
             <tr><td>Credit Card Number:</td><td><input type="number" name="ccnum"style="font-size: 15px; font-weight: normal;" placeholder="1111-2222-3333-4444" required></td></tr>

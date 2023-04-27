@@ -1,7 +1,6 @@
 package com.shashi.srv;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -32,34 +31,26 @@ public class RemoveProductSrv extends HttpServlet {
 
 		if (userType == null || !userType.equals("admin")) {
 
-			response.sendRedirect("loginFirst.jsp");
+			response.sendRedirect("login.jsp?message=Access Denied, Login As Admin!!");
 
 		}
 
 		else if (userName == null || password == null) {
 
-			response.sendRedirect("loginFirst.jsp");
+			response.sendRedirect("login.jsp?message=Session Expired, Login Again!!");
 		}
 
 		// login checked
 
 		String prodId = request.getParameter("prodid");
-		/*
-		 * System.out.println("Here: "); System.out.println("Hi"+prodId+"Hi");
-		 */
-
-		PrintWriter pw = response.getWriter();
-		response.setContentType("removeProduct.jsp");
 
 		ProductServiceImpl product = new ProductServiceImpl();
 
 		String status = product.removeProduct(prodId);
 
-		RequestDispatcher rd = request.getRequestDispatcher("removeProduct.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("removeProduct.jsp?message=" + status);
 
-		rd.include(request, response);
-
-		pw.println("<script>document.getElementById('message').innerHTML='" + status + "'</script>");
+		rd.forward(request, response);
 
 	}
 

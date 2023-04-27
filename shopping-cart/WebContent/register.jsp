@@ -1,58 +1,94 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+	pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Ellison Electronics</title>
-<link href="../css/changes.css" rel="stylesheet" type="text/css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<title>Register</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="css/changes.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
-<body>
-	<%@ include file="header.html" %>
-	
-  <div class="products" style="background-color: #E6F9E6;">
-	
-	<div class="tab" align="center" style="color:brown;">
-			<%=request.getAttribute("message") %>
+<body style="background-color: #E6F9E6;">
+
+	<%@ include file="header.jsp"%>
+	<%
+	String message = request.getParameter("message");
+	%>
+	<div class="container" style="margin: 5px;">
+		<form action="./RegisterSrv" method="post"
+			class="col-md-6 col-md-offset-3"
+			style="border: 2px solid black; border-radius: 10px; background-color: #FFE5CC; padding: 10px;">
+			<div style="font-weight: bold;" class="text-center">
+				<h2 style="color: green;">Registration Form</h2>
+				<%
+				if (message != null) {
+				%>
+				<p style="color: blue;">
+					<%=message%>
+				</p>
+				<%
+				}
+				%>
+			</div>
+			<div></div>
+			<div class="row">
+				<div class="col-md-6 form-group">
+					<label for="first_name">Name</label> <input type="text"
+						name="username" class="form-control" id="first_name"
+						name="first_name" required>
+				</div>
+				<div class="col-md-6 form-group">
+					<label for="last_name">Email</label> <input type="email"
+						name="email" class="form-control" id="last_name" name="last_name"
+						required>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="last_name">Address</label>
+				<textarea name="address" class="form-control" id="last_name"
+					name="last_name" required></textarea>
+			</div>
+			<div class="row">
+				<div class="col-md-6 form-group">
+					<label for="last_name">Mobile</label> <input type="number"
+						name="mobile" class="form-control" id="last_name" name="last_name"
+						required>
+				</div>
+				<div class="col-md-6 form-group">
+					<label for="last_name">Pin Code</label> <input type="number"
+						name="pincode" class="form-control" id="last_name"
+						name="last_name" required>
+				</div>
+
+			</div>
+			<div class="row">
+				<div class="col-md-6 form-group">
+					<label for="last_name">Password</label> <input type="password"
+						name="password" class="form-control" id="last_name"
+						name="last_name" required>
+				</div>
+				<div class="col-md-6 form-group">
+					<label for="last_name">Confirm Password</label> <input
+						type="password" name="confirmPassword" class="form-control"
+						id="last_name" name="last_name" required>
+				</div>
+			</div>
+			<div class="row text-center">
+				<div class="col-md-6">
+					<button type="Reset" class="btn btn-danger">Reset</button>
+				</div>
+				<div class="col-md-6">
+					<button type="submit" class="btn btn-success">Register</button>
+				</div>
+			</div>
+		</form>
 	</div>
-	<br>
-	
-  	<div class="tab"  align="center">
-    
-    <div style="margin: 5px">
-      
-        <form action="./RegisterSrv" method="post">
-          <table border="0">
-            <tr><td>Name: </td><td><input type="text" name="username"style="font-size: 15px;font-weight: normal; width:100%" required></td></tr>
-            <tr><td><br></td><td><br></td></tr>
-            <tr><td>Mobile No.&nbsp;</td><td><input type="Phone" name="mobile"style="font-size: 15px;font-weight: normal;" required></td></tr>
-            <tr><td><br></td><td><br></td></tr>            
-            <tr><td>Email Id</td><td><input type="email" name="email"style="font-size: 15px;font-weight: normal;" required></td></tr>
-            <tr><td><br></td><td><br></td></tr>
-            <tr><td>Address</td><td><textarea name="address"style="font-size: 15px;font-weight: normal;width: 100%; height: 80px" required></textarea></td></tr>
-            <tr><td><br></td><td><br></td></tr>
-            <tr><td>PinCode</td><td><input type="text" name="pincode"style="font-size: 15px;font-weight: normal;" required></td></tr>
-            <tr><td><br></td><td><br></td></tr>
-            <tr><td>Password</td><td><input type="password" name="password"style="font-size: 15px;font-weight: normal;" required></td></tr>
-            <tr><td><br></td><td><br></td></tr>
-            <tr colspan="2" align="center"><td>&nbsp;</td><td><input type="submit" name="submit" value="Register"></td></tr>
 
-          </table>
-        
-        </form>
-    </div>  
-  </div>
-  <div class="tab" style="margin-top: 10px;text-align: center">
-      <a href="login.html">Registered User Login Here</a>
 
-  </div>
-  
-</div>
-	
-	
-	
-	<%@ include file="footer.html" %>
+	<%@ include file="footer.html"%>
 </body>
 </html>

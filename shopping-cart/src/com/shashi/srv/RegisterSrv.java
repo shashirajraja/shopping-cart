@@ -19,11 +19,6 @@ import com.shashi.service.impl.UserServiceImpl;
 public class RegisterSrv extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public RegisterSrv() {
-		super();
-
-	}
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -34,16 +29,19 @@ public class RegisterSrv extends HttpServlet {
 		String address = request.getParameter("address");
 		int pinCode = Integer.parseInt(request.getParameter("pincode"));
 		String password = request.getParameter("password");
+		String confirmPassword = request.getParameter("confirmPassword");
+		String status = "";
+		if (password != null && password.equals(confirmPassword)) {
+			UserBean user = new UserBean(userName, mobileNo, emailId, address, pinCode, password);
 
-		UserBean user = new UserBean(userName, mobileNo, emailId, address, pinCode, password);
+			UserServiceImpl dao = new UserServiceImpl();
 
-		UserServiceImpl dao = new UserServiceImpl();
+			status = dao.registerUser(user);
+		} else {
+			status = "Password not matching!";
+		}
 
-		String status = dao.registerUser(user);
-
-		RequestDispatcher rd = request.getRequestDispatcher("register.jsp");
-
-		request.setAttribute("message", status);
+		RequestDispatcher rd = request.getRequestDispatcher("register.jsp?message=" + status);
 
 		rd.forward(request, response);
 	}

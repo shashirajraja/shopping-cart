@@ -153,17 +153,6 @@ DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
 
--- -----------------------------------------------------
--- Table `shopping-cart`.`Mailer`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `shopping-cart`.`Mailer` ;
-
-CREATE TABLE IF NOT EXISTS `shopping-cart`.`Mailer` (
-  `email` VARCHAR(255) NOT NULL,
-  `password` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`email`));
-
-
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
@@ -228,16 +217,6 @@ COMMIT;
 START TRANSACTION;
 USE `shopping-cart`;
 INSERT INTO `shopping-cart`.`usercart` (`username`, `prodid`, `quantity`) VALUES ('guest@gmail.com', 'P20230423082243', 2);
-
-COMMIT;
-
-
--- -----------------------------------------------------
--- Data for table `shopping-cart`.`Mailer`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `shopping-cart`;
-INSERT INTO `shopping-cart`.`Mailer` (`email`, `password`) VALUES ('ellison.alumni@gmail.com', '90NnJEzbQxx4IaQgEBXXh2jheZi8Cy2UE5+7LJwxcBY=');
 
 COMMIT;
 

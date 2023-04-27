@@ -389,15 +389,6 @@ public class ProductServiceImpl implements ProductService {
 			return status;
 		}
 
-		/*
-		 * System.out.println("pId: "+updatedProduct.getProdId());
-		 * System.out.println("pName: "+updatedProduct.getProdName());
-		 * System.out.println("pType: "+updatedProduct.getProdType());
-		 * System.out.println("pInfo: "+updatedProduct.getProdInfo());
-		 * System.out.println("pPrice: "+updatedProduct.getProdPrice());
-		 * System.out.println("pQuantity: "+updatedProduct.getProdQuantity());
-		 */
-
 		int prevQuantity = new ProductServiceImpl().getProductQuantity(prevProductId);
 		Connection con = DBUtil.provideConnection();
 
@@ -423,10 +414,12 @@ public class ProductServiceImpl implements ProductService {
 				for (DemandBean demand : demandList) {
 
 					String userFName = new UserServiceImpl().getFName(demand.getUserName());
-
-					MailMessage.productAvailableNow(demand.getUserName(), userFName, updatedProduct.getProdName(),
-							prevProductId);
-
+					try {
+						MailMessage.productAvailableNow(demand.getUserName(), userFName, updatedProduct.getProdName(),
+								prevProductId);
+					} catch (Exception e) {
+						System.out.println("Mail Sending Failed: " + e.getMessage());
+					}
 					boolean flag = new DemandServiceImpl().removeProduct(demand.getUserName(), prevProductId);
 
 					if (flag)

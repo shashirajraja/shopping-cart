@@ -37,7 +37,7 @@ public class UpdateToCart extends HttpServlet {
 
 		if (userName == null || password == null) {
 
-			response.sendRedirect("loginFirst.jsp");
+			response.sendRedirect("login.jsp?message=Session Expired, Login Again!!");
 		}
 
 		// login Check Successfull

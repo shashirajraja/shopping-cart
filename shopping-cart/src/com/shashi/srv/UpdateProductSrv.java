@@ -1,7 +1,6 @@
 package com.shashi.srv;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -36,26 +35,23 @@ public class UpdateProductSrv extends HttpServlet {
 
 		if (userType == null || !userType.equals("admin")) {
 
-			response.sendRedirect("loginFirst.jsp");
+			response.sendRedirect("login.jsp?message=Access Denied, Login As Admin!!");
+			return;
 
-		}
+		} else if (userName == null || password == null) {
 
-		else if (userName == null || password == null) {
-
-			response.sendRedirect("loginFirst.jsp");
+			response.sendRedirect("login.jsp?message=Session Expired, Login Again!!");
+			return;
 		}
 
 		// Login success
-		PrintWriter pw = response.getWriter();
-
-		response.setContentType("text/html");
 
 		String prodId = request.getParameter("pid");
 		String prodName = request.getParameter("name");
 		String prodType = request.getParameter("type");
 		String prodInfo = request.getParameter("info");
-		double prodPrice = Double.parseDouble(request.getParameter("price"));
-		int prodQuantity = Integer.parseInt(request.getParameter("quantity"));
+		Double prodPrice = Double.parseDouble(request.getParameter("price"));
+		Integer prodQuantity = Integer.parseInt(request.getParameter("quantity"));
 
 		ProductBean product = new ProductBean();
 		product.setProdId(prodId);
@@ -69,11 +65,9 @@ public class UpdateProductSrv extends HttpServlet {
 
 		String status = dao.updateProductWithoutImage(prodId, product);
 
-		RequestDispatcher rd = request.getRequestDispatcher("updateProduct.jsp?prodid=" + prodId + "");
+		RequestDispatcher rd = request.getRequestDispatcher("updateProduct.jsp?message=" + status);
 
-		rd.include(request, response);
-
-		pw.println("<script>document.getElementById('message').innerHTML='" + status + "'</script>");
+		rd.forward(request, response);
 
 	}
 

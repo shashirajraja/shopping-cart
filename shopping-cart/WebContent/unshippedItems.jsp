@@ -31,7 +31,7 @@
 	}
 	%>
 
-	<%@ include file="adminHeader.html"%>
+	<%@ include file="adminHeader.jsp"%>
 	<div class="text-center"
 		style="color: green; font-size: 24px; font-weight: bold;">Recent
 		Orders</div>

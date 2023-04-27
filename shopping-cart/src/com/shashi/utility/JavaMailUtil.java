@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -16,7 +17,6 @@ import jakarta.mail.Session;
 import jakarta.mail.Transport;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
-
 
 public class JavaMailUtil {
 	public static void sendMail(String recipientMailId) throws MessagingException {
@@ -30,41 +30,28 @@ public class JavaMailUtil {
 		properties.put("mail.smtp.starttls.enable", "true");
 		properties.put("mail.smtp.port", "587");
 
-		Connection con = DBUtil.provideConnection();
+		ResourceBundle rb = ResourceBundle.getBundle("application");
 
-		PreparedStatement ps = null;
-		ResultSet rs = null;
+		String emailId = rb.getString("mailer.email");
+		String passWord = rb.getString("mailer.password");
 
-		try {
-			ps = con.prepareStatement("select * from mailer");
+		properties.put("mail.user", emailId);
+		properties.put("mail.password", passWord);
 
-			rs = ps.executeQuery();
-			if (rs.next()) {
-				String emailId = rs.getString("email");
-				String passWord = rs.getString("password");
+		Session session = Session.getInstance(properties, new Authenticator() {
 
-				properties.put("mail.user", emailId);
-				properties.put("mail.password", passWord);
-
-				Session session = Session.getInstance(properties, new Authenticator() {
-
-					@Override
-					protected PasswordAuthentication getPasswordAuthentication() {
-						return new PasswordAuthentication(emailId, passWord);
-					}
-
-				});
-
-				Message message = prepareMessage(session, emailId, recipientMailId);
-
-				Transport.send(message);
-
-				System.out.println("Message Sent Successfully!");
+			@Override
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(emailId, passWord);
 			}
-		} catch (SQLException e) {
-			System.out.println("Message Sending Failed\n Error: " + e);
-			e.printStackTrace();
-		}
+
+		});
+
+		Message message = prepareMessage(session, emailId, recipientMailId);
+
+		Transport.send(message);
+
+		System.out.println("Message Sent Successfully!");
 
 	}
 

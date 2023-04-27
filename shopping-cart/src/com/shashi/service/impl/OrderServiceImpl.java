@@ -88,13 +88,13 @@ public class OrderServiceImpl implements OrderService {
 		PreparedStatement ps = null;
 
 		try {
-			ps = con.prepareStatement("insert into orders values(?,?,?,?)");
+			ps = con.prepareStatement("insert into orders values(?,?,?,?,?)");
 
 			ps.setString(1, order.getTransactionId());
 			ps.setString(2, order.getProductId());
 			ps.setInt(3, order.getQuantity());
 			ps.setDouble(4, order.getAmount());
-//			ps.setInt(5, 0);
+			ps.setInt(5, 0);
 
 			int k = ps.executeUpdate();
 
@@ -247,7 +247,7 @@ public class OrderServiceImpl implements OrderService {
 		try {
 
 			ps = con.prepareStatement(
-					"SELECT  p.pid as prodid, o.orderid as orderid, p.image as image, p.pname as pname, o.quantity as qty, o.amount as amount, t.time as time FROM orders o, product p, transactions t where o.orderid=t.transid and o.orderid = t.transid and p.pid=o.prodid and t.username=?");
+					"SELECT  p.pid as prodid, o.orderid as orderid, o.shipped as shipped, p.image as image, p.pname as pname, o.quantity as qty, o.amount as amount, t.time as time FROM orders o, product p, transactions t where o.orderid=t.transid and o.orderid = t.transid and p.pid=o.prodid and t.username=?");
 			ps.setString(1, userEmailId);
 			rs = ps.executeQuery();
 
@@ -261,6 +261,7 @@ public class OrderServiceImpl implements OrderService {
 				order.setAmount(rs.getString("amount"));
 				order.setTime(rs.getTimestamp("time"));
 				order.setProductId(rs.getString("prodid"));
+				order.setShipped(rs.getInt("shipped"));
 				orderList.add(order);
 
 			}

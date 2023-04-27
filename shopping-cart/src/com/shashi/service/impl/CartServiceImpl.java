@@ -190,7 +190,7 @@ public class CartServiceImpl implements CartService {
 					int k = ps2.executeUpdate();
 
 					if (k > 0)
-						status = "Product Successfully Added to Cart!";
+						status = "Product Successfully removed from the Cart!";
 				} else if (prodQuantity <= 0) {
 
 					ps2 = con.prepareStatement("delete from usercart where username=? and prodid=?");
@@ -202,7 +202,7 @@ public class CartServiceImpl implements CartService {
 					int k = ps2.executeUpdate();
 
 					if (k > 0)
-						status = "Product Successfully Added to Cart!";
+						status = "Product Successfully removed from the Cart!";
 				}
 
 			} else {
@@ -347,12 +347,46 @@ public class CartServiceImpl implements CartService {
 			ps.setString(2, prodId);
 			rs = ps.executeQuery();
 
-			if (rs.next() && !rs.wasNull() )
+			if (rs.next() && !rs.wasNull())
 				count = rs.getInt(1);
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+
+		return count;
+	}
+
+	@Override
+	public int getCartItemCount(String userId, String itemId) {
+		int count = 0;
+		if (userId == null || itemId == null)
+			return 0;
+		Connection con = DBUtil.provideConnection();
+
+		PreparedStatement ps = null;
+
+		ResultSet rs = null;
+
+		try {
+			ps = con.prepareStatement("select quantity from usercart where username=? and prodid=?");
+
+			ps.setString(1, userId);
+			ps.setString(2, itemId);
+
+			rs = ps.executeQuery();
+
+			if (rs.next() && !rs.wasNull())
+				count = rs.getInt(1);
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+
+		DBUtil.closeConnection(con);
+		DBUtil.closeConnection(ps);
+		DBUtil.closeConnection(rs);
 
 		return count;
 	}

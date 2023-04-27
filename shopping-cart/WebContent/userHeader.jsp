@@ -1,16 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ page import="com.shashi.service.impl.*, com.shashi.service.*"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
-<title>Ellison Electronics</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>User Home</title>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="css/changes.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -76,7 +72,7 @@
 					<li><a href="cartDetails.jsp"> <span
 							class="glyphicon glyphicon-shopping-cart"></span>Cart
 					</a></li>
-					
+
 					<%
 					} else {
 					%>
@@ -84,7 +80,7 @@
 						style="margin: 0px; padding: 0px;" id="mycart"><i
 							data-count="<%=notf%>"
 							class="fa fa-shopping-cart fa-3x icon-white badge"
-							style="background-color: #333; margin: 0px; padding: 0px; padding-bottom:0px;padding-top:5px;">
+							style="background-color: #333; margin: 0px; padding: 0px; padding-bottom: 0px; padding-top: 5px;">
 						</i></a></li>
 					<%
 					}
