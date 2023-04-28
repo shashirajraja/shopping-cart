@@ -20,10 +20,6 @@ import com.shashi.service.impl.OrderServiceImpl;
 public class OrderServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public OrderServlet() {
-		super();
-	}
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 

@@ -79,7 +79,7 @@
 					<td><%=quantity%></td>
 					<td>READY_TO_SHIP</td>
 					<td><a
-						href="ShipmentServlet?orderid=<%=order.getTransactionId()%>&amount=<%=order.getAmount()%>"
+						href="ShipmentServlet?orderid=<%=order.getTransactionId()%>&amount=<%=order.getAmount()%>&userid=<%=userId%>&prodid=<%=order.getProductId()%>"
 						class="btn btn-success">SHIP NOW</a></td>
 				</tr>
 

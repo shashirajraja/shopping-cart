@@ -6,8 +6,9 @@ public class MailMessage {
 	public static void registrationSuccess(String emailId, String name) {
 		String recipient = emailId;
 		String subject = "Registration Successfull";
-		String htmlTextMessage = "" + "<html>" + "<body>" + "<h2 style='color:red;'>Welcome to Ellison Electronics</h2>"
-				+ "" + "Hi " + name + "," + "<br><br>Thanks for singing up with Ellison Electronics.<br>"
+		String htmlTextMessage = "" + "<html>" + "<body>"
+				+ "<h2 style='color:green;'>Welcome to Ellison Electronics</h2>" + "" + "Hi " + name + ","
+				+ "<br><br>Thanks for singing up with Ellison Electronics.<br>"
 				+ "We are glad that you choose us. We invite you to check out our latest collection of new electonics appliances."
 				+ "<br>We are providing upto 60% OFF on most of the electronic gadgets. So please visit our site and explore the collections."
 				+ "<br><br>Our Online electronics is growing in a larger amount these days and we are in high demand so we thanks all of you for "
@@ -95,11 +96,13 @@ public class MailMessage {
 		}
 	}
 
-	public static void sendMessage(String toEmailId, String subject, String htmlTextMessage) {
+	public static String sendMessage(String toEmailId, String subject, String htmlTextMessage) {
 		try {
 			JavaMailUtil.sendMail(toEmailId, subject, htmlTextMessage);
 		} catch (MessagingException e) {
 			e.printStackTrace();
+			return "FAILURE";
 		}
+		return "SUCCESS";
 	}
 }

@@ -65,7 +65,7 @@
 			</div>
 			<div class="row">
 				<div class="col-md-6 text-center">
-					<button type="reset" class="btn btn-info">Reset</button>
+					<a href="adminViewProduct.jsp" class="btn btn-info">Cancel</a>
 				</div>
 				<div class="col-md-6 text-center">
 					<button type="submit" class="btn btn-danger">Remove

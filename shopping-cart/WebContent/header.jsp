@@ -67,8 +67,11 @@
 					</a>
 						<ul class="dropdown-menu">
 							<li><a href="index.jsp?type=mobile">Mobiles</a></li>
-							<li><a href="index.jsp?type=tv">Tvs</a></li>
+							<li><a href="index.jsp?type=tv">TVs</a></li>
 							<li><a href="index.jsp?type=laptop">Laptops</a></li>
+							<li><a href="index.jsp?type=camera">Camera</a></li>
+							<li><a href="index.jsp?type=speaker">Speakers</a></li>
+							<li><a href="index.jsp?type=tablet">Tablets</a></li>
 						</ul></li>
 				</ul>
 			</div>
@@ -101,8 +104,11 @@
 					</a>
 						<ul class="dropdown-menu">
 							<li><a href="userHome.jsp?type=mobile">Mobiles</a></li>
-							<li><a href="userHome.jsp?type=tv">Tvs</a></li>
+							<li><a href="userHome.jsp?type=tv">TV</a></li>
 							<li><a href="userHome.jsp?type=laptop">Laptops</a></li>
+							<li><a href="userHome.jsp?type=camera">Camera</a></li>
+							<li><a href="userHome.jsp?type=speaker">Speakers</a></li>
+							<li><a href="userHome.jsp?type=tablet">Tablets</a></li>
 						</ul></li>
 					<%
 					if (notf == 0) {
@@ -154,6 +160,9 @@
 							<li><a href="adminViewProduct.jsp?type=mobile">Mobiles</a></li>
 							<li><a href="adminViewProduct.jsp?type=tv">Tvs</a></li>
 							<li><a href="adminViewProduct.jsp?type=laptop">Laptops</a></li>
+							<li><a href="adminViewProduct.jsp?type=camera">Camera</a></li>
+							<li><a href="adminViewProduct.jsp?type=speaker">Speakers</a></li>
+							<li><a href="adminViewProduct.jsp?type=tablet">Tablets</a></li>
 						</ul></li>
 					<li><a href="adminStock.jsp">Stock</a></li>
 					<li><a href="shippedItems.jsp">Shipped</a></li>

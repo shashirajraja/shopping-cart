@@ -28,52 +28,45 @@ public class OrderServiceImpl implements OrderService {
 			return status;
 
 		TransactionBean transaction = new TransactionBean(userName, paidAmount);
-
-		PreparedStatement ps1 = null;
-		// PreparedStatement ps2 = null;
-		int p = 0, q = 0, k = 0;
-		boolean flag = false;
+		boolean ordered = false;
 
 		String transactionId = transaction.getTransactionId();
 
-		if (transaction != null) {
-			// System.out.println("Transaction: "+transaction.getTransactionId()+"
-			// "+transaction.getTransAmount()+" "+transaction.getUserName()+"
-			// "+transaction.getTransDateTime());
+		// System.out.println("Transaction: "+transaction.getTransactionId()+"
+		// "+transaction.getTransAmount()+" "+transaction.getUserName()+"
+		// "+transaction.getTransDateTime());
 
-			for (CartBean item : cartItems) {
+		for (CartBean item : cartItems) {
 
-				double amount = new ProductServiceImpl().getProductPrice(item.getProdId()) * item.getQuantity();
+			double amount = new ProductServiceImpl().getProductPrice(item.getProdId()) * item.getQuantity();
 
-				OrderBean order = new OrderBean(transactionId, item.getProdId(), item.getQuantity(), amount);
+			OrderBean order = new OrderBean(transactionId, item.getProdId(), item.getQuantity(), amount);
 
-				flag = addOrder(order);
-				if (!flag)
-					break;
-				else {
-					flag = new CartServiceImpl().removeAProduct(item.getUserId(), item.getProdId());
-				}
-
-				if (!flag)
-					break;
-				else
-					flag = new ProductServiceImpl().sellNProduct(item.getProdId(), item.getQuantity());
-
-				if (!flag)
-					break;
+			ordered = addOrder(order);
+			if (!ordered)
+				break;
+			else {
+				ordered = new CartServiceImpl().removeAProduct(item.getUserId(), item.getProdId());
 			}
 
-			if (flag) {
-				flag = new OrderServiceImpl().addTransaction(transaction);
-				if (flag) {
+			if (!ordered)
+				break;
+			else
+				ordered = new ProductServiceImpl().sellNProduct(item.getProdId(), item.getQuantity());
 
-					MailMessage.transactionSuccess(userName, new UserServiceImpl().getFName(userName),
-							transaction.getTransactionId(), transaction.getTransAmount());
+			if (!ordered)
+				break;
+		}
 
-					status = "Order Placed Successfully!";
-				}
+		if (ordered) {
+			ordered = new OrderServiceImpl().addTransaction(transaction);
+			if (ordered) {
+
+				MailMessage.transactionSuccess(userName, new UserServiceImpl().getFName(userName),
+						transaction.getTransactionId(), transaction.getTransAmount());
+
+				status = "Order Placed Successfully!";
 			}
-
 		}
 
 		return status;
@@ -275,7 +268,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public String shipNow(String orderId) {
+	public String shipNow(String orderId, String prodId) {
 		String status = "FAILURE";
 
 		Connection con = DBUtil.provideConnection();
@@ -283,9 +276,10 @@ public class OrderServiceImpl implements OrderService {
 		PreparedStatement ps = null;
 
 		try {
-			ps = con.prepareStatement("update orders set shipped=1 where orderid=? and shipped=0");
+			ps = con.prepareStatement("update orders set shipped=1 where orderid=? and prodid=? and shipped=0");
 
 			ps.setString(1, orderId);
+			ps.setString(2, prodId);
 
 			int k = ps.executeUpdate();
 

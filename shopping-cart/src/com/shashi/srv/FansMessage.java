@@ -33,12 +33,18 @@ public class FansMessage extends HttpServlet {
 				+ "<br><br/>" + "Comment: " + "<span style='color:grey;'>" + comments + "</span>"
 				+ "<br/><br/>We are glad that fans are choosing us! <br/><br/>Thanks & Regards<br/><br/>Auto Generated Mail"
 				+ "</body>" + "</html>";
-		MailMessage.sendMessage("ellison.alumni@gmail.com", "Fans Message | " + name + " | " + email, htmlTextMessage);
+		String message = MailMessage.sendMessage("ellison.alumni@gmail.com", "Fans Message | " + name + " | " + email,
+				htmlTextMessage);
+		if ("SUCCESS".equals(message)) {
+			message = "Comments Sent Successfully";
+		} else {
+			message = "Failed: Please Configure mailer.email and password in application.properties first";
+		}
 		RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
 
 		rd.include(request, response);
 
-		response.getWriter().print("<script>alert('Comments Sent Successfully')</script>");
+		response.getWriter().print("<script>alert('" + message + "')</script>");
 
 	}
 

@@ -30,17 +30,18 @@ public class ShipmentServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		HttpSession session = request.getSession();
-		String userName = (String) session.getAttribute("username");
-		String password = (String) session.getAttribute("password");
+		String userType = (String) session.getAttribute("usertype");
+		if (userType == null) {
 
-		if (userName == null || password == null) {
-
-			response.sendRedirect("login.jsp?message=Session Expired, Login Again!!");
+			response.sendRedirect("login.jsp?message=Access Denied, Login Again!!");
+			return;
 		}
 
 		String orderId = request.getParameter("orderid");
+		String prodId = request.getParameter("prodid");
+		String userName = request.getParameter("userid");
 		Double amount = Double.parseDouble(request.getParameter("amount"));
-		String status = new OrderServiceImpl().shipNow(orderId);
+		String status = new OrderServiceImpl().shipNow(orderId, prodId);
 		String pagename = "shippedItems.jsp";
 		if ("FAILURE".equalsIgnoreCase(status)) {
 			pagename = "unshippedItems.jsp";

@@ -43,8 +43,6 @@ public class TransactionBean implements Serializable {
 
 		sdf.format(timestamp);
 
-		// System.out.println(timestamp);
-
 		this.transDateTime = timestamp;
 
 	}

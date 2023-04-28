@@ -46,7 +46,8 @@
 			<div class="row">
 				<div class="col-md-12 form-group">
 					<label for="last_name">Password</label> <input type="password"
-						name="password" class="form-control" id="last_name" required>
+						placeholder="Enter Password" name="password" class="form-control"
+						id="last_name" required>
 				</div>
 			</div>
 			<div class="row">

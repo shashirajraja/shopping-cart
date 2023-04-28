@@ -37,12 +37,18 @@
 		int add = Integer.parseInt(addS);
 		String uid = request.getParameter("uid");
 		String pid = request.getParameter("pid");
-
+		int avail = Integer.parseInt(request.getParameter("avail"));
+		int cartQty = Integer.parseInt(request.getParameter("qty"));
 		CartServiceImpl cart = new CartServiceImpl();
 
 		if (add == 1) {
 			//Add Product into the cart
-			cart.addProductToCart(uid, pid, 1);
+			cartQty += 1;
+			if (cartQty <= avail) {
+		cart.addProductToCart(uid, pid, 1);
+			} else {
+		response.sendRedirect("./AddtoCart?pid=" + pid + "&pqty=" + cartQty);
+			}
 		} else if (add == 0) {
 			//Remove Product from the cart
 			cart.removeProductFromCart(uid, pid);
@@ -113,10 +119,10 @@
 								style="max-width: 80px;">
 						</form></td>
 					<td><a
-						href="cartDetails.jsp?add=1&uid=<%=userName%>&pid=<%=product.getProdId()%>"><i
+						href="cartDetails.jsp?add=1&uid=<%=userName%>&pid=<%=product.getProdId()%>&avail=<%=product.getProdQuantity()%>&qty=<%=prodQuantity%>"><i
 							class="fa fa-plus"></i></a></td>
 					<td><a
-						href="cartDetails.jsp?add=0&uid=<%=userName%>&pid=<%=product.getProdId()%>"><i
+						href="cartDetails.jsp?add=0&uid=<%=userName%>&pid=<%=product.getProdId()%>&avail=<%=product.getProdQuantity()%>&qty=<%=prodQuantity%>"><i
 							class="fa fa-minus"></i></a></td>
 					<td><%=currAmount%></td>
 				</tr>
