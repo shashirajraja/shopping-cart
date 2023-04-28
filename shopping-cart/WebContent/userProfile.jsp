@@ -15,6 +15,8 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 
@@ -36,17 +38,17 @@
 
 
 
-	<%@ include file="userHeader.jsp"%>
+	<jsp:include page="header.jsp" />
 
 	<div class="container bg-secondary">
 		<div class="row">
 			<div class="col">
 				<nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
-				<ol class="breadcrumb mb-0">
-					<li class="breadcrumb-item"><a href="index.jsp">Home</a></li>
-					<li class="breadcrumb-item"><a href="profile.jsp">User
-							Profile</a></li>
-				</ol>
+					<ol class="breadcrumb mb-0">
+						<li class="breadcrumb-item"><a href="index.jsp">Home</a></li>
+						<li class="breadcrumb-item"><a href="profile.jsp">User
+								Profile</a></li>
+					</ol>
 				</nav>
 			</div>
 		</div>

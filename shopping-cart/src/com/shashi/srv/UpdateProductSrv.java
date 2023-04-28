@@ -65,8 +65,8 @@ public class UpdateProductSrv extends HttpServlet {
 
 		String status = dao.updateProductWithoutImage(prodId, product);
 
-		RequestDispatcher rd = request.getRequestDispatcher("updateProduct.jsp?message=" + status);
-
+		RequestDispatcher rd = request
+				.getRequestDispatcher("updateProduct.jsp?prodid=" + prodId + "&message=" + status);
 		rd.forward(request, response);
 
 	}

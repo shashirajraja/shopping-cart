@@ -13,6 +13,8 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 	<!--Company Header Starting  -->
@@ -20,7 +22,7 @@
 		style="margin-top: 45px; background-color: #33cc33; color: white; padding: 5px;">
 		<h2>Ellison Electronics</h2>
 		<h6>We specialize in Electronics</h6>
-		<form class="form-inline" action="userHome.jsp" method="get">
+		<form class="form-inline" action="adminViewProduct.jsp" method="get">
 			<div class="input-group">
 				<input type="text" class="form-control" size="50" name="search"
 					placeholder="Search Items" required>

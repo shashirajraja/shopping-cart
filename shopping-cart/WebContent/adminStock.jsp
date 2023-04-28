@@ -36,7 +36,8 @@
 	}
 	%>
 
-	<%@ include file="adminHeader.jsp"%>
+	<jsp:include page="header.jsp" />
+
 	<div class="text-center"
 		style="color: green; font-size: 24px; font-weight: bold;">Stock
 		Products</div>
@@ -48,12 +49,12 @@
 				<tr>
 					<th>Image</th>
 					<th>ProductId</th>
-					<th>Product Name</th>
-					<th>Product Price</th>
-					<th>Sold Items</th>
-					<th>Remaining Quantity</th>
-					<th>Update Product</th>
-					<th>Remove Product</th>
+					<th>Name</th>
+					<th>Type</th>
+					<th>Price</th>
+					<th>Sold Qty</th>
+					<th>Stock Qty</th>
+					<th colspan="2" style="text-align:center">Actions</th>
 				</tr>
 			</thead>
 			<tbody
@@ -73,7 +74,12 @@
 						style="width: 50px; height: 50px;"></td>
 					<td><a
 						href="./updateProduct.jsp?prodid=<%=product.getProdId()%>"><%=product.getProdId()%></a></td>
-					<td><%=product.getProdName()%></td>
+					<%
+					String name = product.getProdName();
+					name = name.substring(0, Math.min(name.length(), 15)) + "..";
+					%>
+					<td><%=name%></td>
+					<td><%=product.getProdType().toUpperCase()%></td>
 					<td><%=product.getProdPrice()%></td>
 					<td><%=new OrderServiceImpl().countSoldItem(product.getProdId())%></td>
 					<td><%=product.getProdQuantity()%></td>
@@ -101,7 +107,7 @@
 				if (products.size() == 0) {
 				%>
 				<tr style="background-color: grey; color: white;">
-					<td colspan="6" style="text-align: center;">No Items Available
+					<td colspan="7" style="text-align: center;">No Items Available
 					</td>
 
 				</tr>

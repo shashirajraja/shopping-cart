@@ -52,61 +52,61 @@
 	}
 	%>
 
+	<jsp:include page="header.jsp" />
 
-	<%
-	if (isValidUser) {
-	%>
-	<%@ include file="userHeader.jsp"%>
-
-	<%
-	} else {
-	%>
-	<%@ include file="header.jsp"%>
-	<%
-	}
-	%>
 	<div class="text-center"
 		style="color: black; font-size: 14px; font-weight: bold;"><%=message%></div>
+	<div class="text-center" id="message"
+		style="color: black; font-size: 14px; font-weight: bold;"></div>
 	<!-- Start of Product Items List -->
 	<div class="container">
 		<div class="row text-center">
 
 			<%
 			for (ProductBean product : products) {
-
-				String addToCartUrl = null;
-				String buyNowUrl = null;
-
-				if (isValidUser) {
-					addToCartUrl = "./AddtoCart?uid=" + userName + "&pid=" + product.getProdId() + "";
-					buyNowUrl = "./BuyNow?uid=" + userName + "&pid=" + product.getProdId() + "";
-				} else {
-					addToCartUrl = "login.html";
-					buyNowUrl = "login.html";
-				}
+				int cartQty = new CartServiceImpl().getCartItemCount(userName, product.getProdId());
 			%>
-
 			<div class="col-sm-4" style='height: 350px;'>
 				<div class="thumbnail">
 					<img src="./ShowImage?pid=<%=product.getProdId()%>" alt="Product"
-						style="height: 150px; max-width: 180px;">
+						style="height: 150px; max-width: 180px">
 					<p class="productname"><%=product.getProdName()%>
-						(
-						<%=product.getProdId()%>
-						)
 					</p>
-					<p class="productinfo"><%=product.getProdInfo()%></p>
+					<%
+					String description = product.getProdInfo();
+					description = description.substring(0, Math.min(description.length(), 100));
+					%>
+					<p class="productinfo"><%=description%>..
+					</p>
 					<p class="price">
 						Rs
 						<%=product.getProdPrice()%>
 					</p>
 					<form method="post">
-						<button type="submit" formaction="<%=addToCartUrl%>"
+						<%
+						if (cartQty == 0) {
+						%>
+						<button type="submit"
+							formaction="./AddtoCart?uid=<%=userName%>&pid=<%=product.getProdId()%>&pqty=1"
 							class="btn btn-success">Add to Cart</button>
 						&nbsp;&nbsp;&nbsp;
-						<button type="submit" formaction="<%=buyNowUrl%>"
+						<button type="submit"
+							formaction="./AddtoCart?uid=<%=userName%>&pid=<%=product.getProdId()%>&pqty=1"
 							class="btn btn-primary">Buy Now</button>
+						<%
+						} else {
+						%>
+						<button type="submit"
+							formaction="./AddtoCart?uid=<%=userName%>&pid=<%=product.getProdId()%>&pqty=0"
+							class="btn btn-danger">Remove From Cart</button>
+						&nbsp;&nbsp;&nbsp;
+						<button type="submit" formaction="cartDetails.jsp"
+							class="btn btn-success">Checkout</button>
+						<%
+						}
+						%>
 					</form>
+					<br />
 				</div>
 			</div>
 

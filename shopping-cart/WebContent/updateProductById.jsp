@@ -31,7 +31,7 @@
 	}
 	%>
 
-	<%@ include file="adminHeader.jsp"%>
+	<jsp:include page="header.jsp" />
 
 	<%
 	String message = request.getParameter("message");

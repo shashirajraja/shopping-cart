@@ -36,7 +36,7 @@
 	}
 	%>
 
-	<%@ include file="adminHeader.jsp"%>
+	<jsp:include page="header.jsp" />
 
 	<div class="products" style="background-color: #E6F9E6;">
 

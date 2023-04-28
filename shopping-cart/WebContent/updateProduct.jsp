@@ -36,7 +36,7 @@
 	}
 	%>
 
-	<%@ include file="adminHeader.jsp"%>
+	<jsp:include page="header.jsp" />
 
 	<%
 	String message = request.getParameter("message");
@@ -73,24 +73,33 @@
 						value="<%=product.getProdName()%>" id="last_name" required>
 				</div>
 				<div class="col-md-6 form-group">
+					<%
+					String ptype = product.getProdType();
+					%>
 					<label for="producttype">Product Type</label> <select name="type"
-						value="<%=product.getProdType()%>" id="producttype"
-						class="form-control" required>
-						<option value="mobile">Mobile</option>
-						<option value="tv">Tv</option>
-						<option value="camera">Camera</option>
-						<option value="laptop">Laptop</option>
-						<option value="tablet">Tablet</option>
-						<option value="speaker">Speaker</option>
-						<option value="other">Some Other Appliances</option>
+						id="producttype" class="form-control" required>
+						<option value="mobile"
+							<%="mobile".equalsIgnoreCase(ptype) ? "selected" : ""%>>MOBILE</option>
+						<option value="tv"
+							<%="tv".equalsIgnoreCase(ptype) ? "selected" : ""%>>TV</option>
+						<option value="camera"
+							<%="camera".equalsIgnoreCase(ptype) ? "selected" : ""%>>CAMERA</option>
+						<option value="laptop"
+							<%="laptop".equalsIgnoreCase(ptype) ? "selected" : ""%>>LAPTOP</option>
+						<option value="tablet"
+							<%="tablet".equalsIgnoreCase(ptype) ? "selected" : ""%>>TABLET</option>
+						<option value="speaker"
+							<%="speaker".equalsIgnoreCase(ptype) ? "selected" : ""%>>SPEAKER</option>
+						<option value="other"
+							<%="other".equalsIgnoreCase(ptype) ? "selected" : ""%>>Some
+							Other Appliances</option>
 					</select>
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="last_name">Product Description</label>
-				<textarea name="info" class="form-control" id="last_name" required>
-					<%=product.getProdInfo()%>	
-					</textarea>
+				<textarea name="info" class="form-control text-align-left"
+					id="last_name" required><%=product.getProdInfo()%></textarea>
 			</div>
 			<div class="row">
 				<div class="col-md-6 form-group">
@@ -105,11 +114,11 @@
 						id="last_name" name="quantity" required>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-md-4 text-center">
+			<div class="row text-center">
+				<div class="col-md-4">
 					<button formaction="adminViewProduct.jsp" class="btn btn-danger">Cancel</button>
 				</div>
-				<div class="col-md-4 text-center">
+				<div class="col-md-4">
 					<button type="submit" class="btn btn-success">Update
 						Product</button>
 				</div>

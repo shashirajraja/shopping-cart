@@ -35,7 +35,7 @@
 
 
 
-	<%@ include file="userHeader.jsp"%>
+	<jsp:include page="header.jsp" />
 
 	<!-- <script>document.getElementById('mycart').innerHTML='<i data-count="20" class="fa fa-shopping-cart fa-3x icon-white badge" style="background-color:#333;margin:0px;padding:0px; margin-top:5px;"></i>'</script>
  -->

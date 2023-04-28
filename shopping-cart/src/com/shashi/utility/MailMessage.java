@@ -95,4 +95,11 @@ public class MailMessage {
 		}
 	}
 
+	public static void sendMessage(String toEmailId, String subject, String htmlTextMessage) {
+		try {
+			JavaMailUtil.sendMail(toEmailId, subject, htmlTextMessage);
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
+	}
 }

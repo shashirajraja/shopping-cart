@@ -12,6 +12,8 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 
@@ -56,7 +58,6 @@
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="userHome.jsp"><span
 							class="glyphicon glyphicon-home">Products</span></a></li>
-					<li><a href="orderDetails.jsp">Orders</a></li>
 					<li class="dropdown"><a class="dropdown-toggle"
 						data-toggle="dropdown" href="#">Category <span class="caret"></span>
 					</a>
@@ -65,7 +66,6 @@
 							<li><a href="userHome.jsp?type=tv">Tvs</a></li>
 							<li><a href="userHome.jsp?type=laptop">Laptops</a></li>
 						</ul></li>
-					<!--         <li><a href="./ProfileSrv">Profile</a></li> -->
 					<%
 					if (notf == 0) {
 					%>
@@ -86,6 +86,7 @@
 					}
 					%>
 
+					<li><a href="orderDetails.jsp">Orders</a></li>
 					<li><a href="userProfile.jsp">Profile</a></li>
 					<li><a href="./LogoutSrv">Logout</a></li>
 				</ul>
