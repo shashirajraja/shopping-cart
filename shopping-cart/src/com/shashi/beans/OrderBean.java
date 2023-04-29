@@ -2,18 +2,19 @@ package com.shashi.beans;
 
 import java.io.Serializable;
 
-public class OrderBean implements Serializable{
+@SuppressWarnings("serial")
+public class OrderBean implements Serializable {
 
 	private String transactionId;
 	private String productId;
 	private int quantity;
 	private Double amount;
 	private int shipped;
-	
+
 	public OrderBean() {
 		super();
 	}
-	
+
 	public OrderBean(String transactionId, String productId, int quantity, Double amount) {
 		super();
 		this.transactionId = transactionId;
@@ -22,8 +23,8 @@ public class OrderBean implements Serializable{
 		this.amount = amount;
 		this.shipped = 0;
 	}
-	
-	public OrderBean(String transactionId, String productId, int quantity, Double amount,int shipped) {
+
+	public OrderBean(String transactionId, String productId, int quantity, Double amount, int shipped) {
 		super();
 		this.transactionId = transactionId;
 		this.productId = productId;
@@ -31,28 +32,35 @@ public class OrderBean implements Serializable{
 		this.amount = amount;
 		this.shipped = shipped;
 	}
-	
+
 	public String getTransactionId() {
 		return transactionId;
 	}
+
 	public void setTransactionId(String transactionId) {
 		this.transactionId = transactionId;
 	}
+
 	public String getProductId() {
 		return productId;
 	}
+
 	public void setProductId(String productId) {
 		this.productId = productId;
 	}
+
 	public int getQuantity() {
 		return quantity;
 	}
+
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
+
 	public Double getAmount() {
 		return amount;
 	}
+
 	public void setAmount(Double amount) {
 		this.amount = amount;
 	}
@@ -64,7 +72,5 @@ public class OrderBean implements Serializable{
 	public void setShipped(int shipped) {
 		this.shipped = shipped;
 	}
-	
-	
-	
+
 }

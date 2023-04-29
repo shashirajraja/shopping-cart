@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.shashi.dao.OrderDaoImpl;
+import com.shashi.service.impl.OrderServiceImpl;
 
 /**
  * Servlet implementation class OrderServlet
@@ -19,39 +19,35 @@ import com.shashi.dao.OrderDaoImpl;
 @WebServlet("/OrderServlet")
 public class OrderServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-      
-    public OrderServlet() {
-        super();
-    }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		HttpSession session = request.getSession();
-		String userName = (String)session.getAttribute("username");
-		String password = (String)session.getAttribute("password");
-	
-		if(userName == null || password==null){
-	
-			response.sendRedirect("loginFirst.jsp");
-		}	
-		
-		
+		String userName = (String) session.getAttribute("username");
+		String password = (String) session.getAttribute("password");
+
+		if (userName == null || password == null) {
+
+			response.sendRedirect("login.jsp?message=Session Expired, Login Again!!");
+		}
+
 		double paidAmount = Double.parseDouble(request.getParameter("amount"));
-		String status = new OrderDaoImpl().paymentSuccess(userName, paidAmount);
-		
+		String status = new OrderServiceImpl().paymentSuccess(userName, paidAmount);
+
 		PrintWriter pw = response.getWriter();
 		response.setContentType("text/html");
-		
-		RequestDispatcher rd = request.getRequestDispatcher("userHome.jsp");
-		
+
+		RequestDispatcher rd = request.getRequestDispatcher("orderDetails.jsp");
+
 		rd.include(request, response);
-		
-		pw.println("<script>document.getElementById('message').innerHTML='"+status+"'</script>");
+
+		pw.println("<script>document.getElementById('message').innerHTML='" + status + "'</script>");
 	}
 
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		doGet(request, response);
 	}
 

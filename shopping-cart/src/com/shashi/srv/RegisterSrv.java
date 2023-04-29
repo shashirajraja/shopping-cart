@@ -1,7 +1,6 @@
 package com.shashi.srv;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,8 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.shashi.beans.UserBean;
-import com.shashi.dao.UserDao;
-import com.shashi.dao.UserDaoImpl;
+import com.shashi.service.impl.UserServiceImpl;
 
 /**
  * Servlet implementation class RegisterSrv
@@ -20,15 +18,10 @@ import com.shashi.dao.UserDaoImpl;
 @WebServlet("/RegisterSrv")
 public class RegisterSrv extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-     
-    public RegisterSrv() {
-        super();
-       
-    }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-		PrintWriter pw = response.getWriter();
 		response.setContentType("text/html");
 		String userName = request.getParameter("username");
 		Long mobileNo = Long.parseLong(request.getParameter("mobile"));
@@ -36,21 +29,25 @@ public class RegisterSrv extends HttpServlet {
 		String address = request.getParameter("address");
 		int pinCode = Integer.parseInt(request.getParameter("pincode"));
 		String password = request.getParameter("password");
-		
-		UserBean user = new UserBean(userName,mobileNo,emailId,address,pinCode,password);
-		
-		UserDaoImpl dao = new UserDaoImpl();
-		
-		String status = dao.registerUser(user);
-		
-		RequestDispatcher rd = request.getRequestDispatcher("register.jsp");
-		
-		request.setAttribute("message", status);
-		
+		String confirmPassword = request.getParameter("confirmPassword");
+		String status = "";
+		if (password != null && password.equals(confirmPassword)) {
+			UserBean user = new UserBean(userName, mobileNo, emailId, address, pinCode, password);
+
+			UserServiceImpl dao = new UserServiceImpl();
+
+			status = dao.registerUser(user);
+		} else {
+			status = "Password not matching!";
+		}
+
+		RequestDispatcher rd = request.getRequestDispatcher("register.jsp?message=" + status);
+
 		rd.forward(request, response);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
 		doGet(request, response);
 	}

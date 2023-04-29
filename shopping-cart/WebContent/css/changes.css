@@ -75,7 +75,7 @@ button:hover{
 
 .products{
   background-color: #E6F9E6 !important;
-  padding:5%;
+  padding:20px;
 }
 
 .jumbotron {
@@ -87,18 +87,19 @@ button:hover{
   .price{
       color:red;
       font-weight: bold;
-      font-size: 30px;
+      font-size: 20px;
   }
 
   .productname{
       color:green;
-      font-size: 20px;
+      font-size: 15px;
       font-family: fantasy; 
   }
 
   .productinfo{
       color:black;
-      text-align: center;
+      /* text-align: center; */
+      font-size:12px;
   }
 
   /* If the screen size is 601px or more, set the font-size of <div> to 80px */
@@ -109,8 +110,8 @@ button:hover{
     font-weight: bold;
     font-style:normal;
     font-size: 20px;
-    margin-left:20%;
-    margin-right: 20%;
+    margin-left:20px;
+    margin-right: 20px;
     padding-top: 20px;
     padding-bottom: 15px;
   }
