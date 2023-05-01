@@ -16,7 +16,7 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
-<body>
+<body style="background-color: #E6F9E6;">
 
 	<%
 	/* Checking the user credentials */

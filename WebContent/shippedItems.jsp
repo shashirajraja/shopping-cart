@@ -7,6 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Admin Home</title>
+<link rel="stylesheet" href="css/changes.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script
@@ -37,67 +38,69 @@
 	<div class="text-center"
 		style="color: green; font-size: 24px; font-weight: bold;">Shipped
 		Orders</div>
-	<div class="container">
+	<div class="container-fluid">
+		<div class="table-responsive ">
+			<table class="table table-hover table-sm">
+				<thead
+					style="background-color: #115884; color: white; font-size: 18px;">
+					<tr>
+						<th>TransactionId</th>
+						<th>ProductId</th>
+						<th>Username</th>
+						<th>Address</th>
+						<th>Quantity</th>
+						<th>Amount</th>
+						<td>Status</td>
+					</tr>
+				</thead>
+				<tbody style="background-color: white;">
 
-		<table class="table table-hover">
-			<thead
-				style="background-color: #115884; color: white; font-size: 17px; font-weight: bold;">
-				<tr>
-					<th>TransactionId</th>
-					<th>ProductId</th>
-					<th>Username</th>
-					<th>Address</th>
-					<th>Quantity</th>
-					<td>Status</td>
-				</tr>
-			</thead>
-			<tbody
-				style="background-color: white; font-size: 15px; font-weight: bold;">
+					<%
+					OrderServiceImpl orderdao = new OrderServiceImpl();
 
-				<%
-				OrderServiceImpl orderdao = new OrderServiceImpl();
+					List<OrderBean> orders = new ArrayList<OrderBean>();
+					orders = orderdao.getAllOrders();
+					int count = 0;
+					for (OrderBean order : orders) {
+						String transId = order.getTransactionId();
+						String prodId = order.getProductId();
+						int quantity = order.getQuantity();
+						int shipped = order.getShipped();
+						String userId = new TransServiceImpl().getUserId(transId);
+						String userAddr = new UserServiceImpl().getUserAddr(userId);
+						if (shipped != 0) {
+							count++;
+					%>
 
-				List<OrderBean> orders = new ArrayList<OrderBean>();
-				orders = orderdao.getAllOrders();
-				int count = 0;
-				for (OrderBean order : orders) {
-					String transId = order.getTransactionId();
-					String prodId = order.getProductId();
-					int quantity = order.getQuantity();
-					int shipped = order.getShipped();
-					String userId = new TransServiceImpl().getUserId(transId);
-					String userAddr = new UserServiceImpl().getUserAddr(userId);
-					if (shipped != 0) {
-						count++;
-				%>
+					<tr>
+						<td><%=transId%></td>
+						<td><a href="./updateProduct.jsp?prodid=<%=prodId%>"><%=prodId%></a></td>
+						<td><%=userId%></td>
+						<td><%=userAddr%></td>
+						<td><%=quantity%></td>
+						<td>Rs. <%=order.getAmount()%></td>
+						<td class="text-success" style="font-weight: bold;">SHIPPED</td>
 
-				<tr>
-					<td><%=transId%></td>
-					<td><a href="./updateProduct.jsp?prodid=<%=prodId%>"><%=prodId%></a></td>
-					<td><%=userId%></td>
-					<td><%=userAddr%></td>
-					<td><%=quantity%></td>
-					<td>SHIPPED</td>
+					</tr>
 
-				</tr>
+					<%
+					}
+					}
+					%>
+					<%
+					if (count == 0) {
+					%>
+					<tr style="background-color: grey; color: white;">
+						<td colspan="7" style="text-align: center;">No Items
+							Available</td>
 
-				<%
-				}
-				}
-				%>
-				<%
-				if (count == 0) {
-				%>
-				<tr style="background-color: grey; color: white;">
-					<td colspan="6" style="text-align: center;">No Items Available
-					</td>
-
-				</tr>
-				<%
-				}
-				%>
-			</tbody>
-		</table>
+					</tr>
+					<%
+					}
+					%>
+				</tbody>
+			</table>
+		</div>
 	</div>
 
 	<%@ include file="footer.html"%>

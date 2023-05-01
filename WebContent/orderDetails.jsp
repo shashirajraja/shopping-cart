@@ -10,13 +10,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-<link rel="stylesheet" href="css/changes.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="css/changes.css">
 </head>
-<body>
+<body style="background-color: #E6F9E6;">
 
 	<%
 	/* Checking the user credentials */
@@ -43,48 +43,49 @@
 		style="color: green; font-size: 24px; font-weight: bold;">Order
 		Details</div>
 	<!-- Start of Product Items List -->
-	<div class="container" style="background-color: #E6F9E6;">
-		<table class="table table-hover">
-			<thead
-				style="background-color: black; color: white; font-size: 14px; font-weight: bold;">
-				<tr>
-					<th>Picture</th>
-					<th>ProductName</th>
-					<th>OrderId</th>
-					<th>Quantity</th>
-					<th>Price</th>
-					<th>Time</th>
-					<th>Status</th>
-				</tr>
-			</thead>
-			<tbody
-				style="background-color: white; font-size: 15px; font-weight: bold;">
-				<%
-				for (OrderDetails order : orders) {
-				%>
+	<div class="container">
+		<div class="table-responsive ">
+			<table class="table table-hover table-sm">
+				<thead
+					style="background-color: black; color: white; font-size: 14px; font-weight: bold;">
+					<tr>
+						<th>Picture</th>
+						<th>ProductName</th>
+						<th>OrderId</th>
+						<th>Quantity</th>
+						<th>Price</th>
+						<th>Time</th>
+						<th>Status</th>
+					</tr>
+				</thead>
+				<tbody
+					style="background-color: white; font-size: 15px; font-weight: bold;">
+					<%
+					for (OrderDetails order : orders) {
+					%>
 
-				<tr>
-					<td><img src="./ShowImage?pid=<%=order.getProductId()%>"
-						style="width: 50px; height: 50px;"></td>
-					<td><%=order.getProdName()%></td>
-					<td><%=order.getOrderId()%></td>
-					<td><%=order.getQty()%></td>
-					<td><%=order.getAmount()%></td>
-					<td><%=order.getTime()%></td>
-					<td class="text-success"><%=order.getShipped() == 0 ? "ORDER_PLACED" : "ORDER_SHIPPED"%></td>
-				</tr>
+					<tr>
+						<td><img src="./ShowImage?pid=<%=order.getProductId()%>"
+							style="width: 50px; height: 50px;"></td>
+						<td><%=order.getProdName()%></td>
+						<td><%=order.getOrderId()%></td>
+						<td><%=order.getQty()%></td>
+						<td><%=order.getAmount()%></td>
+						<td><%=order.getTime()%></td>
+						<td class="text-success"><%=order.getShipped() == 0 ? "ORDER_PLACED" : "ORDER_SHIPPED"%></td>
+					</tr>
 
-				<%
-				}
-				%>
+					<%
+					}
+					%>
 
-			</tbody>
-		</table>
+				</tbody>
+			</table>
+		</div>
 	</div>
 	<!-- ENd of Product Items List -->
 
 
 	<%@ include file="footer.html"%>
-
 </body>
 </html>
