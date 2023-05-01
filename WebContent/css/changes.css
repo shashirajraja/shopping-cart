@@ -1,0 +1,178 @@
+body {
+	background-color: #E6F9E6;
+}
+/* Add a dark background color with a little bit see-through */
+.navbar {
+	margin-bottom: 0;
+	background-color: #2d2d30;
+	border: 0;
+	font-size: 14px !important;
+	letter-spacing: 4px;
+	opacity: 0.9;
+}
+
+/* Add a gray color to all navbar links */
+.navbar li a, .navbar .navbar-brand {
+	color: #d5d5d5 !important;
+}
+
+/* On hover, the links will turn white */
+.navbar-nav li a:hover {
+	color: red !important;
+}
+
+/* The active link */
+.navbar-nav li.active a {
+	color: #fff !important;
+	background-color: #29292c !important;
+}
+
+/* Remove border color from the collapsible button */
+.navbar-default .navbar-toggle {
+	border-color: transparent;
+}
+
+/* Dropdown */
+.open .dropdown-toggle {
+	color: #fff;
+	background-color: #555 !important;
+}
+
+/* Dropdown links */
+.dropdown-menu li a {
+	color: #000 !important;
+}
+
+/* On hover, the dropdown links will turn red */
+.dropdown-menu li a:hover {
+	background-color: white !important;
+}
+
+/* Add a dark gray background color to the modal header and center text */
+button {
+	background-color: black;
+	color: white;
+	font-weight: bold;
+	border: 1px solid black;
+	padding: 7px;
+	border-radius: 5px;
+}
+
+button:hover {
+	background-color: green;
+	color: white;
+	border: 1px solid red;
+	padding: 7px;
+	font-weight: bold;
+}
+
+.bg-1 {
+	background: #2d2d30;
+	color: #bdbdbd;
+}
+
+.bg-1 h3 {
+	color: #fff;
+}
+
+.bg-1 p {
+	font-style: italic;
+}
+
+.products {
+	background-color: #E6F9E6 !important;
+	padding: 20px;
+}
+
+.jumbotron {
+	background-color: #33cc33; /*#f4511e; /* Orange */
+	color: #ffffff;
+}
+
+/*Handling the price tag*/
+.price {
+	color: red;
+	font-weight: bold;
+	font-size: 20px;
+}
+
+.productname {
+	color: green;
+	font-size: 15px;
+	font-family: fantasy;
+}
+
+.productinfo {
+	color: black;
+	/* text-align: center; */
+	font-size: 12px;
+}
+
+/* If the screen size is 601px or more, set the font-size of <div> to 80px */
+@media only screen and (min-width: 601px) {
+	.tab {
+		border-radius: 10px;
+		background-color: #FFE5CC;
+		font-weight: bold;
+		font-style: normal;
+		font-size: 20px;
+		margin-left: 20px;
+		margin-right: 20px;
+		padding-top: 20px;
+		padding-bottom: 15px;
+	}
+}
+
+/* If the screen size is 600px or less, set the font-size of <div> to 30px */
+@media only screen and (max-width: 600px) {
+	.tab {
+		border-radius: 10px;
+		background-color: #FFE5CC;
+		font-weight: bold;
+		font-style: normal;
+		font-size: 20px;
+		margin-left: 2%;
+		margin-right: 2%;
+		padding-top: 8px;
+		padding-bottom: 8px;
+	}
+}
+
+/* Shopping Cart notification Batch */
+*.icon-blue {
+	color: #0088cc;
+}
+
+*.icon-grey {
+	color: grey;
+}
+
+i {
+	width: 70px;
+	height: 50px;
+	text-align: center;
+	vertical-align: middle;
+	position: relative;
+}
+
+.badge:after {
+	content: attr(data-count);
+	position: absolute;
+	background: #ff6600;
+	height: 2rem;
+	top: 0.15rem;
+	right: 0.15rem;
+	width: 2rem;
+	text-align: center;
+	line-height: 2rem;
+	font-size: 1rem;
+	border-radius: 50%;
+	color: white;
+	border: 1px solid #ff6600;
+	font-family: sans-serif;
+	font-weight: bold;
+}
+
+i.fa::before {
+	font-size: 3rem !important;
+}
