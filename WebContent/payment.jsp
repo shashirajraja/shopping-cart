@@ -41,86 +41,62 @@
 
 	<jsp:include page="header.jsp" />
 
-	<!-- <script>document.getElementById('mycart').innerHTML='<i data-count="20" class="fa fa-shopping-cart fa-3x icon-white badge" style="background-color:#333;margin:0px;padding:0px; margin-top:5px;"></i>'</script>
- -->
-	<!-- Start of Product Items List -->
+	<div class="container">
+		<div class="row"
+			style="margin-top: 5px; margin-left: 2px; margin-right: 2px;">
+			<form action="./OrderServlet" method="post"
+				class="col-md-6 col-md-offset-3"
+				style="border: 2px solid black; border-radius: 10px; background-color: #FFE5CC; padding: 10px;">
+				<div style="font-weight: bold;" class="text-center">
+					<div class="form-group">
+						<img src="images/profile.jpg" alt="Payment Proceed" height="100px" />
+						<h2 style="color: green;">Credit Card Payment</h2>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12 form-group">
+						<label for="last_name">Name of Card Holder</label> <input
+							type="text" placeholder="Enter Card Holder Name"
+							name="cardholder" class="form-control" id="last_name" required>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12 form-group">
+						<label for="last_name">Enter Credit Card Number</label> <input
+							type="number" placeholder="4242-4242-4242-4242" name="cardnumber"
+							class="form-control" id="last_name" required>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6 form-group">
+						<label for="last_name">Expiry Month</label> <input type="number"
+							placeholder="MM" name="expmonth" class="form-control" size="2"
+							max="12" min="00" id="last_name" required>
+					</div>
+					<div class="col-md-6 form-group">
+						<label for="last_name">Expiry Year</label> <input type="number"
+							placeholder="YYYY" class="form-control" size="4" id="last_name"
+							name="expyear" required>
+					</div>
+				</div>
+				<div class="row text-center">
+					<div class="col-md-6 form-group">
+						<label for="last_name">Enter CVV</label> <input type="number"
+							placeholder="123" class="form-control" size="3" id="last_name"
+							name="expyear" required> <input type="hidden"
+							name="amount" value="<%=amount%>">
 
-	<div class="products" style="background-color: #E6F9E6;">
-		<p class="tab" align="center" style="color: brown;" id="message">Credit
-			Card Payment</p>
-
-		<div class="tab" align="center">
-
-			<div style="margin: 5px">
-
-				<form action="./OrderServlet" method="post">
-					<table border="0">
-						<tr>
-							<td>Name on Card:</td>
-							<td><input type="text" name="cardname"
-								style="font-size: 15px; font-weight: normal;"
-								placeholder="John More Doe" required></td>
-						</tr>
-						<tr>
-							<td><br></td>
-							<td><br></td>
-						</tr>
-						<tr>
-							<td>Credit Card Number:</td>
-							<td><input type="number" name="ccnum"
-								style="font-size: 15px; font-weight: normal;"
-								placeholder="1111-2222-3333-4444" required></td>
-						</tr>
-						<tr>
-							<td><br></td>
-							<td><br></td>
-						</tr>
-						<tr>
-							<td>Exp Month:</td>
-							<td><input type="number" name="expm"
-								style="font-size: 15px; font-weight: normal;" placeholder="12"
-								maxlength="2" required></td>
-						</tr>
-						<tr>
-							<td><br></td>
-							<td><br></td>
-						</tr>
-						<tr>
-							<td>CVV:</td>
-							<td><input type="number" name="cvv"
-								style="font-size: 15px; font-weight: normal;" placeholder="325"
-								maxlength="3" required></td>
-						</tr>
-						<tr>
-							<td><br></td>
-							<td><br></td>
-						</tr>
-						<tr>
-							<td>Exp Year:</td>
-							<td><input type="number" name="expyr"
-								style="font-size: 15px; font-weight: normal;" placeholder="2026"
-								maxlength="4" required></td>
-						</tr>
-						<tr>
-							<td><br></td>
-							<td><input type="hidden" name="amount" value="<%=amount%>" /><br></td>
-						</tr>
-						<tr colspan="2" align="center">
-							<td>&nbsp;</td>
-							<td><input type="submit" name="submit"
-								value="Pay :Rs <%=amount%>"
-								style="background-color: red; color: white;"></td>
-						</tr>
-
-					</table>
-
-				</form>
-			</div>
+					</div>
+					<div class="col-md-6 form-group">
+						<label>&nbsp;</label>
+						<button type="submit" class="form-control btn btn-success">
+							Pay :Rs
+							<%=amount%></button>
+					</div>
+				</div>
+			</form>
 		</div>
 	</div>
-
-
-
 
 	<!-- ENd of Product Items List -->
 
