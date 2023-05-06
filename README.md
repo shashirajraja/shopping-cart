@@ -1,7 +1,6 @@
-# Online Shopping Cart E-Commerce Website
+# Online Shopping Cart (E-Commerce Website)
 - YouTube video for step by step local setup of similar project: https://www.youtube.com/watch?v=mLFPodZO8Iw&t=8s
 <!-- Live site url: https://ellisonelectronics.herokuapp.com -->
-
 This is an E-Commerce Website build for selling of any electronics products online.
 
 ### About
@@ -15,7 +14,7 @@ Sometimes, if the user tried to add any item which is out of stock, them they wi
 
 Note: The payment page is created only for demo purpose and its not fully integrated with any payment gateway. So for now any credit card details will be accepted and the demo orders will be placed.
 
-##Highlights:--
+## Highlights :--
 
 ### The users will get a mail to their registered mail Id during:-
 - New User Registration
