@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" external-system-id="Maven" name="shopping-cart:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>shopping-cart</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="shopping-cart-0.0.1-SNAPSHOT.war">
+      <element id="artifact" artifact-name="shopping-cart:war exploded" />
+    </root>
+  </artifact>
+</component>

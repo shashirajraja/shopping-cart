@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="Maven: com.sun.mail:jakarta.mail:2.0.1" type="java-imported" external-system-id="Maven">
+    <properties groupId="com.sun.mail" artifactId="jakarta.mail" version="2.0.1" />
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.m2/repository/com/sun/mail/jakarta.mail/2.0.1/jakarta.mail-2.0.1.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.m2/repository/com/sun/mail/jakarta.mail/2.0.1/jakarta.mail-2.0.1-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.m2/repository/com/sun/mail/jakarta.mail/2.0.1/jakarta.mail-2.0.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

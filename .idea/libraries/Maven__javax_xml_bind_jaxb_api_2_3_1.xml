@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="Maven: javax.xml.bind:jaxb-api:2.3.1" type="java-imported" external-system-id="Maven">
+    <properties groupId="javax.xml.bind" artifactId="jaxb-api" version="2.3.1" />
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.m2/repository/javax/xml/bind/jaxb-api/2.3.1/jaxb-api-2.3.1.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.m2/repository/javax/xml/bind/jaxb-api/2.3.1/jaxb-api-2.3.1-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.m2/repository/javax/xml/bind/jaxb-api/2.3.1/jaxb-api-2.3.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

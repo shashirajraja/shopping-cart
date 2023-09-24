@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="Maven: com.sun.activation:jakarta.activation:2.0.1" type="java-imported" external-system-id="Maven">
+    <properties groupId="com.sun.activation" artifactId="jakarta.activation" version="2.0.1" />
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.m2/repository/com/sun/activation/jakarta.activation/2.0.1/jakarta.activation-2.0.1.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.m2/repository/com/sun/activation/jakarta.activation/2.0.1/jakarta.activation-2.0.1-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.m2/repository/com/sun/activation/jakarta.activation/2.0.1/jakarta.activation-2.0.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
