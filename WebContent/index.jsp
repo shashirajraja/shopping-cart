@@ -43,6 +43,31 @@
 		style="color: black; font-size: 20px; font-weight: bold;"><%=message%></div>
 	<div class="text-center" id="message"
 		style="color: black; font-size: 20px; font-weight: bold;"></div>
+	<!-- Filter Section -->
+	<div class="container">
+		<div class="row">
+			<div class="col-md-4">
+				<h3>Filter by Category:</h3>
+				<select id="categoryFilter">
+					<option value="all">All Categories</option>
+					<option value="category1">Category 1</option>
+					<option value="category2">Category 2</option>
+					<!-- Add more categories as needed -->
+				</select>
+			</div>
+			<div class="col-md-4">
+				<h3>Filter by Price:</h3>
+				<input type="number" id="minPrice" placeholder="Min Price">
+				<input type="number" id="maxPrice" placeholder="Max Price">
+			</div>
+			<div class="col-md-4">
+				<h3>Filter by Tags:</h3>
+				<label><input type="checkbox" class="tagFilter" value="discounted"> Discounted</label>
+				<label><input type="checkbox" class="tagFilter" value="used"> Used</label>
+				<!-- Add more tags as needed -->
+			</div>
+		</div>
+	</div>
 	<!-- Start of Product Items List -->
 	<div class="container">
 		<div class="row text-center">
@@ -64,9 +89,33 @@
 					<p class="productinfo"><%=description%>..
 					</p>
 					<p class="price">
-						Rs
-						<%=product.getProdPrice()%>
+						<%=product.getProdPrice()%> CAD$
 					</p>
+					<div>
+						<span class="tag discounted">Discounted</span>
+						<span class="tag used">Used</span>
+						<style>
+							/* Adding CSS for tags */
+							.tag {
+								display: inline-block;
+								padding: 5px 10px;
+								background-color: #FF5733; /* Background color for the tags */
+								color: #FFFFFF; /* Text color for the tags */
+								font-size: 12px;
+								margin-right: 5px;
+								margin-bottom: 10px;
+								border-radius: 3px;
+							}
+
+							.tag.discounted {
+								background-color: #FF5733; /* Customize the color for discounted items */
+							}
+
+							.tag.used {
+								background-color: #3333FF; /* Customize the color for used items */
+							}
+						</style>
+					</div>
 					<form method="post">
 						<%
 						if (cartQty == 0) {

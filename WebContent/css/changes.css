@@ -91,9 +91,9 @@ button:hover {
 
 /*Handling the price tag*/
 .price {
-	color: red;
+	color: black;
 	font-weight: bold;
-	font-size: 20px;
+	font-size: 18px;
 }
 
 .productname {

@@ -64,9 +64,6 @@
 			</thead>
 			<tbody
 				style="background-color: white; font-size: 15px; font-weight: bold;">
-
-
-
 				<%
 				CartServiceImpl cart = new CartServiceImpl();
 				List<CartBean> cartItems = new ArrayList<CartBean>();
@@ -86,7 +83,6 @@
 
 					if (prodQuantity > 0) {
 				%>
-
 				<tr>
 					<td><img src="./ShowImage?pid=<%=product.getProdId()%>"
 						style="width: 50px; height: 50px;"></td>
@@ -107,12 +103,21 @@
 							class="fa fa-minus"></i></a></td>
 					<td><%=currAmount%></td>
 				</tr>
-
 				<%
 				}
 				}
 				%>
-
+				<!-- Add shipping choice as radio -->
+				<tr>
+					<td colspan="6">
+						<label>Select Shipping Method:</label>
+						<input type="radio" name="shipping" value="normal" checked> Normal Shipping
+						<input type="radio" name="shipping" value="premium"> Premium Shipping
+						<input type="radio" name="shipping" value="pickup"> Pickup
+					</td>
+					<td>2450.0</td>
+				</tr>
+				<!-- Display total amount of cart -->
 				<tr style="background-color: grey; color: white;">
 					<td colspan="6" style="text-align: center;">Total Amount to
 						Pay (in Rupees)</td>
