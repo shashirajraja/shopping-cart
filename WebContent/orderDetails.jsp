@@ -2,22 +2,6 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ page
 	import="com.shashi.service.impl.*, com.shashi.service.*,com.shashi.beans.*,java.util.*,javax.servlet.ServletOutputStream,java.io.*"%>
-<!DOCTYPE html>
-<html>
-<head>
-<title>Order Details</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="css/changes.css">
-</head>
-<body style="background-color: #E6F9E6;">
-
 	<%
 	/* Checking the user credentials */
 	String userName = (String) session.getAttribute("username");
@@ -33,8 +17,7 @@
 	List<OrderDetails> orders = dao.getAllOrderDetails(userName);
 	%>
 
-
-
+	<% request.setAttribute("pageTitle", "Order Details"); %>
 	<jsp:include page="header.jsp" />
 
 	<!-- <script>document.getElementById('mycart').innerHTML='<i data-count="20" class="fa fa-shopping-cart fa-3x icon-white badge" style="background-color:#333;margin:0px;padding:0px; margin-top:5px;"></i>'</script>

@@ -2,22 +2,6 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ page
 	import="com.shashi.service.impl.*, com.shashi.service.*,com.shashi.beans.*,java.util.*,javax.servlet.ServletOutputStream,java.io.*"%>
-<!DOCTYPE html>
-<html>
-<head>
-<title>View Products</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-<link rel="stylesheet" href="css/changes.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-</head>
-<body style="background-color: #E6F9E6;">
-
 	<%
 	/* Checking the user credentials */
 	String userName = (String) session.getAttribute("username");
@@ -56,8 +40,7 @@
 	}
 	%>
 
-
-
+	<% request.setAttribute("pageTitle", "View Products"); %>
 	<jsp:include page="header.jsp" />
 
 	<div class="text-center"
