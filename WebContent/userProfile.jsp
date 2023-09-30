@@ -122,7 +122,7 @@
 	<br>
 	<br>
 
-	<%@ include file="footer.html"%>
+	<%@ include file="footer.jsp"%>
 
 </body>
 </html>

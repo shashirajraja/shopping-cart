@@ -1,21 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html>
-<html>
-<head>
-<title>Login</title>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-<link rel="stylesheet" href="css/changes.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-</head>
-<body style="background-color: #f5f5dc;">
-
+	<% request.setAttribute("pageTitle", "Login"); %>
 	<%@ include file="header.jsp"%>
-
 	<%
 	String message = request.getParameter("message");
 	%>
@@ -24,13 +8,13 @@
 			style="margin-top: 5px; margin-left: 2px; margin-right: 2px;">
 			<form action="./LoginSrv" method="post"
 				class="col-md-4 col-md-offset-4 col-sm-8 col-sm-offset-2"
-				style="border: 2px solid black; border-radius: 10px; background-color: #FFE5CC; padding: 10px;">
+				style="border: 2px solid black; border-radius: 10px; background-color: white; padding: 10px;">
 				<div style="font-weight: bold;" class="text-center">
-					<h2 style="color: green;">Login Form</h2>
+					<h2 style="color: maroon;">Login Form</h2>
 					<%
 					if (message != null) {
 					%>
-					<p style="color: blue;">
+					<p style="color: red;">
 						<%=message%>
 					</p>
 					<%
@@ -40,9 +24,16 @@
 				<div></div>
 				<div class="row">
 					<div class="col-md-12 form-group">
+						<label for="last_name">Concordia ID</label> <input
+						placeholder="Enter Concordia ID" name="concordiaID" class="form-control"
+						id="concordia_id">
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12 form-group">
 						<label for="last_name">Username</label> <input type="email"
 							placeholder="Enter Username" name="username" class="form-control"
-							id="last_name" required>
+							id="user_name" required>
 					</div>
 				</div>
 				<div class="row">
@@ -71,7 +62,7 @@
 		</div>
 	</div>
 
-	<%@ include file="footer.html"%>
+	<%@ include file="footer.jsp"%>
 
 </body>
 </html>
