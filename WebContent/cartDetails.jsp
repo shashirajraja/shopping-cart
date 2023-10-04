@@ -2,24 +2,6 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ page
 	import="com.shashi.service.impl.*, com.shashi.service.*,com.shashi.beans.*,java.util.*,javax.servlet.ServletOutputStream,java.io.*"%>
-<!DOCTYPE html>
-<html>
-<head>
-<title>Cart Details</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-<link rel="stylesheet" href="css/changes.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-</head>
-<body style="background-color: #E6F9E6;">
-
 	<%
 	/* Checking the user credentials */
 	String userName = (String) session.getAttribute("username");
@@ -56,8 +38,7 @@
 	}
 	%>
 
-
-
+	<% request.setAttribute("pageTitle", "Cart Details"); %>
 	<jsp:include page="header.jsp" />
 
 	<div class="text-center"
@@ -83,9 +64,6 @@
 			</thead>
 			<tbody
 				style="background-color: white; font-size: 15px; font-weight: bold;">
-
-
-
 				<%
 				CartServiceImpl cart = new CartServiceImpl();
 				List<CartBean> cartItems = new ArrayList<CartBean>();
@@ -105,7 +83,6 @@
 
 					if (prodQuantity > 0) {
 				%>
-
 				<tr>
 					<td><img src="./ShowImage?pid=<%=product.getProdId()%>"
 						style="width: 50px; height: 50px;"></td>
@@ -126,12 +103,21 @@
 							class="fa fa-minus"></i></a></td>
 					<td><%=currAmount%></td>
 				</tr>
-
 				<%
 				}
 				}
 				%>
-
+				<!-- Add shipping choice as radio -->
+				<tr>
+					<td colspan="6">
+						<label>Select Shipping Method:</label>
+						<input type="radio" name="shipping" value="normal" checked> Normal Shipping
+						<input type="radio" name="shipping" value="premium"> Premium Shipping
+						<input type="radio" name="shipping" value="pickup"> Pickup
+					</td>
+					<td>2450.0</td>
+				</tr>
+				<!-- Display total amount of cart -->
 				<tr style="background-color: grey; color: white;">
 					<td colspan="6" style="text-align: center;">Total Amount to
 						Pay (in Rupees)</td>
@@ -161,7 +147,7 @@
 	<!-- ENd of Product Items List -->
 
 
-	<%@ include file="footer.html"%>
+	<%@ include file="footer.jsp"%>
 
 </body>
 </html>
