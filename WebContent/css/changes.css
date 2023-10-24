@@ -1,5 +1,5 @@
 body {
-	background-color: #E6F9E6;
+	background-color: #FAECEF !important;
 }
 /* Add a dark background color with a little bit see-through */
 .navbar {
@@ -18,7 +18,7 @@ body {
 
 /* On hover, the links will turn white */
 .navbar-nav li a:hover {
-	color: red !important;
+	color: #23907C !important;
 }
 
 /* The active link */

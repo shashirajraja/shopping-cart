@@ -6,13 +6,13 @@
 <title>Register</title>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-<link rel="stylesheet" href="css/changes.css">
+<link rel="stylesheet" href="css/changes.css?cache_num=<%=Math.random()%>">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
-<body style="background-color: #E6F9E6;">
+<body>
 
 	<%@ include file="header.jsp"%>
 	<%
@@ -26,7 +26,7 @@
 				class="col-md-6 col-md-offset-3"
 				style="border: 2px solid black; border-radius: 10px; background-color: #FFE5CC; padding: 10px;">
 				<div style="font-weight: bold;" class="text-center">
-					<h2 style="color: green;">Registration Form</h2>
+					<h2 style="color: #912338;">Registration Form</h2>
 					<%
 					if (message != null) {
 					%>
