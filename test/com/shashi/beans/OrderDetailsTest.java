@@ -1,72 +1,70 @@
 package com.shashi.beans;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.io.InputStream;
+import java.sql.Timestamp;
 
-class OrderDetailsTest {
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-    @Test
-    void getOrderId() {
+public class OrderDetailsTest {
+
+    private OrderDetails orderDetails;
+
+    @BeforeEach
+    public void setUp() {
+        orderDetails = new OrderDetails();
     }
 
     @Test
-    void setOrderId() {
+    public void testGetSetOrderId() {
+        orderDetails.setOrderId("testOrderId");
+        assertEquals("testOrderId", orderDetails.getOrderId());
     }
 
     @Test
-    void getProdName() {
+    public void testGetSetProdName() {
+        orderDetails.setProdName("testProdName");
+        assertEquals("testProdName", orderDetails.getProdName());
     }
 
     @Test
-    void setProdName() {
+    public void testGetSetQty() {
+        orderDetails.setQty("2");
+        assertEquals("2", orderDetails.getQty());
     }
 
     @Test
-    void getQty() {
+    public void testGetSetAmount() {
+        orderDetails.setAmount("20.00");
+        assertEquals("20.00", orderDetails.getAmount());
     }
 
     @Test
-    void setQty() {
+    public void testGetSetTime() {
+        Timestamp timestamp = Timestamp.valueOf("2023-11-05 14:30:00");
+        orderDetails.setTime(timestamp);
+        assertEquals(timestamp, orderDetails.getTime());
     }
 
     @Test
-    void getAmount() {
+    public void testGetSetProdImage() {
+        // Assuming you have an InputStream to set
+        InputStream inputStream = null;
+        orderDetails.setProdImage(inputStream);
+        assertEquals(inputStream, orderDetails.getProdImage());
     }
 
     @Test
-    void setAmount() {
+    public void testGetSetProductId() {
+        orderDetails.setProductId("testProductId");
+        assertEquals("testProductId", orderDetails.getProductId());
     }
 
     @Test
-    void getTime() {
-    }
-
-    @Test
-    void setTime() {
-    }
-
-    @Test
-    void getProdImage() {
-    }
-
-    @Test
-    void setProdImage() {
-    }
-
-    @Test
-    void getProductId() {
-    }
-
-    @Test
-    void setProductId() {
-    }
-
-    @Test
-    void getShipped() {
-    }
-
-    @Test
-    void setShipped() {
+    public void testGetSetShipped() {
+        orderDetails.setShipped(1);
+        assertEquals(1, orderDetails.getShipped());
     }
 }
