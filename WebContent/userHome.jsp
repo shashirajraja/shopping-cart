@@ -2,6 +2,22 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ page
 	import="com.shashi.service.impl.*, com.shashi.service.*,com.shashi.beans.*,java.util.*,javax.servlet.ServletOutputStream,java.io.*"%>
+<!DOCTYPE html>
+<html>
+<head>
+<title>Ellison Electronics</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="css/changes.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<body style="background-color: #f2f2f2;">
+
 	<%
 	/* Checking the user credentials */
 	String userName = (String) session.getAttribute("username");
@@ -33,7 +49,8 @@
 	}
 	%>
 
-	<% request.setAttribute("pageTitle", "Concordia Shopping"); %>
+
+
 	<jsp:include page="header.jsp" />
 
 	<div class="text-center"
@@ -41,7 +58,7 @@
 	<!-- <script>document.getElementById('mycart').innerHTML='<i data-count="20" class="fa fa-shopping-cart fa-3x icon-white badge" style="background-color:#333;margin:0px;padding:0px; margin-top:5px;"></i>'</script>
  -->
 	<!-- Start of Product Items List -->
-	<div class="container">
+	<div class="container" style="padding-top: 5%">
 		<div class="row text-center">
 
 			<%
@@ -101,7 +118,7 @@
 	<!-- ENd of Product Items List -->
 
 
-	<%@ include file="footer.jsp"%>
+	<%@ include file="footer.html"%>
 
 </body>
 </html>

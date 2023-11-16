@@ -2,6 +2,18 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ page
 	import="com.shashi.service.impl.*, com.shashi.beans.*,com.shashi.service.*,java.util.*"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Admin Home</title>
+<link rel="stylesheet" href="css/changes.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<body style="background-color: #f2f2f2;">
 	<%
 	/* Checking the user credentials */
 	String userType = (String) session.getAttribute("usertype");
@@ -21,11 +33,10 @@
 	}
 	%>
 
-	<% request.setAttribute("pageTitle", "Shipped Items"); %>
 	<jsp:include page="header.jsp" />
 
 	<div class="text-center"
-		style="color: green; font-size: 24px; font-weight: bold;">Shipped
+		style="color: black; font-size: 24px; font-weight: bold;">Shipped
 		Orders</div>
 	<div class="container-fluid">
 		<div class="table-responsive ">
@@ -92,6 +103,6 @@
 		</div>
 	</div>
 
-	<%@ include file="footer.jsp"%>
+	<%@ include file="footer.html"%>
 </body>
 </html>

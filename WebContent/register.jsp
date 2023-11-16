@@ -1,6 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-	<% request.setAttribute("pageTitle", "Regist"); %>
+<!DOCTYPE html>
+<html>
+<head>
+<title>Register</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="css/changes.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<body style="background-color: #f2f2f2;">
+
 	<%@ include file="header.jsp"%>
 	<%
 	String message = request.getParameter("message");
@@ -11,9 +24,9 @@
 
 			<form action="./RegisterSrv" method="post"
 				class="col-md-6 col-md-offset-3"
-				style="border: 2px solid black; border-radius: 10px; background-color: #FFE5CC; padding: 10px;">
+				style="border: 1px grey; border-radius: 10px; background-color: #ffffff; padding: 25px;">
 				<div style="font-weight: bold;" class="text-center">
-					<h2 style="color: green;">Registration Form</h2>
+					<h2 style="color: black;">Registration Form</h2>
 					<%
 					if (message != null) {
 					%>
@@ -80,6 +93,6 @@
 	</div>
 
 
-	<%@ include file="footer.jsp"%>
+	<%@ include file="footer.html"%>
 </body>
 </html>

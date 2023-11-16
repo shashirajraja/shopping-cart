@@ -5,8 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title><%= (String) request.getAttribute("pageTitle") %></title>
-	<!-- Add your common meta tags, stylesheets, and scripts here -->
+<title>Logout Header</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
@@ -19,25 +18,9 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-<body style="background-color: #f5f5dc;">
+<body style="background-color: #E6F9E6;">
 	<!--Company Header Starting  -->
-	<div class="container-fluid text-center"
-		style="margin-top: 45px; background-color: #721c24; color: white; padding: 5px;">
-		<h2>Concordia Shopping Cart</h2>
-		<h6>Small planet. Big thinking.</h6>
-		<form class="form-inline" action="index.jsp" method="get">
-			<div class="input-group">
-				<input type="text" class="form-control" size="50" name="search"
-					placeholder="Search Items" required>
-				<div class="input-group-btn">
-					<input type="submit" class="btn btn-danger" value="Search" />
-				</div>
-			</div>
-		</form>
-		<p align="center"
-			style="color: blue; font-weight: bold; margin-top: 5px; margin-bottom: 5px;"
-			id="message"></p>
-	</div>
+	<jsp:include page="search.jsp" />
 	<!-- Company Header Ending -->
 
 	<%
@@ -55,8 +38,7 @@
 					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="index.jsp"><span
-					class="glyphicon glyphicon-home">&nbsp;</span>Shopping Center</a>
+				<a class="navbar-brand" href="index.jsp">Concordia Shopping Cart</a>
 			</div>
 			<div class="collapse navbar-collapse" id="myNavbar">
 				<ul class="nav navbar-nav navbar-right">
@@ -92,14 +74,12 @@
 					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="userHome.jsp"><span
-					class="glyphicon glyphicon-home">&nbsp;</span>Shopping Center</a>
+				<a class="navbar-brand" href="userHome.jsp">Concordia Shopping Cart</a>
 			</div>
 
 			<div class="collapse navbar-collapse" id="myNavbar">
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="userHome.jsp"><span
-							class="glyphicon glyphicon-home">Products</span></a></li>
+					<li><a href="userHome.jsp">Products</a></li>
 					<li class="dropdown"><a class="dropdown-toggle"
 						data-toggle="dropdown" href="#">Category <span class="caret"></span>
 					</a>
@@ -148,8 +128,7 @@
 					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="adminViewProduct.jsp"><span
-					class="glyphicon glyphicon-home">&nbsp;</span>Shopping Center</a>
+				<a class="navbar-brand" href="adminViewProduct.jsp">Concordia Shopping Cart</a>
 			</div>
 			<div class="collapse navbar-collapse" id="myNavbar">
 				<ul class="nav navbar-nav navbar-right">

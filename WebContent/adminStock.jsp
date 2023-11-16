@@ -2,6 +2,21 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ page
 	import="com.shashi.service.impl.*, com.shashi.service.*,com.shashi.beans.*,java.util.*,javax.servlet.ServletOutputStream,java.io.*"%>
+<!DOCTYPE html>
+<html>
+<head>
+<title>Product Stocks</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="css/changes.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<body style="background-color: #f2f2f2;">
 	<%
 	/* Checking the user credentials */
 	String userType = (String) session.getAttribute("usertype");
@@ -21,17 +36,16 @@
 	}
 	%>
 
-	<% request.setAttribute("pageTitle", "Product Stocks"); %>
 	<jsp:include page="header.jsp" />
 
 	<div class="text-center"
-		style="color: green; font-size: 24px; font-weight: bold;">Stock
+		style="color: black; font-size: 24px; font-weight: bold; padding-bottom: 5px">Stock
 		Products</div>
 	<div class="container-fluid">
 		<div class="table-responsive ">
 			<table class="table table-hover table-sm">
 				<thead
-					style="background-color: #2c6c4b; color: white; font-size: 18px;">
+					style="background-color: #F55C5C; color: white; font-size: 18px;">
 					<tr>
 						<th>Image</th>
 						<th>ProductId</th>
@@ -104,6 +118,6 @@
 		</div>
 	</div>
 
-	<%@ include file="footer.jsp"%>
+	<%@ include file="footer.html"%>
 </body>
 </html>
