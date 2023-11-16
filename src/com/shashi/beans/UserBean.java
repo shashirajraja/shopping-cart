@@ -18,12 +18,12 @@ public class UserBean implements Serializable {
 		this.password = password;
 	}
 
-	private String name;
-	private Long mobile;
-	private String email;
-	private String address;
-	private int pinCode;
-	private String password;
+	protected String name;
+	protected Long mobile;
+	protected String email;
+	protected String address;
+	protected int pinCode;
+	protected String password;
 
 	public String getName() {
 		return name;
