@@ -1,24 +1,27 @@
 body {
-	background-color: #E6F9E6;
+	background-color: #f2f2f2;
 }
 /* Add a dark background color with a little bit see-through */
 .navbar {
-	margin-bottom: 0;
-	background-color: #2d2d30;
+	margin-bottom: 10px;
+	background-color: #F55C5C;
 	border: 0;
 	font-size: 14px !important;
-	letter-spacing: 4px;
+	font-weight: bold;
+	font-family: "Helvetica Neue", serif;
+	letter-spacing: 2px;
 	opacity: 0.9;
 }
 
 /* Add a gray color to all navbar links */
 .navbar li a, .navbar .navbar-brand {
-	color: #d5d5d5 !important;
+	color: #ffffff !important;
+
 }
 
 /* On hover, the links will turn white */
 .navbar-nav li a:hover {
-	color: red !important;
+	color: #000000 !important;
 }
 
 /* The active link */
@@ -36,6 +39,7 @@ body {
 .open .dropdown-toggle {
 	color: #fff;
 	background-color: #555 !important;
+	font-family: "Helvetica Neue", serif;
 }
 
 /* Dropdown links */
@@ -56,13 +60,12 @@ button {
 	border: 1px solid black;
 	padding: 7px;
 	border-radius: 5px;
+
 }
 
 button:hover {
-	background-color: green;
+	background-color: #f55c5c;
 	color: white;
-	border: 1px solid red;
-	padding: 7px;
 	font-weight: bold;
 }
 
@@ -81,7 +84,7 @@ button:hover {
 
 .products {
 	background-color: #E6F9E6 !important;
-	padding: 20px;
+	padding: 30px;
 }
 
 .jumbotron {
@@ -91,15 +94,17 @@ button:hover {
 
 /*Handling the price tag*/
 .price {
-	color: black;
+	color: #000000;
 	font-weight: bold;
-	font-size: 18px;
+	font-size: 20px;
+	font-family: "Helvetica Neue", serif;
 }
 
 .productname {
-	color: green;
+	color: black;
 	font-size: 15px;
-	font-family: fantasy;
+	font-weight: bold;
+	font-family: "Helvetica Neue", serif;
 }
 
 .productinfo {

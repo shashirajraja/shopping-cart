@@ -1,5 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<title>Add Product</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="css/changes.css">
+</head>
+<body style="background-color: #f2f2f2;">
 	<%
 	/* Checking the user credentials */
 	String userType = (String) session.getAttribute("usertype");
@@ -19,7 +34,6 @@
 	}
 	%>
 
-	<% request.setAttribute("pageTitle", "Add product"); %>
 	<jsp:include page="header.jsp" />
 
 	<%
@@ -30,9 +44,9 @@
 			style="margin-top: 5px; margin-left: 2px; margin-right: 2px;">
 			<form action="./AddProductSrv" method="post"
 				enctype="multipart/form-data" class="col-md-6 col-md-offset-3"
-				style="border: 2px solid black; border-radius: 10px; background-color: #FFE5CC; padding: 10px;">
+				style="border: 1px grey; border-radius: 10px; background-color: #ffffff; padding: 25px;">
 				<div style="font-weight: bold;" class="text-center">
-					<h2 style="color: green;">Product Addition Form</h2>
+					<h2 style="color: black;">Product Addition Form</h2>
 					<%
 					if (message != null) {
 					%>
@@ -98,6 +112,6 @@
 		</div>
 	</div>
 
-	<%@ include file="footer.jsp"%>
+	<%@ include file="footer.html"%>
 </body>
 </html>
