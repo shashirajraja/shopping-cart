@@ -19,11 +19,11 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public String addProduct(String prodName, String prodType, String prodInfo, double prodPrice, int prodQuantity,
-			InputStream prodImage) {
+			InputStream prodImage, double discountPercentage, boolean isDiscounted, boolean isUsed,String sellerId) {
 		String status = null;
 		String prodId = IDUtil.generateId();
 
-		ProductBean product = new ProductBean(prodId, prodName, prodType, prodInfo, prodPrice, prodQuantity, prodImage);
+		ProductBean product = new ProductBean(prodId, prodName, prodType, prodInfo, prodPrice, prodQuantity, prodImage, discountPercentage,isDiscounted,isUsed,sellerId);
 
 		status = addProduct(product);
 

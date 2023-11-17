@@ -40,7 +40,7 @@ public class OrderServiceImpl implements OrderService {
 
 			double amount = new ProductServiceImpl().getProductPrice(item.getProdId()) * item.getQuantity();
 
-			OrderBean order = new OrderBean(transactionId, item.getProdId(), item.getQuantity(), amount);
+			OrderBean order = new OrderBean(transactionId, item.getProdId(), item.getQuantity(), amount, item.getUserId(), item.getProdId(), "ordered"); //modify this class
 
 			ordered = addOrder(order);
 			if (!ordered)
@@ -181,7 +181,7 @@ public class OrderServiceImpl implements OrderService {
 			while (rs.next()) {
 
 				OrderBean order = new OrderBean(rs.getString("orderid"), rs.getString("prodid"), rs.getInt("quantity"),
-						rs.getDouble("amount"), rs.getInt("shipped"));
+						rs.getDouble("amount"), rs.getInt("shipped"), rs.getString("sellerId"), rs.getString("studentId"), rs.getString("status"));
 
 				orderList.add(order);
 
@@ -214,7 +214,7 @@ public class OrderServiceImpl implements OrderService {
 			while (rs.next()) {
 
 				OrderBean order = new OrderBean(rs.getString("t.transid"), rs.getString("t.prodid"),
-						rs.getInt("quantity"), rs.getDouble("t.amount"), rs.getInt("shipped"));
+						rs.getInt("quantity"), rs.getDouble("t.amount"), rs.getInt("shipped"), rs.getString("sellerId"), rs.getString("studentId"), rs.getString("status"));
 
 				orderList.add(order);
 
