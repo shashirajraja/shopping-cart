@@ -14,6 +14,45 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 CREATE SCHEMA IF NOT EXISTS `shopping-cart` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
 USE `shopping-cart` ;
 
+
+-----------------------------------------------------
+-- Table shopping-cart.seller
+-- ---------------------------------------------------
+DROP TABLE IF EXISTS `shopping-cart`.`seller` ;
+CREATE TABLE IF NOT EXISTS `shopping-cart`.`seller` (
+  `email` VARCHAR(60) NOT NULL,
+  `name` VARCHAR(30) NULL DEFAULT NULL,
+  `mobile` BIGINT NULL DEFAULT NULL,
+  `address` VARCHAR(250) NULL DEFAULT NULL,
+  `pincode` INT NULL DEFAULT NULL,
+  `password` VARCHAR(20) NULL DEFAULT NULL,
+  `companyName` VARCHAR(20) NOT NULL,
+  PRIMARY KEY (`companyName`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+---------------------------------------------------
+-- Table shopping-cart.student
+---------------------------------------------------
+DROP TABLE IF EXISTS `shopping-cart`.`student` ;
+CREATE TABLE IF NOT EXISTS `shopping-cart`.`student` (
+  `email` VARCHAR(60) NOT NULL,
+  `name` VARCHAR(30) NULL DEFAULT NULL,
+  `mobile` BIGINT NULL DEFAULT NULL,
+  `address` VARCHAR(250) NULL DEFAULT NULL,
+  `pincode` INT NULL DEFAULT NULL,
+  `password` VARCHAR(20) NULL DEFAULT NULL,
+  `firstName` VARCHAR(20) NULL DEFAULT NULL,
+  `lastName` VARCHAR(20) NULL DEFAULT NULL,
+  `concordiaId` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`concordiaId`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
 -- -----------------------------------------------------
 -- Table `shopping-cart`.`product`
 -- -----------------------------------------------------
@@ -27,7 +66,17 @@ CREATE TABLE IF NOT EXISTS `shopping-cart`.`product` (
   `pprice` DECIMAL(12,2) NULL DEFAULT NULL,
   `pquantity` INT NULL DEFAULT NULL,
   `image` LONGBLOB NULL DEFAULT NULL,
-  PRIMARY KEY (`pid`))
+  `discountPercentage` DECIMAL(12,2) NULL DEFAULT NULL,
+  `isDiscounted` BOOLEAN NULL DEFAULT NULL,
+  `isUsed` BOOLEAN NULL DEFAULT NULL,
+  `sellerId` VARCHAR(45) NULL DEFAULT NULL,
+  PRIMARY KEY (`pid`),
+  INDEX `sellerId_idx` (`sellerId` ASC) VISIBLE,
+  CONSTRAINT `sellerId`
+    FOREIGN KEY (`sellerId`)
+    REFERENCES `shopping-cart`.`seller` (`companyName`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
@@ -44,11 +93,24 @@ CREATE TABLE IF NOT EXISTS `shopping-cart`.`orders` (
   `quantity` INT NULL DEFAULT NULL,
   `amount` DECIMAL(10,2) NULL DEFAULT NULL,
   `shipped` INT NOT NULL DEFAULT 0,
+  `sellerId` VARCHAR(45) NOT NULL,
+  `studentId` VARCHAR(45) NOT NULL,
+  `status` VARCHAR(45) NULL DEFAULT NULL,
   PRIMARY KEY (`orderid`, `prodid`),
   INDEX `productid_idx` (`prodid` ASC) VISIBLE,
   CONSTRAINT `productid`
     FOREIGN KEY (`prodid`)
     REFERENCES `shopping-cart`.`product` (`pid`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+CONSTRAINT `orderSellerId`
+	FOREIGN KEY (`sellerId`)
+    REFERENCES `shopping-cart`.`seller` (`companyName`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+CONSTRAINT `orderStudentId`
+	FOREIGN KEY (`studentId`)
+    REFERENCES `shopping-cart`.`student` (`concordiaId`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -157,6 +219,22 @@ SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
+
+-- ----------------------------------------------------
+-- Data for table `shopping-cart`.`seller`
+-- ----------------------------------------------------
+START TRANSACTION;
+USE `shopping-cart`;
+INSERT INTO `shopping-cart`.`seller`(`email`, `name`, `mobile`, `address`, `pincode`, `password`, `companyName`) VALUES ('123@gmail.com', 'seller1', 123, '123 rue', '1111', 'test123', 'huawei');
+COMMIT; 
+
+-- ----------------------------------------------------
+-- Data for table `shopping-cart`.`student`
+-- ----------------------------------------------------
+START TRANSACTION;
+USE `shopping-cart`;
+INSERT INTO `shopping-cart`.`student`(`email`, `name`, `mobile`, `address`, `pincode`, `password`, `firstName`, `lastName`, `concordiaId`) VALUES ('stud@gmail.com', 'student1', 111, '1234 rue','123', 'test1234', 'cedric', 'paradis', '40112492');
+COMMIT; 
 -- -----------------------------------------------------
 -- Data for table `shopping-cart`.`product`
 -- -----------------------------------------------------
@@ -187,13 +265,12 @@ INSERT INTO `shopping-cart`.`product` (`pid`, `pname`, `ptype`, `pinfo`, `pprice
 
 COMMIT;
 
-
 -- -----------------------------------------------------
 -- Data for table `shopping-cart`.`orders`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `shopping-cart`;
-INSERT INTO `shopping-cart`.`orders` (`orderid`, `prodid`, `quantity`, `amount`, `shipped`) VALUES ('TR10001', 'P20230423082243', 1, 125999, 0);
+INSERT INTO `shopping-cart`.`orders` (`orderid`, `prodid`, `quantity`, `amount`, `shipped`, `sellerId`, `studentId`, `status`) VALUES ('TR10001', 'P20230423082243', 1, 125999, 0, 'huawei','40112492', 'open');
 
 COMMIT;
 
@@ -237,4 +314,3 @@ USE `shopping-cart`;
 INSERT INTO `shopping-cart`.`usercart` (`username`, `prodid`, `quantity`) VALUES ('guest@gmail.com', 'P20230423082243', 2);
 
 COMMIT;
-
