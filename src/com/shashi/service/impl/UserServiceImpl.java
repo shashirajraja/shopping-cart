@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.shashi.beans.StudentBean;
 import com.shashi.beans.UserBean;
 import com.shashi.constants.IUserConstants;
 import com.shashi.service.UserService;
@@ -13,19 +14,21 @@ import com.shashi.utility.MailMessage;
 
 public class UserServiceImpl implements UserService {
 
+	//TODO: modify all methods to remove the user with the student
+	
 	@Override
-	public String registerUser(String userName, Long mobileNo, String emailId, String address, int pinCode,
-			String password) {
+	public String registerStudentUser(String userName, Long mobileNo, String emailId, String address, int pinCode,
+			String password, String firstName, String lastName, String concordiaId) {
 
-		UserBean user = new UserBean(userName, mobileNo, emailId, address, pinCode, password);
+		StudentBean user = new StudentBean (userName, mobileNo, emailId, address, pinCode, password, firstName, lastName, concordiaId);
 
-		String status = registerUser(user);
+		String status = registerStudentUser(user);
 
 		return status;
 	}
 
 	@Override
-	public String registerUser(UserBean user) {
+	public String registerStudentUser(StudentBean user) {
 
 		String status = "User Registration Failed!";
 
