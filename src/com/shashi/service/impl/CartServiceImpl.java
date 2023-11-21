@@ -16,7 +16,7 @@ import com.shashi.utility.DBUtil;
 public class CartServiceImpl implements CartService {
 
 	@Override
-	public String addProductToCart(String userId, String prodId, int prodQty) {
+	public String addProductToCart(String studentId, String prodId, int prodQty) {
 		String status = "Failed to Add into Cart";
 
 		Connection con = DBUtil.provideConnection();
@@ -27,9 +27,9 @@ public class CartServiceImpl implements CartService {
 
 		try {
 
-			ps = con.prepareStatement("select * from usercart where username=? and prodid=?");
+			ps = con.prepareStatement("select * from usercart where concordiaId=? and prodid=?");
 
-			ps.setString(1, userId);
+			ps.setString(1, studentId);
 			ps.setString(2, prodId);
 
 			rs = ps.executeQuery();
@@ -46,13 +46,13 @@ public class CartServiceImpl implements CartService {
 				//
 				if (availableQty < prodQty) {
 
-					status = updateProductToCart(userId, prodId, availableQty);
+					status = updateProductToCart(studentId, prodId, availableQty);
 
 					status = "Only " + availableQty + " no of " + product.getProdName()
 							+ " are available in the shop! So we are adding only " + availableQty
 							+ " no of that item into Your Cart" + "";
 
-					DemandBean demandBean = new DemandBean(userId, product.getProdId(), prodQty - availableQty);
+					DemandBean demandBean = new DemandBean(studentId, product.getProdId(), prodQty - availableQty);
 
 					DemandServiceImpl demand = new DemandServiceImpl();
 
@@ -63,7 +63,7 @@ public class CartServiceImpl implements CartService {
 								+ " will be available into the Store!";
 
 				} else {
-					status = updateProductToCart(userId, prodId, prodQty);
+					status = updateProductToCart(studentId, prodId, prodQty);
 
 				}
 			}
@@ -82,7 +82,7 @@ public class CartServiceImpl implements CartService {
 	}
 
 	@Override
-	public List<CartBean> getAllCartItems(String userId) {
+	public List<CartBean> getAllCartItems(String studentId) {
 		List<CartBean> items = new ArrayList<CartBean>();
 
 		Connection con = DBUtil.provideConnection();
@@ -92,16 +92,16 @@ public class CartServiceImpl implements CartService {
 
 		try {
 
-			ps = con.prepareStatement("select * from usercart where username=?");
+			ps = con.prepareStatement("select * from usercart where concordiaId=?");
 
-			ps.setString(1, userId);
+			ps.setString(1, studentId);
 
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
 				CartBean cart = new CartBean();
 
-				cart.setUserId(rs.getString("username"));
+				cart.setUserId(rs.getString("concordiaId"));
 				cart.setProdId(rs.getString("prodid"));
 				cart.setQuantity(Integer.parseInt(rs.getString("quantity")));
 
@@ -132,7 +132,7 @@ public class CartServiceImpl implements CartService {
 		ResultSet rs = null;
 
 		try {
-			ps = con.prepareStatement("select sum(quantity) from usercart where username=?");
+			ps = con.prepareStatement("select sum(quantity) from usercart where concordiaId=?");
 
 			ps.setString(1, userId);
 
@@ -165,7 +165,7 @@ public class CartServiceImpl implements CartService {
 
 		try {
 
-			ps = con.prepareStatement("select * from usercart where username=? and prodid=?");
+			ps = con.prepareStatement("select * from usercart where concordiaId=? and prodid=?");
 
 			ps.setString(1, userId);
 			ps.setString(2, prodId);
@@ -179,7 +179,7 @@ public class CartServiceImpl implements CartService {
 				prodQuantity -= 1;
 
 				if (prodQuantity > 0) {
-					ps2 = con.prepareStatement("update usercart set quantity=? where username=? and prodid=?");
+					ps2 = con.prepareStatement("update usercart set quantity=? where concordiaId=? and prodid=?");
 
 					ps2.setInt(1, prodQuantity);
 
@@ -193,7 +193,7 @@ public class CartServiceImpl implements CartService {
 						status = "Product Successfully removed from the Cart!";
 				} else if (prodQuantity <= 0) {
 
-					ps2 = con.prepareStatement("delete from usercart where username=? and prodid=?");
+					ps2 = con.prepareStatement("delete from usercart where concordiaId=? and prodid=?");
 
 					ps2.setString(1, userId);
 
@@ -235,7 +235,7 @@ public class CartServiceImpl implements CartService {
 
 		try {
 
-			ps = con.prepareStatement("delete from usercart where username=? and prodid=?");
+			ps = con.prepareStatement("delete from usercart where concordiaId=? and prodid=?");
 			ps.setString(1, userId);
 			ps.setString(2, prodId);
 
@@ -269,7 +269,7 @@ public class CartServiceImpl implements CartService {
 
 		try {
 
-			ps = con.prepareStatement("select * from usercart where username=? and prodid=?");
+			ps = con.prepareStatement("select * from usercart where concordiaId=? and prodid=?");
 
 			ps.setString(1, userId);
 			ps.setString(2, prodId);
@@ -279,7 +279,7 @@ public class CartServiceImpl implements CartService {
 			if (rs.next()) {
 
 				if (prodQty > 0) {
-					ps2 = con.prepareStatement("update usercart set quantity=? where username=? and prodid=?");
+					ps2 = con.prepareStatement("update usercart set quantity=? where concordiaId=? and prodid=?");
 
 					ps2.setInt(1, prodQty);
 
@@ -292,7 +292,7 @@ public class CartServiceImpl implements CartService {
 					if (k > 0)
 						status = "Product Successfully Updated to Cart!";
 				} else if (prodQty == 0) {
-					ps2 = con.prepareStatement("delete from usercart where username=? and prodid=?");
+					ps2 = con.prepareStatement("delete from usercart where concordiaId=? and prodid=?");
 
 					ps2.setString(1, userId);
 
@@ -342,7 +342,7 @@ public class CartServiceImpl implements CartService {
 		ResultSet rs = null;
 
 		try {
-			ps = con.prepareStatement("select sum(quantity) from usercart where username=? and prodid=?");
+			ps = con.prepareStatement("select sum(quantity) from usercart where concordiaId=? and prodid=?");
 			ps.setString(1, userId);
 			ps.setString(2, prodId);
 			rs = ps.executeQuery();
@@ -369,7 +369,7 @@ public class CartServiceImpl implements CartService {
 		ResultSet rs = null;
 
 		try {
-			ps = con.prepareStatement("select quantity from usercart where username=? and prodid=?");
+			ps = con.prepareStatement("select quantity from usercart where concordiaId=? and prodid=?");
 
 			ps.setString(1, userId);
 			ps.setString(2, itemId);
