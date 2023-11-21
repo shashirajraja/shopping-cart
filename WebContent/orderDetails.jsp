@@ -14,9 +14,9 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="css/changes.css">
+<link rel="stylesheet" href="css/changes.css?cache_num=<%=Math.random()%>">
 </head>
-<body style="background-color: #E6F9E6;">
+<body>
 
 	<%
 	/* Checking the user credentials */
@@ -40,14 +40,14 @@
 	<!-- <script>document.getElementById('mycart').innerHTML='<i data-count="20" class="fa fa-shopping-cart fa-3x icon-white badge" style="background-color:#333;margin:0px;padding:0px; margin-top:5px;"></i>'</script>
  -->
 	<div class="text-center"
-		style="color: green; font-size: 24px; font-weight: bold;">Order
+		style="color: #23907C; font-size: 24px; font-weight: bold;">Order
 		Details</div>
 	<!-- Start of Product Items List -->
 	<div class="container">
 		<div class="table-responsive ">
 			<table class="table table-hover table-sm">
 				<thead
-					style="background-color: black; color: white; font-size: 14px; font-weight: bold;">
+					style="background-color: #23907C; color: white; font-size: 14px; font-weight: bold;">
 					<tr>
 						<th>Picture</th>
 						<th>ProductName</th>

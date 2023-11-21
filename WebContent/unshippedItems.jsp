@@ -15,9 +15,9 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="css/changes.css">
+<link rel="stylesheet" href="css/changes.css?cache_num=<%=Math.random()%>">
 </head>
-<body style="background-color: #E6F9E6;">
+<body>
 	<%
 	/* Checking the user credentials */
 	String userType = (String) session.getAttribute("usertype");
@@ -39,13 +39,13 @@
 	<jsp:include page="header.jsp" />
 
 	<div class="text-center"
-		style="color: green; font-size: 24px; font-weight: bold;">UnShipped
+		style="color: #23907C; font-size: 24px; font-weight: bold;">UnShipped
 		Orders</div>
 	<div class="container-fluid">
 		<div class="table-responsive ">
 			<table class="table table-hover table-sm">
 				<thead
-					style="background-color: #700fb7; color: white; font-size: 16px;">
+					style="background-color: #23907C; color: white; font-size: 16px;">
 					<tr>
 						<th>TransactionId</th>
 						<th>ProductId</th>
