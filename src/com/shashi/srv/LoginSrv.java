@@ -48,6 +48,7 @@ public class LoginSrv extends HttpServlet {
 				session.setAttribute("username", userName);
 				session.setAttribute("password", password);
 				session.setAttribute("usertype", userType);
+				
 
 				rd.forward(request, response);
 
@@ -75,6 +76,7 @@ public class LoginSrv extends HttpServlet {
 				session.setAttribute("username", userName);
 				session.setAttribute("password", password);
 				session.setAttribute("usertype", userType);
+				session.setAttribute("concordiaId", concordiaId);
 
 				RequestDispatcher rd = request.getRequestDispatcher("userHome.jsp");
 

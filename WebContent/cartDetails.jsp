@@ -24,6 +24,7 @@
 	/* Checking the user credentials */
 	String userName = (String) session.getAttribute("username");
 	String password = (String) session.getAttribute("password");
+	String concordiaId = (String) session.getAttribute("concordiaId");
 
 	if (userName == null || password == null) {
 
@@ -89,7 +90,7 @@
 				<%
 				CartServiceImpl cart = new CartServiceImpl();
 				List<CartBean> cartItems = new ArrayList<CartBean>();
-				cartItems = cart.getAllCartItems(userName);
+				cartItems = cart.getAllCartItems(concordiaId);
 				double totAmount = 0;
 				for (CartBean item : cartItems) {
 

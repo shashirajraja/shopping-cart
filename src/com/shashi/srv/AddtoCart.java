@@ -33,6 +33,7 @@ public class AddtoCart extends HttpServlet {
 
 		HttpSession session = request.getSession();
 		String userName = (String) session.getAttribute("username");
+		String concordiaId = (String) session.getAttribute("concordiaId");
 		String password = (String) session.getAttribute("password");
 		String usertype = (String) session.getAttribute("usertype");
 		if (userName == null || password == null || usertype == null || !usertype.equalsIgnoreCase("customer")) {
@@ -42,7 +43,7 @@ public class AddtoCart extends HttpServlet {
 
 		// login Check Successfull
 
-		String userId = userName;
+		String userId = concordiaId;
 		String prodId = request.getParameter("pid");
 		int pQty = Integer.parseInt(request.getParameter("pqty")); // 1
 

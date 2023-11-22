@@ -25,6 +25,7 @@ public class OrderServlet extends HttpServlet {
 
 		HttpSession session = request.getSession();
 		String userName = (String) session.getAttribute("username");
+		String concordiaId = (String) session.getAttribute("concordiaId");
 		String password = (String) session.getAttribute("password");
 
 		if (userName == null || password == null) {
@@ -33,7 +34,7 @@ public class OrderServlet extends HttpServlet {
 		}
 
 		double paidAmount = Double.parseDouble(request.getParameter("amount"));
-		String status = new OrderServiceImpl().paymentSuccess(userName, paidAmount);
+		String status = new OrderServiceImpl().paymentSuccess(concordiaId, paidAmount, userName);
 
 		PrintWriter pw = response.getWriter();
 		response.setContentType("text/html");
