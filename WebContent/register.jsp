@@ -49,6 +49,21 @@
 							name="email" class="form-control" id="last_name" name="last_name"
 							required>
 					</div>
+					<div class="col-md-6 form-group">
+						<label for="last_name">First Name</label> <input type="text"
+							name="firstName" class="form-control" id="last_name" name="last_name"
+							required>
+					</div>
+					<div class="col-md-6 form-group">
+						<label for="last_name">Last Name</label> <input type="text"
+							name="lastName" class="form-control" id="last_name" name="last_name"
+							required>
+					</div>
+					<div class="col-md-6 form-group">
+						<label for="last_name">Concordia Id</label> <input type="text"
+							name="concordiaId" class="form-control" id="last_name" name="last_name"
+							required>
+					</div>
 				</div>
 				<div class="form-group">
 					<label for="last_name">Address</label>
