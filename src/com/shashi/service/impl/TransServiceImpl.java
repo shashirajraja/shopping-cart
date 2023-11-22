@@ -20,7 +20,7 @@ public class TransServiceImpl implements TransService {
 
 		try {
 
-			ps = con.prepareStatement("select username from transactions where transid=?");
+			ps = con.prepareStatement("select concordiaId from transactions where transid=?");
 
 			ps.setString(1, transId);
 

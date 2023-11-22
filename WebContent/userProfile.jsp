@@ -31,9 +31,9 @@
 	}
 
 	UserService dao = new UserServiceImpl();
-	UserBean user = dao.getUserDetails(userName, password);
+	StudentBean user = dao.getStudentDetails(userName, password);
 	if (user == null)
-		user = new UserBean("Test User", 98765498765L, "test@gmail.com", "ABC colony, Patna, bihar", 87659, "lksdjf");
+		user = new StudentBean("Test User", 98765498765L, "test@gmail.com", "ABC colony, Patna, bihar", 87659, "lksdjf", "ced", "paradis", "12345678");
 	%>
 
 
@@ -72,10 +72,41 @@
 					<div class="card-body">
 						<div class="row">
 							<div class="col-sm-3">
-								<p class="mb-0">Full Name</p>
+								<p class="mb-0">UserName</p>
 							</div>
 							<div class="col-sm-9">
 								<p class="text-muted mb-0"><%=user.getName()%></p>
+							</div>
+						</div>
+						<hr>
+						<hr>
+						<div class="row">
+							<div class="col-sm-3">
+								<p class="mb-0">First Name</p>
+							</div>
+							<div class="col-sm-9">
+								<p class="text-muted mb-0"><%=user.getFirstName()%>
+								</p>
+							</div>
+						</div>
+						<hr>
+						<div class="row">
+							<div class="col-sm-3">
+								<p class="mb-0">Last Name</p>
+							</div>
+							<div class="col-sm-9">
+								<p class="text-muted mb-0"><%=user.getLastName()%>
+								</p>
+							</div>
+						</div>
+						<hr>
+						<div class="row">
+							<div class="col-sm-3">
+								<p class="mb-0">Concordia Id</p>
+							</div>
+							<div class="col-sm-9">
+								<p class="text-muted mb-0"><%=user.getConcordiaId()%>
+								</p>
 							</div>
 						</div>
 						<hr>

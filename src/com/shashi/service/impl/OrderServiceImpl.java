@@ -18,16 +18,16 @@ import com.shashi.utility.MailMessage;
 public class OrderServiceImpl implements OrderService {
 
 	@Override
-	public String paymentSuccess(String userName, double paidAmount) {
+	public String paymentSuccess(String studentId, double paidAmount, String emailId) {
 		String status = "Order Placement Failed!";
 
 		List<CartBean> cartItems = new ArrayList<CartBean>();
-		cartItems = new CartServiceImpl().getAllCartItems(userName);
+		cartItems = new CartServiceImpl().getAllCartItems(studentId);
 
 		if (cartItems.size() == 0)
 			return status;
 
-		TransactionBean transaction = new TransactionBean(userName, paidAmount);
+		TransactionBean transaction = new TransactionBean(studentId, paidAmount);
 		boolean ordered = false;
 
 		String transactionId = transaction.getTransactionId();
@@ -62,7 +62,7 @@ public class OrderServiceImpl implements OrderService {
 			ordered = new OrderServiceImpl().addTransaction(transaction);
 			if (ordered) {
 
-				MailMessage.transactionSuccess(userName, new UserServiceImpl().getFName(userName),
+				MailMessage.transactionSuccess(emailId, new UserServiceImpl().getFName(emailId),
 						transaction.getTransactionId(), transaction.getTransAmount());
 
 				status = "Order Placed Successfully!";
@@ -81,13 +81,16 @@ public class OrderServiceImpl implements OrderService {
 		PreparedStatement ps = null;
 
 		try {
-			ps = con.prepareStatement("insert into orders values(?,?,?,?,?)");
+			ps = con.prepareStatement("insert into orders values(?,?,?,?,?,?,?,?)");
 
 			ps.setString(1, order.getTransactionId());
 			ps.setString(2, order.getProductId());
 			ps.setInt(3, order.getQuantity());
 			ps.setDouble(4, order.getAmount());
 			ps.setInt(5, 0);
+			ps.setString(6, order.getSellerId());
+			ps.setString(7, order.getStudentId());
+			ps.setString(8, order.getStatus());
 
 			int k = ps.executeUpdate();
 
@@ -181,7 +184,7 @@ public class OrderServiceImpl implements OrderService {
 			while (rs.next()) {
 
 				OrderBean order = new OrderBean(rs.getString("orderid"), rs.getString("prodid"), rs.getInt("quantity"),
-						rs.getDouble("amount"), rs.getInt("shipped"), rs.getString("sellerId"), rs.getString("studentId"), rs.getString("status"));
+						rs.getDouble("amount"), rs.getInt("shipped"), rs.getString("sellerId"), rs.getString("concordiaId"), rs.getString("status"));
 
 				orderList.add(order);
 
@@ -196,7 +199,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public List<OrderBean> getOrdersByUserId(String emailId) {
+	public List<OrderBean> getOrdersByUserId(String concordiaId) {
 		List<OrderBean> orderList = new ArrayList<OrderBean>();
 
 		Connection con = DBUtil.provideConnection();
@@ -207,14 +210,14 @@ public class OrderServiceImpl implements OrderService {
 		try {
 
 			ps = con.prepareStatement(
-					"SELECT * FROM orders o inner join transactions t on o.orderid = t.transid where username=?");
-			ps.setString(1, emailId);
+					"SELECT * FROM orders o inner join transactions t on o.orderid = t.transid where concordiaId=? ");
+			ps.setString(1, concordiaId);
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
 
 				OrderBean order = new OrderBean(rs.getString("t.transid"), rs.getString("t.prodid"),
-						rs.getInt("quantity"), rs.getDouble("t.amount"), rs.getInt("shipped"), rs.getString("sellerId"), rs.getString("studentId"), rs.getString("status"));
+						rs.getInt("quantity"), rs.getDouble("t.amount"), rs.getInt("shipped"), rs.getString("sellerId"), rs.getString("concordiaId"), rs.getString("status"));
 
 				orderList.add(order);
 
@@ -229,7 +232,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public List<OrderDetails> getAllOrderDetails(String userEmailId) {
+	public List<OrderDetails> getAllOrderDetails(String concordiaId) {
 		List<OrderDetails> orderList = new ArrayList<OrderDetails>();
 
 		Connection con = DBUtil.provideConnection();
@@ -240,8 +243,8 @@ public class OrderServiceImpl implements OrderService {
 		try {
 
 			ps = con.prepareStatement(
-					"SELECT  p.pid as prodid, o.orderid as orderid, o.shipped as shipped, p.image as image, p.pname as pname, o.quantity as qty, o.amount as amount, t.time as time FROM orders o, product p, transactions t where o.orderid=t.transid and o.orderid = t.transid and p.pid=o.prodid and t.username=?");
-			ps.setString(1, userEmailId);
+					"SELECT  p.pid as prodid, o.orderid as orderid, o.shipped as shipped, p.image as image, p.pname as pname, o.quantity as qty, o.amount as amount, t.time as time FROM orders o, product p, transactions t where o.orderid=t.transid and o.orderid = t.transid and p.pid=o.prodid and t.concordiaId=?");
+			ps.setString(1, concordiaId);
 			rs = ps.executeQuery();
 
 			while (rs.next()) {

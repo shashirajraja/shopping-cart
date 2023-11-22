@@ -54,6 +54,13 @@
 				</div>
 				<div class="row">
 					<div class="col-md-12 form-group">
+						<label for="last_name">Concordia Id</label> <input type="text"
+							placeholder="Enter Concordia Id" name="concordiaId" class="form-control"
+							id="last_name" required>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12 form-group">
 						<label for="userrole">Login As</label> <select name="usertype"
 							id="userrole" class="form-control" required>
 							<option value="customer" selected>CUSTOMER</option>

@@ -91,7 +91,7 @@ public class OrderBean implements Serializable {
 		this.sellerId = sellerId;
 	}
 
-	public String StudentId() {
+	public String getStudentId() {
 		return studentId;
 	}
 

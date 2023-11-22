@@ -2,6 +2,7 @@ package com.shashi.srv;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.logging.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -30,6 +31,9 @@ public class AddProductSrv extends HttpServlet {
 		String userType = (String) session.getAttribute("usertype");
 		String userName = (String) session.getAttribute("username");
 		String password = (String) session.getAttribute("password");
+		String concordiaId = (String) session.getAttribute("concordiaId");
+		
+		
 
 		if (userType == null || !userType.equals("admin")) {
 

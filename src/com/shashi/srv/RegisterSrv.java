@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.shashi.beans.StudentBean;
 import com.shashi.beans.UserBean;
 import com.shashi.service.impl.UserServiceImpl;
 
@@ -28,15 +29,18 @@ public class RegisterSrv extends HttpServlet {
 		String emailId = request.getParameter("email");
 		String address = request.getParameter("address");
 		int pinCode = Integer.parseInt(request.getParameter("pincode"));
+		String firstName = request.getParameter("firstName");
+		String lastName = request.getParameter("lastName");
+		String concordiaId = request.getParameter("concordiaId");
 		String password = request.getParameter("password");
 		String confirmPassword = request.getParameter("confirmPassword");
 		String status = "";
 		if (password != null && password.equals(confirmPassword)) {
-			UserBean user = new UserBean(userName, mobileNo, emailId, address, pinCode, password);
+			StudentBean user = new StudentBean(userName, mobileNo, emailId, address, pinCode, password,firstName,lastName,concordiaId );
 
 			UserServiceImpl dao = new UserServiceImpl();
 
-			status = dao.registerUser(user);
+			status = dao.registerStudentUser(user);
 		} else {
 			status = "Password not matching!";
 		}

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.shashi.beans.StudentBean;
 import com.shashi.beans.UserBean;
 import com.shashi.service.impl.UserServiceImpl;
 
@@ -30,6 +31,7 @@ public class LoginSrv extends HttpServlet {
 		String userName = request.getParameter("username");
 		String password = request.getParameter("password");
 		String userType = request.getParameter("usertype");
+		String concordiaId = request.getParameter("concordiaId");
 		response.setContentType("text/html");
 
 		String status = "Login Denied! Invalid Username or password.";
@@ -46,6 +48,7 @@ public class LoginSrv extends HttpServlet {
 				session.setAttribute("username", userName);
 				session.setAttribute("password", password);
 				session.setAttribute("usertype", userType);
+				
 
 				rd.forward(request, response);
 
@@ -55,16 +58,16 @@ public class LoginSrv extends HttpServlet {
 				rd.include(request, response);
 			}
 
-		} else { // Login as customer
+		} else { // Login as student
 
 			UserServiceImpl udao = new UserServiceImpl();
 
-			status = udao.isValidCredential(userName, password);
+			status = udao.isValidCredential(userName, password, concordiaId);
 
 			if (status.equalsIgnoreCase("valid")) {
 				// valid user
 
-				UserBean user = udao.getUserDetails(userName, password);
+				StudentBean user = udao.getStudentDetails(userName, password);
 
 				HttpSession session = request.getSession();
 
@@ -73,6 +76,7 @@ public class LoginSrv extends HttpServlet {
 				session.setAttribute("username", userName);
 				session.setAttribute("password", password);
 				session.setAttribute("usertype", userType);
+				session.setAttribute("concordiaId", concordiaId);
 
 				RequestDispatcher rd = request.getRequestDispatcher("userHome.jsp");
 
