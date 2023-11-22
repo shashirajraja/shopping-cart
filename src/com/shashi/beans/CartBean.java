@@ -8,18 +8,18 @@ public class CartBean implements Serializable {
 	public CartBean() {
 	}
 
-	public String userId;
+	public String studentId;
 
 	public String prodId;
 
 	public int quantity;
 
 	public String getUserId() {
-		return userId;
+		return studentId;
 	}
 
 	public void setUserId(String userId) {
-		this.userId = userId;
+		this.studentId = userId;
 	}
 
 	public String getProdId() {
@@ -40,7 +40,7 @@ public class CartBean implements Serializable {
 
 	public CartBean(String userId, String prodId, int quantity) {
 		super();
-		this.userId = userId;
+		this.studentId = userId;
 		this.prodId = prodId;
 		this.quantity = quantity;
 	}

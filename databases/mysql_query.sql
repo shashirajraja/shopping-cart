@@ -123,17 +123,6 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `shopping-cart`.`user` ;
 
-CREATE TABLE IF NOT EXISTS `shopping-cart`.`user` (
-  `email` VARCHAR(60) NOT NULL,
-  `name` VARCHAR(30) NULL DEFAULT NULL,
-  `mobile` BIGINT NULL DEFAULT NULL,
-  `address` VARCHAR(250) NULL DEFAULT NULL,
-  `pincode` INT NULL DEFAULT NULL,
-  `password` VARCHAR(20) NULL DEFAULT NULL,
-  PRIMARY KEY (`email`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
@@ -143,14 +132,14 @@ DROP TABLE IF EXISTS `shopping-cart`.`transactions` ;
 
 CREATE TABLE IF NOT EXISTS `shopping-cart`.`transactions` (
   `transid` VARCHAR(45) NOT NULL,
-  `username` VARCHAR(60) NULL DEFAULT NULL,
+  `concordiaId` VARCHAR(60) NULL DEFAULT NULL,
   `time` DATETIME NULL DEFAULT NULL,
   `amount` DECIMAL(10,2) NULL DEFAULT NULL,
   PRIMARY KEY (`transid`),
-  INDEX `truserid_idx` (`username` ASC) VISIBLE,
+  INDEX `truserid_idx` (`concordiaId` ASC) VISIBLE,
   CONSTRAINT `truserid`
-    FOREIGN KEY (`username`)
-    REFERENCES `shopping-cart`.`user` (`email`)
+    FOREIGN KEY (`concordiaId`)
+    REFERENCES `shopping-cart`.`student` (`concordiaId`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `transorderid`
@@ -169,14 +158,14 @@ COLLATE = utf8mb4_0900_ai_ci;
 DROP TABLE IF EXISTS `shopping-cart`.`user_demand` ;
 
 CREATE TABLE IF NOT EXISTS `shopping-cart`.`user_demand` (
-  `username` VARCHAR(60) NOT NULL,
+  `concordiaId` VARCHAR(60) NOT NULL,
   `prodid` VARCHAR(45) NOT NULL,
   `quantity` INT NULL DEFAULT NULL,
-  PRIMARY KEY (`username`, `prodid`),
+  PRIMARY KEY (`concordiaId`, `prodid`),
   INDEX `prodid_idx` (`prodid` ASC) VISIBLE,
   CONSTRAINT `userdemailemail`
-    FOREIGN KEY (`username`)
-    REFERENCES `shopping-cart`.`user` (`email`)
+    FOREIGN KEY (`concordiaId`)
+    REFERENCES `shopping-cart`.`student` (`concordiaId`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `prodid`
@@ -195,14 +184,14 @@ COLLATE = utf8mb4_0900_ai_ci;
 DROP TABLE IF EXISTS `shopping-cart`.`usercart` ;
 
 CREATE TABLE IF NOT EXISTS `shopping-cart`.`usercart` (
-  `username` VARCHAR(60) NULL DEFAULT NULL,
+  `concordiaId` VARCHAR(60) NULL DEFAULT NULL,
   `prodid` VARCHAR(45) NULL DEFAULT NULL,
   `quantity` INT NULL DEFAULT NULL,
-  INDEX `useremail_idx` (`username` ASC) VISIBLE,
+  INDEX `concordiaId_idx` (`concordiaId` ASC) VISIBLE,
   INDEX `prodidcart_idx` (`prodid` ASC) VISIBLE,
   CONSTRAINT `useremail`
-    FOREIGN KEY (`username`)
-    REFERENCES `shopping-cart`.`user` (`email`)
+    FOREIGN KEY (`concordiaId`)
+    REFERENCES `shopping-cart`.`student` (`concordiaId`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `prodidcart`
@@ -275,23 +264,13 @@ INSERT INTO `shopping-cart`.`orders` (`orderid`, `prodid`, `quantity`, `amount`,
 COMMIT;
 
 
--- -----------------------------------------------------
--- Data for table `shopping-cart`.`user`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `shopping-cart`;
-INSERT INTO `shopping-cart`.`user` (`email`, `name`, `mobile`, `address`, `pincode`, `password`) VALUES ('guest@gmail.com', 'Guest User', 9876543234, 'K.P Road, Gaya, Bihar - India', 879767, 'guest');
-INSERT INTO `shopping-cart`.`user` (`email`, `name`, `mobile`, `address`, `pincode`, `password`) VALUES ('admin@gmail.com', 'Admin User', 9876543459, 'ABC Colony, Newtown, West Bengal', 786890, 'admin');
-
-COMMIT;
-
 
 -- -----------------------------------------------------
 -- Data for table `shopping-cart`.`transactions`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `shopping-cart`;
-INSERT INTO `shopping-cart`.`transactions` (`transid`, `username`, `time`, `amount`) VALUES ('TR10001', 'guest@gmail.com', '2023-04-23 09:26:56', 125999);
+INSERT INTO `shopping-cart`.`transactions` (`transid`, `concordiaId`, `time`, `amount`) VALUES ('TR10001', '40112492', '2023-04-23 09:26:56', 125999);
 
 COMMIT;
 
@@ -301,9 +280,8 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `shopping-cart`;
-INSERT INTO `shopping-cart`.`user_demand` (`username`, `prodid`, `quantity`) VALUES ('guest@gmail.com', 'P20230423084144', 3);
+INSERT INTO `shopping-cart`.`user_demand` (`concordiaId`, `prodid`, `quantity`) VALUES ('40112492', 'P20230423084144', 3);
 
-COMMIT;
 
 
 -- -----------------------------------------------------
@@ -311,6 +289,6 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `shopping-cart`;
-INSERT INTO `shopping-cart`.`usercart` (`username`, `prodid`, `quantity`) VALUES ('guest@gmail.com', 'P20230423082243', 2);
+INSERT INTO `shopping-cart`.`usercart` (`concordiaId`, `prodid`, `quantity`) VALUES ('40112492', 'P20230423082243', 2);
 
 COMMIT;

@@ -11,7 +11,7 @@ public class TransactionBean implements Serializable {
 
 	private String transactionId;
 
-	private String userName;
+	private String studentId;
 
 	private Timestamp transDateTime;
 
@@ -32,7 +32,7 @@ public class TransactionBean implements Serializable {
 
 	public TransactionBean(String userName, double transAmount) {
 		super();
-		this.userName = userName;
+		this.studentId = userName;
 		this.transAmount = transAmount;
 
 		this.transactionId = IDUtil.generateTransId();
@@ -50,7 +50,7 @@ public class TransactionBean implements Serializable {
 	public TransactionBean(String transactionId, String userName, double transAmount) {
 		super();
 		this.transactionId = transactionId;
-		this.userName = userName;
+		this.studentId = userName;
 		this.transAmount = transAmount;
 
 		SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-DD hh:mm:ss");
@@ -64,7 +64,7 @@ public class TransactionBean implements Serializable {
 
 	public TransactionBean(String userName, Timestamp transDateTime, double transAmount) {
 		super();
-		this.userName = userName;
+		this.studentId = userName;
 		this.transDateTime = transDateTime;
 		this.transactionId = IDUtil.generateTransId();
 		this.transAmount = transAmount;
@@ -73,7 +73,7 @@ public class TransactionBean implements Serializable {
 	public TransactionBean(String transactionId, String userName, Timestamp transDateTime, double transAmount) {
 		super();
 		this.transactionId = transactionId;
-		this.userName = userName;
+		this.studentId = userName;
 		this.transDateTime = transDateTime;
 		this.transAmount = transAmount;
 
@@ -88,11 +88,11 @@ public class TransactionBean implements Serializable {
 	}
 
 	public String getUserName() {
-		return userName;
+		return studentId;
 	}
 
 	public void setUserName(String userName) {
-		this.userName = userName;
+		this.studentId = userName;
 	}
 
 	public Timestamp getTransDateTime() {

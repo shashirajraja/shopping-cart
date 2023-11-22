@@ -7,12 +7,12 @@ public class StudentBean extends UserBean implements Serializable{
 	
 	private String firstName;
 	private String lastName;
-	private int concordiaID;
+	private String concordiaID;
 	
 	public StudentBean() {
 	}
 
-	public StudentBean(String userName, Long mobileNo, String emailId, String address, int pinCode, String password, String firstName, String lastName, int concordiaID) {
+	public StudentBean(String userName, Long mobileNo, String emailId, String address, int pinCode, String password, String firstName, String lastName, String concordiaID) {
 		super();
 		this.name = userName;
 		this.mobile = mobileNo;
@@ -41,11 +41,11 @@ public class StudentBean extends UserBean implements Serializable{
 		this.lastName = lastName;
 	}
 
-	public int getConcordiaID() {
+	public String getConcordiaID() {
 		return concordiaID;
 	}
 
-	public void setConcordiaID(int concordiaID) {
+	public void setConcordiaID(String concordiaID) {
 		this.concordiaID = concordiaID;
 	}
 	
