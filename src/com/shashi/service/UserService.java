@@ -15,11 +15,11 @@ public interface UserService {
 
 	public String registerStudentUser(StudentBean user);
 
-	public boolean isRegistered(String emailId);
+	public boolean isRegistered(String emailId, String concordiaId);
 
-	public String isValidCredential(String emailId, String password);
+	public String isValidCredential(String emailId, String password, String concordiaId);
 
-	public UserBean getUserDetails(String emailId, String password);
+	public StudentBean getStudentDetails(String emailId, String password);
 
 	public String getFName(String emailId);
 
