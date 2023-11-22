@@ -120,10 +120,10 @@
 								style="max-width: 80px;">
 						</form></td>
 					<td><a
-						href="cartDetails.jsp?add=1&uid=<%=userName%>&pid=<%=product.getProdId()%>&avail=<%=product.getProdQuantity()%>&qty=<%=prodQuantity%>"><i
+						href="cartDetails.jsp?add=1&uid=<%=concordiaId%>&pid=<%=product.getProdId()%>&avail=<%=product.getProdQuantity()%>&qty=<%=prodQuantity%>"><i
 							class="fa fa-plus"></i></a></td>
 					<td><a
-						href="cartDetails.jsp?add=0&uid=<%=userName%>&pid=<%=product.getProdId()%>&avail=<%=product.getProdQuantity()%>&qty=<%=prodQuantity%>"><i
+						href="cartDetails.jsp?add=0&uid=<%=concordiaId%>&pid=<%=product.getProdId()%>&avail=<%=product.getProdQuantity()%>&qty=<%=prodQuantity%>"><i
 							class="fa fa-minus"></i></a></td>
 					<td><%=currAmount%></td>
 				</tr>
