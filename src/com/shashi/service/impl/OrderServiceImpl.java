@@ -10,6 +10,7 @@ import java.util.List;
 import com.shashi.beans.CartBean;
 import com.shashi.beans.OrderBean;
 import com.shashi.beans.OrderDetails;
+import com.shashi.beans.ProductBean;
 import com.shashi.beans.TransactionBean;
 import com.shashi.service.OrderService;
 import com.shashi.utility.DBUtil;
@@ -39,8 +40,9 @@ public class OrderServiceImpl implements OrderService {
 		for (CartBean item : cartItems) {
 
 			double amount = new ProductServiceImpl().getProductPrice(item.getProdId()) * item.getQuantity();
+			ProductBean product = new ProductServiceImpl().getProductDetails(item.getProdId());
 
-			OrderBean order = new OrderBean(transactionId, item.getProdId(), item.getQuantity(), amount, item.getUserId(), item.getProdId(), "ordered"); //modify this class
+			OrderBean order = new OrderBean(transactionId, item.getProdId(), item.getQuantity(), amount, product.getSeller(), studentId, "ordered"); //modify this class
 
 			ordered = addOrder(order);
 			if (!ordered)

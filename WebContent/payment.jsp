@@ -22,6 +22,7 @@
 	/* Checking the user credentials */
 	String userName = (String) session.getAttribute("username");
 	String password = (String) session.getAttribute("password");
+	String concordiaId = (String) session.getAttribute("concordiaId");
 
 	if (userName == null || password == null) {
 
