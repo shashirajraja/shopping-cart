@@ -68,21 +68,25 @@
 					<div class="col-sm-4" style='height: 350px;'>
 		
 						<div class="thumbnail">
+						
+							<img src="./ShowImage?pid=<%=product.getProdId()%>" alt="Product" style="height: 150px; max-width: 180px;">
 
 							<!-- Have a low stock message when the stock reaches less than or equal to 5 units -->							
  							<% if (product.getProdQuantity() <= ProductBean.prodLowStockTheshold) { %>
-								<span><img src="./ShowImage?pid=<%=product.getProdId()%>" alt="Product" style="height: 150px; max-width: 180px;"></span>
 								<span>
 									<span style="padding: 0 0.5em 0 0.5em; color: #912338; font-weight: bold;">LOW STOCK</span>
 									<span class="badge" style="background-color: #912338;"><%=product.getProdQuantity()%></span>
-								</span>
-							<% } else { %>	
-								<img src="./ShowImage?pid=<%=product.getProdId()%>" alt="Product" style="height: 150px; max-width: 180px;">
+								</span>							
 							<% } %>
 							
 							<p class="productname"><%=product.getProdName()%> (<%=product.getProdId()%>)</p>
 							
-							<p class="productinfo"><%=product.getProdInfo()%></p>
+							<%
+							String description = product.getProdInfo();
+							description = description.substring(0, Math.min(description.length(), 100));
+							%>
+							
+							<p class="productinfo"><%=description%></p>
 							
 							<p class="price">$<%=product.getProdPrice()%></p>
 							
@@ -101,6 +105,7 @@
 								Update Product
 								</button>
 							</form>
+							<br />
 						</div>
 					</div>
 				<% } %>
