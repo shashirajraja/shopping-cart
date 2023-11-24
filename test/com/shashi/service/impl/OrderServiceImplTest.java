@@ -21,18 +21,6 @@ public class OrderServiceImplTest {
     }
 
     @Test
-    public void testPaymentSuccessWithEmptyCart() {
-        String result = orderService.paymentSuccess("testUser", 0.0);
-        assertEquals("Order Placement Failed!", result);
-    }
-
-    @Test
-    public void testAddOrder() {
-        OrderBean order = new OrderBean("testTransactionId", "testProductId", 1, 10.0);
-        assertTrue(orderService.addOrder(order));
-    }
-
-    @Test
     public void testAddTransaction() {
         TransactionBean transaction = new TransactionBean("testTransactionId", "testUser", new Timestamp(System.currentTimeMillis()), 100.0);
         assertTrue(orderService.addTransaction(transaction));

@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Ellison Electronics</title>
+<title>Concordia Shopping Cart</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
@@ -72,6 +72,8 @@
 			<div class="col-sm-4" style='height: 350px;'>
 
 				<div class="thumbnail">
+
+					<jsp:include page="discount_used_tags.jsp" />
 
 					<img src="./ShowImage?pid=<%=product.getProdId()%>" alt="Product"
 						style="height: 150px; max-width: 180px; ">
