@@ -72,7 +72,11 @@
 							<!-- Have a low stock message when the stock reaches less than or equal to 5 units -->							
  							<% if (product.getProdQuantity() <= 5) { %>
 								<span><img src="./ShowImage?pid=<%=product.getProdId()%>" alt="Product" style="height: 150px; max-width: 180px;"></span>
-								<span><span class="glyphicon glyphicon-alert"></span><span style="padding: 0 0.5em 0 0.5em; color: #912338; font-weight: bold;">LOW STOCK</span><span class="badge" style="background-color: #912338;"><%=product.getProdQuantity()%></span></span>
+								<span>
+									<span class="glyphicon glyphicon-alert"></span>
+									<span style="padding: 0 0.5em 0 0.5em; color: #912338; font-weight: bold;">LOW STOCK</span>
+									<span class="badge" style="background-color: #912338;"><%=product.getProdQuantity()%></span>
+								</span>
 							<% } else { %>	
 								<img src="./ShowImage?pid=<%=product.getProdId()%>" alt="Product" style="height: 150px; max-width: 180px;">
 							<% } %>
