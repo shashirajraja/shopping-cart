@@ -15,6 +15,7 @@ public class ProductBean implements Serializable {
 	private String prodInfo;
 	private double prodPrice;
 	private int prodQuantity;
+	public static int prodLowStockTheshold = 5;
 	private InputStream prodImage;
 
 	public ProductBean(String prodId, String prodName, String prodType, String prodInfo, double prodPrice,

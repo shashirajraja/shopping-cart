@@ -77,7 +77,7 @@
 							<td><%=product.getProdPrice()%></td>
 							<td><%=new OrderServiceImpl().countSoldItem(product.getProdId())%></td>
 							
-							<% if (product.getProdQuantity() <= 5) { %>
+							<% if (product.getProdQuantity() <= ProductBean.prodLowStockTheshold) { %>
 								<td>
 									<%=product.getProdQuantity()%>
 									<span style="margin-left: 2rem;">
