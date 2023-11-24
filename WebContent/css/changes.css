@@ -155,7 +155,7 @@ i {
 	position: relative;
 }
 
-.badge:after {
+.custom-badge::after {
 	content: attr(data-count);
 	position: absolute;
 	background: #ff6600;
