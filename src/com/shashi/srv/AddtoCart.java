@@ -81,7 +81,7 @@ public class AddtoCart extends HttpServlet {
 
 				status = "Only " + availableQty + " no of " + product.getProdName()
 						+ " are available in the shop! So we are adding only " + availableQty
-						+ " products into Your Cart" + "";
+						+ " products into Your Cart";
 			}
 			DemandBean demandBean = new DemandBean(userName, product.getProdId(), pQty - availableQty);
 

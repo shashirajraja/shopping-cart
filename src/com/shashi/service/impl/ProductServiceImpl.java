@@ -5,8 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import com.shashi.beans.DemandBean;
 import com.shashi.beans.ProductBean;
@@ -532,6 +531,48 @@ public class ProductServiceImpl implements ProductService {
 		DBUtil.closeConnection(ps);
 
 		return quantity;
+	}
+
+	@Override
+	public List<ProductBean> orderProductsByPopularity(List<ProductBean> products, String popularity) {
+		Map<String, ProductBean> prodIdToProduct = new HashMap<>();
+		List<ProductBean> orderedProducts = new ArrayList<>();
+
+		String question_marks = String.join(", ", Collections.nCopies(products.size(), "?"));
+
+		products.forEach(product -> prodIdToProduct.put(product.getProdId(), product));
+
+		Connection con = DBUtil.provideConnection();
+		PreparedStatement ps;
+		ResultSet rs;
+		String query = "SELECT prodid, SUM(quantity) as total_quantity FROM orders WHERE prodid IN (" +
+				question_marks + ") GROUP by prodid ORDER BY total_quantity " + popularity;
+
+		try {
+			ps = con.prepareStatement(query);
+			int index = 1;
+			for (String prodId : prodIdToProduct.keySet()) {
+				ps.setString(index++, prodId);
+			}
+
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+				String prodId = rs.getString("prodid");
+				orderedProducts.add(prodIdToProduct.remove(prodId));
+			}
+
+			if ("ASC".equalsIgnoreCase(popularity)) {
+				orderedProducts.addAll(0, prodIdToProduct.values());
+			} else {
+				orderedProducts.addAll(prodIdToProduct.values());
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return orderedProducts;
 	}
 
 }
