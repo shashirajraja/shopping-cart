@@ -78,11 +78,13 @@
 							<td><%=new OrderServiceImpl().countSoldItem(product.getProdId())%></td>
 							
 							<% if (product.getProdQuantity() <= 5) { %>
-								<td><%=product.getProdQuantity()%></td>
-								<span>
-									<span class="glyphicon glyphicon-alert"></span>
-									<span style="padding: 0 0.5em 0 0.5em; color: #912338; font-weight: bold;">LOW STOCK</span>
-								</span>
+								<td>
+									<%=product.getProdQuantity()%>
+									<span style="margin-left: 2rem;">
+										<span class="glyphicon glyphicon-alert"></span>
+										<span style="padding: 0 0.5em 0 0.5em; color: #912338; font-weight: bold;">LOW STOCK</span>
+									</span>
+								</td>
 							<% } else { %>
 								<td><%=product.getProdQuantity()%></td>
 							<% } %>
