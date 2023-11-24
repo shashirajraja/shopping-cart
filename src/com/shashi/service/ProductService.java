@@ -42,4 +42,6 @@ public interface ProductService {
 	public boolean sellNProduct(String prodId, int n);
 
 	public int getProductQuantity(String prodId);
+
+	List<ProductBean> orderProductsByPopularity(List<ProductBean> products, String popularity);
 }

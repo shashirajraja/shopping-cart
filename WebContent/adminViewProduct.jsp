@@ -40,6 +40,7 @@
 
 	String search = request.getParameter("search");
 	String type = request.getParameter("type");
+	String popularity = request.getParameter("popularity");
 	String message = "All Products";
 	if (search != null) {
 		products = prodDao.searchAllProducts(search);
@@ -53,6 +54,13 @@
 	if (products.isEmpty()) {
 		message = "No items found for the search '" + (search != null ? search : type) + "'";
 		products = prodDao.getAllProducts();
+	} else if (popularity != null && !popularity.isEmpty()) {
+		products = prodDao.orderProductsByPopularity(products, popularity);
+		if (popularity.equalsIgnoreCase("ASC")) {
+			message += " from Least to Most Popular";
+		} else {
+			message += " from Most to Least Popular";
+		}
 	}
 	%>
 
@@ -62,6 +70,22 @@
 
 	<div class="text-center"
 		style="color: black; font-size: 14px; font-weight: bold;"><%=message%></div>
+	<div id="order-dropdown" style="text-align: center;">
+    	<form id="popularity-form" action="" method="get">
+        	<label for="popularity" style="display: inline-block; margin-right: 10px;">Order products by popularity:</label>
+			<select id="popularity" name="popularity" style="display: inline-block;" onchange="this.form.submit()">
+				<option value="" <%= popularity == null || popularity.isEmpty() ? "selected" : "" %>>None</option>
+				<option value="ASC"  <%= popularity != null && popularity.equals("ASC") ? "selected" : "" %>>Ascending</option>
+           	 	<option value="DESC" <%= popularity != null && popularity.equals("DESC") ? "selected" : "" %>>Descending</option>
+        	</select>
+        	<% if(search != null && !search.trim().isEmpty()) { %>
+            	<input type="hidden" name="search" value="<%= search %>">
+        	<% } %>
+        	<% if(type != null && !type.trim().isEmpty()) { %>
+            	<input type="hidden" name="type" value="<%= type %>">
+        	<% } %>
+    	</form>
+	</div>
 	<!-- Start of Product Items List -->
 	<div class="container" style="background-color: #E6F9E6;">
 		<div class="row text-center">
