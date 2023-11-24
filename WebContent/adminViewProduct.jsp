@@ -103,6 +103,53 @@
 	</div>
 	<!-- ENd of Product Items List -->
 
+	<!-- Notification Modal -->
+	<div class="modal fade" id="notificationModal" tabindex="-1" role="dialog" aria-labelledby="notificationModal">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+							aria-hidden="true">&times;</span></button>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="text-center" style="font-size: 20px;">
+							<strong>Attention Needed</strong>
+						</div>
+					</div>
+					<div class="row">
+						<div class="text-center" style="font-size: 24px; color: #DC1717">
+							<strong>LOW ON STOCK PRODUCTS</strong>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<div class="text-center">
+						<a href="adminStock.jsp">
+							<button type="button" class="btn btn-primary">
+								View Products
+							</button>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		<%
+		if (userType != null && userType.equals("admin")) {
+			List<ProductBean> lowStockProduct = prodDao.getLowStockProduct();
+
+			if (!lowStockProduct.isEmpty()) {
+		%>
+		$('#notificationModal').modal('show');
+		<%
+			}
+		}
+		%>
+	</script>
+
 	<%@ include file="footer.html"%>
 
 </body>

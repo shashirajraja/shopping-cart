@@ -65,10 +65,13 @@
 					ProductServiceImpl productDao = new ProductServiceImpl();
 					List<ProductBean> products = new ArrayList<ProductBean>();
 					products = productDao.getAllProducts();
+
+					List<ProductBean> lowStockProducts = productDao.getLowStockProduct();
+
 					for (ProductBean product : products) {
 					%>
 
-					<tr>
+					<tr class="<%=lowStockProducts.contains(product) ? "warning" : ""%>">
 						<td><img src="./ShowImage?pid=<%=product.getProdId()%>"
 							style="width: 50px; height: 50px;"></td>
 						<td><a

@@ -85,4 +85,12 @@ public class ProductBean implements Serializable {
 		this.prodImage = prodImage;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (!(obj instanceof ProductBean)) {
+			return false;
+		}
+
+		return this.prodId.equals(((ProductBean) obj).prodId);
+	}
 }

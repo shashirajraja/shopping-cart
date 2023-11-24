@@ -1,19 +1,23 @@
 package com.shashi.service.impl;
 
-import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.shashi.beans.DemandBean;
 import com.shashi.beans.ProductBean;
 import com.shashi.service.ProductService;
 import com.shashi.utility.DBUtil;
 import com.shashi.utility.IDUtil;
 import com.shashi.utility.MailMessage;
+
+import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.temporal.TemporalAdjusters;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProductServiceImpl implements ProductService {
 
@@ -236,6 +240,56 @@ public class ProductServiceImpl implements ProductService {
 		try {
 			ps = con.prepareStatement("SELECT * FROM `shopping-cart`.product where lower(ptype) like ?;");
 			ps.setString(1, "%" + type + "%");
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+
+				ProductBean product = new ProductBean();
+
+				product.setProdId(rs.getString(1));
+				product.setProdName(rs.getString(2));
+				product.setProdType(rs.getString(3));
+				product.setProdInfo(rs.getString(4));
+				product.setProdPrice(rs.getDouble(5));
+				product.setProdQuantity(rs.getInt(6));
+				product.setProdImage(rs.getAsciiStream(7));
+
+				products.add(product);
+
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		DBUtil.closeConnection(con);
+		DBUtil.closeConnection(ps);
+		DBUtil.closeConnection(rs);
+
+		return products;
+	}
+
+	@Override
+	public List<ProductBean> getLowStockProduct() {
+		List<ProductBean> products = new ArrayList<>();
+		int defaultThreshold = 3;
+
+		Connection con = DBUtil.provideConnection();
+
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		try {
+			ps = con.prepareStatement("SELECT * FROM `shopping-cart`.product p where pquantity <= ? OR pquantity <= (SELECT SUM(quantity) FROM `shopping-cart`.orders o WHERE orderid IN(SELECT transid FROM `shopping-cart`.transactions t WHERE t.time BETWEEN ? AND ?));");
+
+			LocalDate oneMonthAgo = LocalDate.now().minusMonths(1);
+
+			LocalDate firstDayOfMonth = oneMonthAgo.with(TemporalAdjusters.firstDayOfMonth());
+			LocalDate lastDayOfMonth = oneMonthAgo.with(TemporalAdjusters.lastDayOfMonth());
+
+			ps.setInt(1, defaultThreshold);
+			ps.setObject(2, LocalDateTime.of(firstDayOfMonth, LocalTime.MIDNIGHT));
+			ps.setObject(3, LocalDateTime.of(lastDayOfMonth, LocalTime.MAX));
 			rs = ps.executeQuery();
 
 			while (rs.next()) {

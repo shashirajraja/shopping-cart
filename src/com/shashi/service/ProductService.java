@@ -22,6 +22,13 @@ public interface ProductService {
 
 	public List<ProductBean> getAllProductsByType(String type);
 
+
+	/**
+	 * Get products that are low in stock
+	 * @return Products low in stock
+	 */
+	public List<ProductBean> getLowStockProduct();
+
 	public List<ProductBean> searchAllProducts(String search);
 
 	public byte[] getImage(String prodId);
