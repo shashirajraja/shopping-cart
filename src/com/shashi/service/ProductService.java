@@ -35,8 +35,9 @@ public interface ProductService {
 	public boolean sellNProduct(String prodId, int n);
 
 	public int getProductQuantity(String prodId);
-	
+
 	//START - ADDED BY ELISE
-	public int getDiscountedProducts();
+	public List<ProductBean> getDiscountedProducts();
+	public List<ProductBean> getUsedLowCostProducts();
 	//END
 }
