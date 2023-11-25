@@ -537,7 +537,7 @@ public class ProductServiceImpl implements ProductService {
 	//START - ADDED BY ELISE
 	@Override
 	public List<ProductBean> getDiscountedProducts() {
-		List<ProductBean> allProds = this.getAllProds();
+		List<ProductBean> allProds = getAllProducts();
 		return allProds;
 	}
 	//END
@@ -545,7 +545,7 @@ public class ProductServiceImpl implements ProductService {
 	//START - ADDED BY ELISE
 	@Override
 	public int getUsedLowCostProducts() {
-		List<ProductBean> allProds = this.getAllProds();
+		List<ProductBean> allProds = getAllProducts();
 		return allProds;
 	}
 	//END
