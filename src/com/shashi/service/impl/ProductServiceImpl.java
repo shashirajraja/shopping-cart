@@ -534,4 +534,20 @@ public class ProductServiceImpl implements ProductService {
 		return quantity;
 	}
 
+	//START - ADDED BY ELISE
+	@Override
+	public List<ProductBean> getDiscountedProducts() {
+		List<ProductBean> allProds = this.getAllProds();
+		return allProds;
+	}
+	//END
+
+	//START - ADDED BY ELISE
+	@Override
+	public int getUsedLowCostProducts() {
+		List<ProductBean> allProds = this.getAllProds();
+		return allProds;
+	}
+	//END
+
 }
