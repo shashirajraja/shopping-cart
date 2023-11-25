@@ -14,7 +14,7 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
-<body style="background-color: #E6F9E6;">
+<body style="background-color: #E9D3D7;">
 	<%
 	/* Checking the user credentials */
 	String userType = (String) session.getAttribute("usertype");

@@ -1,5 +1,5 @@
 body {
-	background-color: #E6F9E6;
+	background-color:  #E9D3D7;
 }
 /* Add a dark background color with a little bit see-through */
 .navbar {
@@ -85,7 +85,7 @@ button:hover {
 }
 
 .jumbotron {
-	background-color: #33cc33; /*#f4511e; /* Orange */
+	background-color: #912338; /*#f4511e; /* Orange */
 	color: #ffffff;
 }
 
