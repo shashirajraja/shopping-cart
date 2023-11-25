@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ page
+	import="com.shashi.service.impl.*, com.shashi.service.*,com.shashi.beans.*,java.util.*,javax.servlet.ServletOutputStream,java.io.*"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,17 +22,16 @@
 	String userType = (String) session.getAttribute("usertype");
 	String userName = (String) session.getAttribute("username");
 	String password = (String) session.getAttribute("password");
-
-	if (userType == null || !userType.equals("admin")) {
-
+	String prodid = request.getParameter("prodid");
+	ProductBean product = new ProductServiceImpl().getProductDetails(prodid);
+	if (prodid == null || product == null) {
+		response.sendRedirect("updateProductById.jsp?message=Please Enter a valid product Id");
+		return;
+	} else if(userType == null || !userType.equals("admin")) {
 		response.sendRedirect("login.jsp?message=Access Denied, Login as admin!!");
-
 	}
-
 	else if (userName == null || password == null) {
-
 		response.sendRedirect("login.jsp?message=Session Expired, Login Again!!");
-
 	}
 	%>
 
@@ -77,7 +78,6 @@
 			</form>
 		</div>
 	</div>
-
 	<%@ include file="footer.html"%>
 </body>
 </html>
