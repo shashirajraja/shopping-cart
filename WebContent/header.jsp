@@ -59,9 +59,12 @@
 			</div>
 			<div class="collapse navbar-collapse" id="myNavbar">
 				<ul class="nav navbar-nav navbar-right">
+
+				    <li><a href="discounts.jsp">Discounts</a></li>
 					<li><a href="login.jsp">Login</a></li>
 					<li><a href="register.jsp">Register</a></li>
 					<li><a href="index.jsp">Products</a></li>
+
 					<li class="dropdown"><a class="dropdown-toggle"
 						data-toggle="dropdown" href="#">Category <span class="caret"></span>
 					</a>
