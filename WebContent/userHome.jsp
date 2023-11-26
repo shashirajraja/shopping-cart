@@ -38,8 +38,21 @@
 		products = prodDao.searchAllProducts(search);
 		message = "Showing Results for '" + search + "'";
 	} else if (type != null) {
-		products = prodDao.getAllProductsByType(type);
-		message = "Showing Results for '" + type + "'";
+	if ("mostSelling".equals(type)) {
+    			products = prodDao.getMostSelling();
+    		} else if ("leastSelling".equals(type)) {
+    			products = prodDao.getMostSelling();
+    			Collections.reverse(products);
+    		}else if("used".equals(type)) {
+    			products = prodDao.getAllUsed();
+    		}
+
+    		else
+
+    		{
+    			products = prodDao.getAllProductsByType(type);
+    		}
+    		message = "Showing Results for '" + type + "'";
 	} else {
 		products = prodDao.getAllProducts();
 	}

@@ -99,6 +99,13 @@
 							placeholder="Select Image" name="image" class="form-control"
 							id="last_name" required>
 					</div>
+				<div class="col-md-2 form-group">
+						<label for="featuredProduct">Used</label> <input
+							type="hidden" name="used" value="0"> <input
+							type="checkbox" class="form-control" id="last_name"
+							name="used" value="1">
+					</div>
+
 				</div>
 				<div class="row">
 					<div class="col-md-6 text-center" style="margin-bottom: 2px;">
