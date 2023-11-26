@@ -5,3 +5,6 @@ src/application.properties
 /.settings/
 .classpath
 *.jar
+src/application.properties
+.settings/org.eclipse.wst.common.project.facet.core.xml
+.classpath
