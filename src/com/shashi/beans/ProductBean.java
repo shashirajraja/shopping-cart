@@ -18,6 +18,7 @@ public class ProductBean implements Serializable {
 	public static int prodLowStockTheshold = 5;
 	private InputStream prodImage;
 	private boolean isUsed;
+	private int amountSold;
 
 	public ProductBean(String prodId, String prodName, String prodType, String prodInfo, double prodPrice,
 			int prodQuantity, InputStream prodImage) {
@@ -93,6 +94,14 @@ public class ProductBean implements Serializable {
 
 	public void setUsed(boolean isUsed) {
 		this.isUsed = isUsed;
+	}
+	
+	public int getAmountSold() {
+		return amountSold;
+	}
+
+	public void setAmountSold(int amountSold) {
+		this.amountSold = amountSold;
 	}
 
 }
