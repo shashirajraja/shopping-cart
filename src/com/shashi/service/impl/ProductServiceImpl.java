@@ -1,7 +1,9 @@
 package com.shashi.service.impl;
 
 import java.io.InputStream;
+
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -533,5 +535,176 @@ public class ProductServiceImpl implements ProductService {
 
 		return quantity;
 	}
+	
+	
+	
+	//Added by Johnny
+	public List<ProductBean> searchAllLowStockProducts(int threshold) {
+	    List<ProductBean> lowStockProducts = new ArrayList<>();
+	    Connection con = null;
+	    PreparedStatement ps = null;
+	    ResultSet rs = null;
+
+	    try {
+	        // Database connection details
+	        String url = "jdbc:mysql://127.0.0.1:3306/shopping-cart"; // Replace with database URL
+	        String user = "root"; // Replace with database username
+	        String password = "1234"; // Replace with database password
+
+	        // Establishing the connection
+	        con = DriverManager.getConnection(url, user, password);
+
+	        // Preparing and executing the SQL query
+	        ps = con.prepareStatement("SELECT * FROM product WHERE pquantity <= ?");
+	        ps.setInt(1, threshold);
+	        rs = ps.executeQuery();
+	        
+	        System.out.println("------------searchAllLowStockProducts()------------");
+	        while (rs.next()) {
+	            ProductBean product = new ProductBean();
+	           
+	            // Set product properties from ResultSet
+	            product.setProdId(rs.getString("pid")); // 'pid'
+	            product.setProdName(rs.getString("pname")); // 'pname'
+	            product.setProdType(rs.getString("ptype")); // 'ptype'
+	            product.setProdInfo(rs.getString("pinfo")); // 'pinfo'
+	            product.setProdPrice(rs.getDouble("pprice")); // 'pprice'
+	            product.setProdQuantity(rs.getInt("pquantity")); // 'pquantity'
+
+	            // Handling the product image
+	            product.setProdImage(rs.getBinaryStream("image"));
+	            System.out.println("Product found: Name = "+product.getProdName()+ ", ID = " + product.getProdId() + ", Quantity = " + product.getProdQuantity());
+	            lowStockProducts.add(product);
+	        }
+	        
+	        System.out.println("Number of low stock products found: " + lowStockProducts.size()+"\n\n");
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        // Close resources
+	        try {
+	            if (rs != null) rs.close();
+	            if (ps != null) ps.close();
+	            if (con != null) con.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+
+	    return lowStockProducts;
+	}
+
+	//Added by Johnny
+	public List<ProductBean> getAllLowStockProductsByType(int threshold, String type) {
+	    List<ProductBean> lowStockProducts = new ArrayList<>();
+	    Connection con = null;
+	    PreparedStatement ps = null;
+	    ResultSet rs = null;
+
+	    try {
+	    	// Database connection details
+	        String url = "jdbc:mysql://127.0.0.1:3306/shopping-cart"; // Replace with database URL
+	        String user = "root"; // Replace with database username
+	        String password = "1234"; // Replace with database password
+
+	        // Establishing the connection
+	        con = DriverManager.getConnection(url, user, password);
+
+	        String query = "SELECT * FROM product WHERE pquantity <= ? AND ptype = ?";
+	        ps = con.prepareStatement(query);
+	        ps.setInt(1, threshold);
+	        ps.setString(2, type);
+	        rs = ps.executeQuery();
+	        
+	        System.out.println("------------getAllLowStockProductsByType()------------");
+	        while (rs.next()) {
+	            ProductBean product = new ProductBean();
+	            product.setProdId(rs.getString("pid")); // 'pid'
+	            product.setProdName(rs.getString("pname")); // 'pname'
+	            product.setProdType(rs.getString("ptype")); // 'ptype'
+	            product.setProdInfo(rs.getString("pinfo")); // 'pinfo'
+	            product.setProdPrice(rs.getDouble("pprice")); // 'pprice'
+	            product.setProdQuantity(rs.getInt("pquantity")); // 'pquantity'
+
+	            // Handling the product image
+	            product.setProdImage(rs.getBinaryStream("image"));
+	            System.out.println("Product found: Name = "+product.getProdName() + ", ID = " + product.getProdId() + ", Quantity = " + product.getProdQuantity() + ", Type = " + product.getProdType());
+	            System.out.println();
+	            lowStockProducts.add(product);
+	        }
+	        
+	        System.out.println("Number of low stock products by type found: " + lowStockProducts.size()+"\n\n");
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	    	 try {
+		            if (rs != null) rs.close();
+		            if (ps != null) ps.close();
+		            if (con != null) con.close();
+		        } catch (SQLException e) {
+		            e.printStackTrace();
+		        }
+	    }
+
+	    return lowStockProducts;
+	}
+	
+	public List<ProductBean> getUsedLowCostProducts(double maxCost) {
+	    List<ProductBean> products = new ArrayList<>();
+	    Connection con = null;
+	    PreparedStatement ps = null;
+	    ResultSet rs = null;
+
+	    try {
+	    	// Database connection details
+	        String url = "jdbc:mysql://127.0.0.1:3306/shopping-cart"; // Replace with database URL
+	        String user = "root"; // Replace with database username
+	        String password = "1234"; // Replace with database password
+
+	        // Establishing the connection
+	        con = DriverManager.getConnection(url, user, password);
+
+	        String query = "SELECT * FROM product WHERE isUsed = true AND pprice <= ?";
+	        ps = con.prepareStatement(query);
+	        ps.setDouble(1, maxCost);
+	        rs = ps.executeQuery();
+	        System.out.println("------------getUsedLowCostProducts()------------");
+	        while (rs.next()) {
+	            ProductBean product = new ProductBean();
+	            product.setProdId(rs.getString("pid")); // 'pid'
+	            product.setProdName(rs.getString("pname")); // 'pname'
+	            product.setProdType(rs.getString("ptype")); // 'ptype'
+	            product.setProdInfo(rs.getString("pinfo")); // 'pinfo'
+	            product.setProdPrice(rs.getDouble("pprice")); // 'pprice'
+	            product.setProdQuantity(rs.getInt("pquantity")); // 'pquantity'
+	            product.setUsed(rs.getBoolean("isUsed")); // 'isUsd'
+
+	            // Handling the product image
+	            product.setProdImage(rs.getBinaryStream("image"));
+	            
+	            
+	            System.out.println("Product found: Name = "+product.getProdName() + ", ID = " + product.getProdId() 
+	            					+ ", Quantity = " + product.getProdQuantity() + ", Type = " + product.getProdType()
+	            					+ ", Used = " + product.getUsed());
+	      
+	            products.add(product);
+	        }
+	        
+	        System.out.println("Number of low stock products by type found: " + products.size()+"\n\n");
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	    	 try {
+		            if (rs != null) rs.close();
+		            if (ps != null) ps.close();
+		            if (con != null) con.close();
+		        } catch (SQLException e) {
+		            e.printStackTrace();
+		        }
+	    }
+
+	    return products;
+	}
+
 
 }

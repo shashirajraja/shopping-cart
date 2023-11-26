@@ -35,4 +35,8 @@ public interface ProductService {
 	public boolean sellNProduct(String prodId, int n);
 
 	public int getProductQuantity(String prodId);
+	
+	public List<ProductBean> searchAllLowStockProducts(int threshold);
+	public List<ProductBean> getAllLowStockProductsByType(int threshold, String type);
+	public List<ProductBean> getUsedLowCostProducts(double maxCost);
 }
