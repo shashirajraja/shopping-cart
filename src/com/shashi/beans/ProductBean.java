@@ -16,6 +16,7 @@ public class ProductBean implements Serializable {
 	private double prodPrice;
 	private int prodQuantity;
 	private InputStream prodImage;
+	private boolean isUsed;
 
 	public ProductBean(String prodId, String prodName, String prodType, String prodInfo, double prodPrice,
 			int prodQuantity, InputStream prodImage) {
@@ -83,6 +84,14 @@ public class ProductBean implements Serializable {
 
 	public void setProdImage(InputStream prodImage) {
 		this.prodImage = prodImage;
+	}
+
+	public boolean getUsed() {
+		return isUsed;
+	}
+
+	public void setUsed(boolean isUsed) {
+		this.isUsed = isUsed;
 	}
 
 }
