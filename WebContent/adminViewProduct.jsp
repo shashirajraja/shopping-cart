@@ -34,14 +34,6 @@
 		
 		ProductServiceImpl prodDao = new ProductServiceImpl();
 		List<ProductBean> products = new ArrayList<ProductBean>();
-		
-		List<ProductBean> leastSellingProd = new ArrayList<ProductBean>();
-		leastSellingProd = prodDao.getLeastSellingProducts();
-		boolean leastFlag = false;
-		
-		List<ProductBean> mostSellingProd = new ArrayList<ProductBean>();
-		mostSellingProd = prodDao.getMostSellingProducts();
-		boolean mostFlag = false;
 	
 		String search = request.getParameter("search");
 		String type = request.getParameter("type");
@@ -72,34 +64,10 @@
 		<div class="container">
 			<div class="row text-center">
 	
-				<% 
-					for (ProductBean product : products) {
-						for (ProductBean leastProd : leastSellingProd) {
-							if (product.getProdId().equals(leastProd.getProdId()))	
-								leastFlag = true;
-						}
-						for (ProductBean mostProd : mostSellingProd) {
-							if (product.getProdId().equals(mostProd.getProdId()))	
-								mostFlag = true;
-						}
-						
-				%>
-					<div class="col-sm-4" style='height: 400px;'>
+				<% for (ProductBean product : products) { %>
+					<div class="col-sm-4" style='height: 350px;'>
 		
 						<div class="thumbnail">
-							
-							<%
-							if (mostFlag == true) {	
-							%>
-							<p style="padding: 0 0.5em 0 0.5em; color: #000000; font-weight: bold;">Selling Rank: Best</p>
-							<%
-								} else if (leastFlag == true) {
-							%>
-							<p style="padding: 0 0.5em 0 0.5em; color: #000000; font-weight: bold;">Selling Rank: Least</p>
-							<%
-								}
-							%>
-							
 						
 							<img src="./ShowImage?pid=<%=product.getProdId()%>" alt="Product" style="height: 150px; max-width: 180px;">
 
@@ -140,7 +108,7 @@
 							<br />
 						</div>
 					</div>
-				<% leastFlag = false; mostFlag = false;} %>
+				<% } %>
 			</div>
 		</div>
 

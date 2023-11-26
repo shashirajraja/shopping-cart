@@ -31,10 +31,6 @@
 	
 		ProductServiceImpl prodDao = new ProductServiceImpl();
 		List<ProductBean> products = new ArrayList<ProductBean>();
-		
-		List<ProductBean> mostSellingProd = new ArrayList<ProductBean>();
-		mostSellingProd = prodDao.getMostSellingProducts();
-		boolean mostFlag = false;
 	
 		String search = request.getParameter("search");
 		String type = request.getParameter("type");
@@ -68,24 +64,11 @@
 	
 				<%
 				for (ProductBean product : products) {
-					for (ProductBean mostProd : mostSellingProd) {
-						if (product.getProdId().equals(mostProd.getProdId()))	
-							mostFlag = true;
-					}
-					
 					int cartQty = new CartServiceImpl().getCartItemCount(userName, product.getProdId());
 				%>
-				<div class="col-sm-4" style='height: 400px;'>
-					<div class="thumbnail">
-					
-						<%
-							if (mostFlag == true) {	
-						%>
-						<p style="padding: 0 0.5em 0 0.5em; color: #000000; font-weight: bold;">BEST SELLING!</p>
-						<%
-							} 
-						%>
 
+				<div class="col-sm-4" style='height: 350px;'>
+					<div class="thumbnail">
 						<img src="./ShowImage?pid=<%=product.getProdId()%>" alt="Product" style="height: 150px; max-width: 180px">
 						
 						<p class="productname"><%=product.getProdName()%></p>
@@ -131,7 +114,7 @@
 						<br />
 					</div>
 				</div>
-				<% mostFlag = false; } %>
+				<% } %>
 			</div>
 		</div>
 
