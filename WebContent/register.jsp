@@ -75,11 +75,6 @@
 							name="mobile" class="form-control" id="last_name"
 							name="last_name" required>
 					</div>
-					<div class="col-md-6 form-group">
-						<label for="last_name">Pin Code</label> <input type="number"
-							name="pincode" pattern="[0-9]{6}" maxlength="6" class="form-control" id="last_name"
-							name="last_name" required>
-					</div>
 
 				</div>
 				<div class="row">
