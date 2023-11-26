@@ -2,13 +2,15 @@ package com.shashi.service;
 
 import java.io.InputStream;
 import java.util.List;
+import java.util.HashSet;
 
 import com.shashi.beans.ProductBean;
+import com.shashi.beans.ProductInterest;
 
 public interface ProductService {
 
 	public String addProduct(String prodName, String prodType, String prodInfo, double prodPrice, int prodQuantity,
-			InputStream prodImage);
+			InputStream prodImage, Boolean productUsed, HashSet<ProductInterest> relatedInterests);
 
 	public String addProduct(ProductBean product);
 

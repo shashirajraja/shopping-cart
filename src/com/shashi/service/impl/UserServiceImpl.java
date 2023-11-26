@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.shashi.beans.UserBean;
+import com.shashi.beans.UserType;
 import com.shashi.constants.IUserConstants;
 import com.shashi.service.UserService;
 import com.shashi.utility.DBUtil;
@@ -15,9 +16,9 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public String registerUser(String userName, Long mobileNo, String emailId, String address, int pinCode,
-			String password) {
+			String password, UserType userType) {
 
-		UserBean user = new UserBean(userName, mobileNo, emailId, address, pinCode, password);
+		UserBean user = new UserBean(userName, mobileNo, emailId, address, pinCode, password, userType);
 
 		String status = registerUser(user);
 

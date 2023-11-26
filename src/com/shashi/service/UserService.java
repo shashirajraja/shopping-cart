@@ -1,6 +1,7 @@
 package com.shashi.service;
 
 import com.shashi.beans.UserBean;
+import com.shashi.beans.UserType;
 
 public interface UserService {
 
@@ -10,7 +11,7 @@ public interface UserService {
 	 */
 
 	public String registerUser(String userName, Long mobileNo, String emailId, String address, int pinCode,
-			String password);
+			String password, UserType userType);
 
 	public String registerUser(UserBean user);
 

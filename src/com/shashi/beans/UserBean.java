@@ -1,6 +1,7 @@
 package com.shashi.beans;
 
 import java.io.Serializable;
+import java.util.HashSet;
 
 @SuppressWarnings("serial")
 public class UserBean implements Serializable {
@@ -8,7 +9,7 @@ public class UserBean implements Serializable {
 	public UserBean() {
 	}
 
-	public UserBean(String userName, Long mobileNo, String emailId, String address, int pinCode, String password) {
+	public UserBean(String userName, Long mobileNo, String emailId, String address, int pinCode, String password, UserType userType) {
 		super();
 		this.name = userName;
 		this.mobile = mobileNo;
@@ -16,6 +17,7 @@ public class UserBean implements Serializable {
 		this.address = address;
 		this.pinCode = pinCode;
 		this.password = password;
+		this.userType = userType;
 	}
 
 	private String name;
@@ -24,7 +26,9 @@ public class UserBean implements Serializable {
 	private String address;
 	private int pinCode;
 	private String password;
-
+	private UserType userType;
+	private HashSet<ProductInterest> userInterests;
+	
 	public String getName() {
 		return name;
 	}
@@ -73,4 +77,33 @@ public class UserBean implements Serializable {
 		this.password = password;
 	}
 
+	public UserType getUserType() {
+		return userType;
+	}
+
+	public void setUserType(UserType userType) {
+		this.userType = userType;
+	}
+	
+	public HashSet<ProductInterest> getUserInterests() {
+		return userInterests;
+	}
+	
+	public void setUserInterests(HashSet<ProductInterest> userInterests) {
+		this.userInterests = userInterests;
+	}
+	
+	public void clearUserInterests() {
+		userInterests.clear();
+	}
+	
+	public void addUserInterest(ProductInterest userInterest) {
+		if(!userInterests.contains(userInterest))
+			userInterests.add(userInterest);
+	}
+	
+	public void removeUserInterest(ProductInterest userInterest) {
+		if(userInterests.contains(userInterest))
+			userInterests.remove(userInterest);
+	}
 }

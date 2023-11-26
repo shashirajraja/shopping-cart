@@ -2,6 +2,7 @@ package com.shashi.srv;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashSet;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
+import com.shashi.beans.ProductInterest;
 import com.shashi.service.impl.ProductServiceImpl;
 
 /**
@@ -51,13 +53,18 @@ public class AddProductSrv extends HttpServlet {
 
 		Part part = request.getPart("image");
 
+		Boolean usedProd = request.getParameter("used")); //TODO figure out how to parse a boolean
+		
+		//HashSet<ProductInterest> prodInterests = 
+		//TODO figure out how to parse a list of product interests into a hash set
+		
 		InputStream inputStream = part.getInputStream();
 
 		InputStream prodImage = inputStream;
 
 		ProductServiceImpl product = new ProductServiceImpl();
 
-		status = product.addProduct(prodName, prodType, prodInfo, prodPrice, prodQuantity, prodImage);
+		status = product.addProduct(prodName, prodType, prodInfo, prodPrice, prodQuantity, prodImage, usedProd, prodInterests);
 
 		RequestDispatcher rd = request.getRequestDispatcher("addProduct.jsp?message=" + status);
 		rd.forward(request, response);

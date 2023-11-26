@@ -31,8 +31,10 @@ public class RegisterSrv extends HttpServlet {
 		String password = request.getParameter("password");
 		String confirmPassword = request.getParameter("confirmPassword");
 		String status = "";
+		//TODO parse user type
+		//UserType userType =;
 		if (password != null && password.equals(confirmPassword)) {
-			UserBean user = new UserBean(userName, mobileNo, emailId, address, pinCode, password);
+			UserBean user = new UserBean(userName, mobileNo, emailId, address, pinCode, password, userType);
 
 			UserServiceImpl dao = new UserServiceImpl();
 
