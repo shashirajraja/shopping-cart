@@ -40,7 +40,8 @@
 	} else if (type != null) {
 	if ("mostSelling".equals(type)) {
     			products = prodDao.getMostSelling();
-    		} else if ("leastSelling".equals(type)) {
+
+    		} else if ("leastSelling".equals(type)  ) {
     			products = prodDao.getMostSelling();
     			Collections.reverse(products);
     		}else if("used".equals(type)) {
