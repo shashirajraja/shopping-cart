@@ -72,6 +72,9 @@
 							<li><a href="index.jsp?type=camera">Camera</a></li>
 							<li><a href="index.jsp?type=speaker">Speakers</a></li>
 							<li><a href="index.jsp?type=tablet">Tablets</a></li>
+							<li><a href="index.jsp?type=mostSelling">most selling</a></li>
+                            							<li><a href="index.jsp?type=leastSelling">least selling</a></li>
+                            							<li><a href="index.jsp?type=used">Used</a></li>
 						</ul></li>
 				</ul>
 			</div>
@@ -109,6 +112,10 @@
 							<li><a href="userHome.jsp?type=camera">Camera</a></li>
 							<li><a href="userHome.jsp?type=speaker">Speakers</a></li>
 							<li><a href="userHome.jsp?type=tablet">Tablets</a></li>
+							<li><a href="userHome.jsp?type=mostSelling">most selling</a></li>
+                            <li><a href="userHome.jsp?type=leastSelling">least selling</a></li>
+                           <li><a href="userHome.jsp?type=used">Used</a></li>
+
 						</ul></li>
 					<%
 					if (notf == 0) {
@@ -163,6 +170,10 @@
 							<li><a href="adminViewProduct.jsp?type=camera">Camera</a></li>
 							<li><a href="adminViewProduct.jsp?type=speaker">Speakers</a></li>
 							<li><a href="adminViewProduct.jsp?type=tablet">Tablets</a></li>
+							<li><a href="adminViewProduct.jsp?type=mostSelling">most selling</a></li>
+                            							<li><a href="adminViewProduct.jsp?type=leastSelling">least selling</a></li>
+                            							<li><a href="adminViewProduct.jsp?type=used">Used</a></li>
+
 						</ul></li>
 					<li><a href="adminStock.jsp">Stock</a></li>
 					<li><a href="shippedItems.jsp">Shipped</a></li>
