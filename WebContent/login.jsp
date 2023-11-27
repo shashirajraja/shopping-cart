@@ -40,22 +40,22 @@
 				<div></div>
 				<div class="row">
 					<div class="col-md-12 form-group">
-						<label for="last_name">Username</label> <input type="email"
-							placeholder="Enter Username" name="username" class="form-control"
-							id="last_name" required>
+						<label for="email">Username</label>
+						<input type="email" placeholder="Enter Username" name="username" class="form-control"
+							   id="email" required>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-12 form-group">
-						<label for="last_name">Password</label> <input type="password"
-							placeholder="Enter Password" name="password" class="form-control"
-							id="last_name" required>
+						<label for="password">Password</label>
+						<input type="password" placeholder="Enter Password" name="password" class="form-control"
+							   id="password" required>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-12 form-group">
-						<label for="userrole">Login As</label> <select name="usertype"
-							id="userrole" class="form-control" required>
+						<label for="userrole">Login As</label> 
+						<select id="dropdown" name="usertype" id="userrole" class="form-control" required>
 							<option value="customer" selected>CUSTOMER</option>
 							<option value="admin">ADMIN</option>
 						</select>
@@ -63,7 +63,7 @@
 				</div>
 				<div class="row">
 					<div class="col-md-12 text-center">
-						<button type="submit" class="btn btn-success">Login</button>
+						<button id="login" type="submit" class="btn btn-success">Login</button>
 					</div>
 				</div>
 			</form>

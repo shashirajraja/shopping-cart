@@ -80,7 +80,7 @@
 							<% if (product.getProdQuantity() <= ProductBean.prodLowStockTheshold) { %>
 								<td>
 									<%=product.getProdQuantity()%>
-									<span style="margin-left: 2rem;">
+									<span id="low-stock" style="margin-left: 2rem;">
 										<span class="glyphicon glyphicon-alert"></span>
 										<span style="padding: 0 0.5em 0 0.5em; color: #912338; font-weight: bold;">LOW STOCK</span>
 									</span>
