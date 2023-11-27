@@ -549,7 +549,7 @@ public class ProductServiceImpl implements ProductService {
 	        // Database connection details
 	        String url = "jdbc:mysql://127.0.0.1:3306/shopping-cart"; // Replace with database URL
 	        String user = "root"; // Replace with database username
-	        String password = "1234"; // Replace with database password
+	        String password = "root"; // Replace with database password
 
 	        // Establishing the connection
 	        con = DriverManager.getConnection(url, user, password);
@@ -605,7 +605,7 @@ public class ProductServiceImpl implements ProductService {
 	    	// Database connection details
 	        String url = "jdbc:mysql://127.0.0.1:3306/shopping-cart"; // Replace with database URL
 	        String user = "root"; // Replace with database username
-	        String password = "1234"; // Replace with database password
+	        String password = "root"; // Replace with database password
 
 	        // Establishing the connection
 	        con = DriverManager.getConnection(url, user, password);
@@ -659,7 +659,7 @@ public class ProductServiceImpl implements ProductService {
 	    	// Database connection details
 	        String url = "jdbc:mysql://127.0.0.1:3306/shopping-cart"; // Replace with database URL
 	        String user = "root"; // Replace with database username
-	        String password = "1234"; // Replace with database password
+	        String password = "root"; // Replace with database password
 
 	        // Establishing the connection
 	        con = DriverManager.getConnection(url, user, password);
@@ -706,5 +706,91 @@ public class ProductServiceImpl implements ProductService {
 	    return products;
 	}
 
+	@Override
+	public List<ProductBean> getLeastSellingProducts() {
+		List<ProductBean> products = new ArrayList<ProductBean>();
 
+		Connection con = DBUtil.provideConnection();
+
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		try {
+			
+			ps = con.prepareStatement("SELECT * FROM product WHERE amountSold <= (SELECT 0.3*AVG(amountSold) FROM product)");
+
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+
+				ProductBean product = new ProductBean();
+
+				product.setProdId(rs.getString(1));
+				product.setProdName(rs.getString(2));
+				product.setProdType(rs.getString(3));
+				product.setProdInfo(rs.getString(4));
+				product.setProdPrice(rs.getDouble(5));
+				product.setProdQuantity(rs.getInt(6));
+				product.setProdImage(rs.getAsciiStream(7));
+
+				products.add(product);
+
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		DBUtil.closeConnection(con);
+		DBUtil.closeConnection(ps);
+		DBUtil.closeConnection(rs);
+
+		return products;
+	}
+
+	@Override
+	public List<ProductBean> getMostSellingProducts() {
+		List<ProductBean> products = new ArrayList<ProductBean>();
+
+		Connection con = DBUtil.provideConnection();
+
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		int threshold = 0;
+		try {
+			ps = con.prepareStatement("SELECT * FROM product WHERE amountSold >= (SELECT 0.8*AVG(amountSold) FROM product)");
+
+			
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+
+				ProductBean product = new ProductBean();
+
+				product.setProdId(rs.getString(1));
+				product.setProdName(rs.getString(2));
+				product.setProdType(rs.getString(3));
+				product.setProdInfo(rs.getString(4));
+				product.setProdPrice(rs.getDouble(5));
+				product.setProdQuantity(rs.getInt(6));
+				product.setProdImage(rs.getAsciiStream(7));
+
+				products.add(product);
+
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		DBUtil.closeConnection(con);
+		DBUtil.closeConnection(ps);
+		DBUtil.closeConnection(rs);
+
+		return products;
+	}
+	
+
+	
 }

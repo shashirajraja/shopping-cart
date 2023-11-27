@@ -39,4 +39,9 @@ public interface ProductService {
 	public List<ProductBean> searchAllLowStockProducts(int threshold);
 	public List<ProductBean> getAllLowStockProductsByType(int threshold, String type);
 	public List<ProductBean> getUsedLowCostProducts(double maxCost);
+
+	
+	
+	public List<ProductBean> getLeastSellingProducts();
+	public List<ProductBean> getMostSellingProducts();
 }
