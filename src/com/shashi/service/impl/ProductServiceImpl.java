@@ -536,24 +536,14 @@ public class ProductServiceImpl implements ProductService {
 		return quantity;
 	}
 	
-	
-	
-	//Added by Johnny
+	// Added by Johnny
 	public List<ProductBean> searchAllLowStockProducts(int threshold) {
 	    List<ProductBean> lowStockProducts = new ArrayList<>();
-	    Connection con = null;
+	    Connection con = DBUtil.provideConnection();
 	    PreparedStatement ps = null;
 	    ResultSet rs = null;
 
 	    try {
-	        // Database connection details
-	        String url = "jdbc:mysql://127.0.0.1:3306/shopping-cart"; // Replace with database URL
-	        String user = "root"; // Replace with database username
-	        String password = "root"; // Replace with database password
-
-	        // Establishing the connection
-	        con = DriverManager.getConnection(url, user, password);
-
 	        // Preparing and executing the SQL query
 	        ps = con.prepareStatement("SELECT * FROM product WHERE pquantity <= ?");
 	        ps.setInt(1, threshold);
@@ -594,22 +584,14 @@ public class ProductServiceImpl implements ProductService {
 	    return lowStockProducts;
 	}
 
-	//Added by Johnny
+	// Added by Johnny
 	public List<ProductBean> getAllLowStockProductsByType(int threshold, String type) {
 	    List<ProductBean> lowStockProducts = new ArrayList<>();
-	    Connection con = null;
+	    Connection con = DBUtil.provideConnection();
 	    PreparedStatement ps = null;
 	    ResultSet rs = null;
 
 	    try {
-	    	// Database connection details
-	        String url = "jdbc:mysql://127.0.0.1:3306/shopping-cart"; // Replace with database URL
-	        String user = "root"; // Replace with database username
-	        String password = "root"; // Replace with database password
-
-	        // Establishing the connection
-	        con = DriverManager.getConnection(url, user, password);
-
 	        String query = "SELECT * FROM product WHERE pquantity <= ? AND ptype = ?";
 	        ps = con.prepareStatement(query);
 	        ps.setInt(1, threshold);
@@ -651,19 +633,11 @@ public class ProductServiceImpl implements ProductService {
 	
 	public List<ProductBean> getUsedLowCostProducts(double maxCost) {
 	    List<ProductBean> products = new ArrayList<>();
-	    Connection con = null;
+	    Connection con = DBUtil.provideConnection();
 	    PreparedStatement ps = null;
 	    ResultSet rs = null;
 
 	    try {
-	    	// Database connection details
-	        String url = "jdbc:mysql://127.0.0.1:3306/shopping-cart"; // Replace with database URL
-	        String user = "root"; // Replace with database username
-	        String password = "root"; // Replace with database password
-
-	        // Establishing the connection
-	        con = DriverManager.getConnection(url, user, password);
-
 	        String query = "SELECT * FROM product WHERE isUsed = true AND pprice <= ?";
 	        ps = con.prepareStatement(query);
 	        ps.setDouble(1, maxCost);
@@ -790,7 +764,4 @@ public class ProductServiceImpl implements ProductService {
 
 		return products;
 	}
-	
-
-	
 }
