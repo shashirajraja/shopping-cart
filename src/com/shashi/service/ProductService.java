@@ -42,4 +42,10 @@ public interface ProductService {
 	public boolean increaseSoldQ(String prodId,int n);
 
 	public List<ProductBean> getAllUsed();
+
+	//Selects top 5 most selling products and applies a discount to them (if they have not already been discounted)
+	public List<ProductBean> displayDiscounts();
+
+	//For applying discounts and setting value of "discounted" to true
+	public boolean applyDiscount(String prodId, double newPrice);
 }
