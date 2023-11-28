@@ -739,6 +739,13 @@ public class ProductServiceImpl implements ProductService {
 			e.printStackTrace();
 		}
 
+		DBUtil.closeConnection(con);
+		DBUtil.closeConnection(ps);
+		DBUtil.closeConnection(rs);
+
+		Connection con = DBUtil.provideConnection();
+
+		PreparedStatement ps = null;
 		
 		// Calculate discount to apply: Higher soldQ values yield greater discounts (capped at 30%)
 		discount *= 5;
@@ -769,6 +776,7 @@ public class ProductServiceImpl implements ProductService {
 
 		DBUtil.closeConnection(con);
 		DBUtil.closeConnection(ps);
+		
 
 		return flag;
 		
