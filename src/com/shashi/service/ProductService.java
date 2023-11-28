@@ -43,9 +43,12 @@ public interface ProductService {
 
 	public List<ProductBean> getAllUsed();
 
-	//Selects top 5 most selling products and applies a discount to them (if they have not already been discounted)
+	//Selects the top 5 most selling products and applies a discount to them (if they have not already been discounted)
 	public List<ProductBean> displayDiscounts();
 
-	//For applying discounts and setting value of "discounted" to true
+	//Suggests the top 5 most selling items which have not already been discounted
+	public List<ProductBean> suggestDiscounts();
+	
+	//Applies a discount to a product based on its soldQ and sets the value of discounted to true
 	public boolean applyDiscount(String prodId, double newPrice);
 }
