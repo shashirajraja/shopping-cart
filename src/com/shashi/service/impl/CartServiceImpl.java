@@ -77,7 +77,9 @@ public class CartServiceImpl implements CartService {
 		DBUtil.closeConnection(ps);
 		DBUtil.closeConnection(rs);
 		DBUtil.closeConnection(ps2);
-
+		
+		//TODO update Analytics
+		
 		return status;
 	}
 

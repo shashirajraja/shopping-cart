@@ -53,6 +53,12 @@ public class OrderServiceImpl implements OrderService {
 				break;
 			else
 				ordered = new ProductServiceImpl().sellNProduct(item.getProdId(), item.getQuantity());
+				//TODO ADD quantity check, and send email if less than 4
+				int remainingQuantity = new ProductServiceImpl().getProductQuantity(item.getProdId());
+
+				if(remainingQuantity < 4) {
+					//MailMessage.lowQuantity(item.getProdId(), remainingQuantity);
+				}
 
 			if (!ordered)
 				break;

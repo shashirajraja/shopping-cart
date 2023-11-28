@@ -158,6 +158,31 @@ SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 -- -----------------------------------------------------
+-- Table `shopping-cart`.`interactions`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `shopping-cart`.`interactions` ;
+
+CREATE TABLE IF NOT EXISTS `shopping-cart`.`interactions` (
+  `username` VARCHAR(60) NOT NULL,
+  `prodid` VARCHAR(45) NOT NULL,
+  `interactioncount` INT NULL DEFAULT NULL,
+  CONSTRAINT `useremailinteractions`
+    FOREIGN KEY (`username`)
+    REFERENCES `shopping-cart`.`user` (`email`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `prodidinteractions`
+    FOREIGN KEY (`prodid`)
+    REFERENCES `shopping-cart`.`product` (`pid`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
+  PRIMARY KEY (`useremail`,`productid`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
 -- Data for table `shopping-cart`.`product`
 -- -----------------------------------------------------
 START TRANSACTION;
