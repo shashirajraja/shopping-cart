@@ -330,7 +330,7 @@ public class ProductServiceImpl implements ProductService {
 			for (int i = 0 ; i < 5 && rs.next() ; i++) {
 				
 				// if the product has not already been discounted, discount it, otherwise skip
-				if (rs.getInt(10) == 1) {
+				if (rs.getInt(10) == 0) {
 
 					// Calculate discount to apply: Higher soldQ values yield greater discounts (capped at 30%)
 					discount = rs.getInt(8);
