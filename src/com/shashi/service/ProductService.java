@@ -48,6 +48,9 @@ public interface ProductService {
 
 	//Suggests the top 5 most selling items which have not already been discounted
 	public List<ProductBean> suggestDiscounts();
+
+	//Suggests restocking of all products with <=3 quantity in stock
+	public List<ProductBean> suggestRestock();
 	
 	//Applies a discount to a product based on its soldQ and sets the value of discounted to true
 	public boolean applyDiscount(String prodId, double newPrice);
