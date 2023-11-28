@@ -325,7 +325,7 @@ public class ProductServiceImpl implements ProductService {
 			rs = ps.executeQuery();
 			
 			//Top 5 most selling only
-			for (int i = 0 ; i < 5 && rs.next() ; i++) {
+			while (rs.next() && products.size() < 5) {
 				
 				// if the product has not already been discounted, discount it, otherwise skip
 				if (rs.getInt(10) == 0) {
