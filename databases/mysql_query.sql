@@ -153,10 +153,6 @@ DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
 
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
-
 -- -----------------------------------------------------
 -- Table `shopping-cart`.`interactions`
 -- -----------------------------------------------------
@@ -175,12 +171,15 @@ CREATE TABLE IF NOT EXISTS `shopping-cart`.`interactions` (
     FOREIGN KEY (`prodid`)
     REFERENCES `shopping-cart`.`product` (`pid`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION
-  PRIMARY KEY (`useremail`,`productid`))
+    ON UPDATE NO ACTION,
+  PRIMARY KEY (`username`,`prodid`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 -- -----------------------------------------------------
 -- Data for table `shopping-cart`.`product`
