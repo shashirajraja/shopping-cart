@@ -311,6 +311,71 @@ public class ProductServiceImpl implements ProductService {
 		return products;
 	}
 
+	
+	public List<ProductBean> displayDiscounts() {
+		List<ProductBean> products = new ArrayList<ProductBean>();
+
+		Connection con = DBUtil.provideConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		int discount;
+		
+		try {
+			ps = con.prepareStatement("select * from product ORDER BY soldQ DESC");
+
+			rs = ps.executeQuery();
+			
+			//Top 5 most selling only
+			for (int i = 0 ; i < 5 && rs.next() ; i++) {
+				
+				// if the product has not already been discounted, discount it, otherwise skip
+				if (rs.getInt(10) == 1) {
+
+					// Calculate discount to apply: Higher soldQ values yield greater discounts (capped at 30%)
+					discount = rs.getInt(8);
+					discount *= 5;
+					if (discount > 30)
+						discount = 30;
+					discount = 100 - discount;
+
+					applyDiscount(rs.getString(1), rs.getDouble(5) * discount / 100);
+				}
+				
+
+				ProductBean product = new ProductBean();
+
+				product.setProdId(rs.getString(1));
+				product.setProdName(rs.getString(2));
+				product.setProdType(rs.getString(3));
+				product.setProdInfo(rs.getString(4));
+				
+				product.setProdPrice(rs.getDouble(5));
+				
+				product.setProdQuantity(rs.getInt(6));
+				product.setProdImage(rs.getAsciiStream(7));
+				product.setSoldQ(rs.getInt(8));
+				product.setUsed(rs.getInt(9));
+				product.setDiscounted(rs.getInt(10));
+
+				products.add(product);
+
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		DBUtil.closeConnection(con);
+		DBUtil.closeConnection(ps);
+		DBUtil.closeConnection(rs);
+
+		return products;
+		
+	}
+
 	@Override
 	public List<ProductBean> getAllProductsByType(String type) {
 		List<ProductBean> products = new ArrayList<ProductBean>();
@@ -649,6 +714,38 @@ public class ProductServiceImpl implements ProductService {
 		DBUtil.closeConnection(ps);
 
 		return flag;
+	}
+
+	
+	public boolean applyDiscount(String prodId, double newPrice) {
+		boolean flag = false;
+		
+		Connection con = DBUtil.provideConnection();
+
+		PreparedStatement ps = null;
+
+		try {
+
+			ps = con.prepareStatement("update product set discounted=1, pprice=? where pid=?");
+
+			ps.setDouble(1, newPrice);
+
+			ps.setString(2, prodId);
+
+			int k = ps.executeUpdate();
+
+			if (k > 0)
+				flag = true;
+		} catch (SQLException e) {
+			flag = false;
+			e.printStackTrace();
+		}
+
+		DBUtil.closeConnection(con);
+		DBUtil.closeConnection(ps);
+
+		return flag;
+		
 	}
 
 
