@@ -14,7 +14,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.junit.Test;
 
-public class LowStockProductsTest {
+public class GetLowStockProducts {
 	
 	static WebDriver driver;
 	
