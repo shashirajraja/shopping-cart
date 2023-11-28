@@ -1,4 +1,4 @@
-package com.shashi.service.impl;
+package tests.unit;
 
 import static org.junit.Assert.*;
 import java.util.List;

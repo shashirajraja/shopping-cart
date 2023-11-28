@@ -91,11 +91,11 @@
 							<%
 							if (mostFlag == true) {	
 							%>
-							<p style="padding: 0 0.5em 0 0.5em; color: #000000; font-weight: bold;">Selling Rank: Best</p>
+							<p id="best-selling" style="padding: 0 0.5em 0 0.5em; color: #000000; font-weight: bold;">Selling Rank: Best</p>
 							<%
 								} else if (leastFlag == true) {
 							%>
-							<p style="padding: 0 0.5em 0 0.5em; color: #000000; font-weight: bold;">Selling Rank: Least</p>
+							<p id="least-selling" style="padding: 0 0.5em 0 0.5em; color: #000000; font-weight: bold;">Selling Rank: Least</p>
 							<%
 								}
 							%>
@@ -105,7 +105,7 @@
 
 							<!-- Have a low stock message when the stock reaches less than or equal to 5 units -->							
  							<% if (product.getProdQuantity() <= ProductBean.prodLowStockTheshold) { %>
-								<span>
+								<span id="low-stock">
 									<span style="padding: 0 0.5em 0 0.5em; color: #912338; font-weight: bold;">LOW STOCK</span>
 									<span class="badge" style="background-color: #912338;"><%=product.getProdQuantity()%></span>
 								</span>							

@@ -81,7 +81,7 @@
 						<%
 							if (mostFlag == true) {	
 						%>
-						<p style="padding: 0 0.5em 0 0.5em; color: #000000; font-weight: bold;">BEST SELLING!</p>
+						<p id="best-selling" style="padding: 0 0.5em 0 0.5em; color: #000000; font-weight: bold;">BEST SELLING!</p>
 						<%
 							} 
 						%>
