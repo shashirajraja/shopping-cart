@@ -331,15 +331,7 @@ public class ProductServiceImpl implements ProductService {
 				
 				// if the product has not already been discounted, discount it, otherwise skip
 				if (rs.getInt(10) == 0) {
-
-					// Calculate discount to apply: Higher soldQ values yield greater discounts (capped at 30%)
-					discount = rs.getInt(8);
-					discount *= 5;
-					if (discount > 30)
-						discount = 30;
-					discount = 100 - discount;
-
-					applyDiscount(rs.getString(1), rs.getDouble(5) * discount / 100);
+					applyDiscount(rs.getString(1));
 				}
 				
 
@@ -717,18 +709,52 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	
-	public boolean applyDiscount(String prodId, double newPrice) {
+	public boolean applyDiscount(String prodId) {
 		boolean flag = false;
 		
 		Connection con = DBUtil.provideConnection();
 
 		PreparedStatement ps = null;
+		
+		ResultSet rs = null;
+		
+		int discount = 0;
+		double price = 0;
+		
+		//Find the product's current price and soldQ (to be used to determine the discounted price)
+		try {
+			ps = con.prepareStatement("select * from product where pid=?");
 
+			rs = ps.executeQuery();
+			
+			ps.setString(1, prodId);
+			rs = ps.executeQuery();
+			
+			discount = rs.getInt(8); //soldQ value
+			price = rs.getDouble(5); //price value
+			
+			
+		}  catch (SQLException e) {
+			flag = false;
+			e.printStackTrace();
+		}
+
+		
+		// Calculate discount to apply: Higher soldQ values yield greater discounts (capped at 30%)
+		discount *= 5;
+		if (discount > 30)
+			discount = 30;
+		discount = 100 - discount;
+		
+		price = price * discount/100;
+		
+		
+		//Update the product's price and set the value of discounted to true
 		try {
 
 			ps = con.prepareStatement("update product set discounted=1, pprice=? where pid=?");
 
-			ps.setDouble(1, newPrice);
+			ps.setDouble(1, price);
 
 			ps.setString(2, prodId);
 
