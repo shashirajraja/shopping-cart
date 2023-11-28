@@ -319,8 +319,6 @@ public class ProductServiceImpl implements ProductService {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		
-		int discount;
-		
 		try {
 			ps = con.prepareStatement("select * from product ORDER BY soldQ DESC");
 
