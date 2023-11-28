@@ -91,11 +91,11 @@
 							<%
 							if (mostFlag == true) {	
 							%>
-							<p style="padding: 0 0.5em 0 0.5em; color: #000000; font-weight: bold;">Selling Rank: Best</p>
+							<p id="best-selling" style="padding: 0 0.5em 0 0.5em; color: #000000; font-weight: bold;">Selling Rank: Best</p>
 							<%
 								} else if (leastFlag == true) {
 							%>
-							<p style="padding: 0 0.5em 0 0.5em; color: #000000; font-weight: bold;">Selling Rank: Least</p>
+							<p id="least-selling" style="padding: 0 0.5em 0 0.5em; color: #000000; font-weight: bold;">Selling Rank: Least</p>
 							<%
 								}
 							%>
