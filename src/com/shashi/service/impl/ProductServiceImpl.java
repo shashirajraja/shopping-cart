@@ -566,11 +566,15 @@ public class ProductServiceImpl implements ProductService {
 	    
 	    return products;
 	}
-	
+	// get a product sold of a specific type
 	public List<ProductBean> getProductsBySales(String type) {
 	    List<ProductBean> products = new ArrayList<>();
 
-	    String query = "SELECT * FROM `shopping-cart`.product WHERE lower(ptype) LIKE ? AND sold > 0 ORDER BY sold DESC;";
+	    //String query = "SELECT * FROM `shopping-cart`.product WHERE lower(ptype) LIKE ? AND sold > 0 ORDER BY sold DESC;";
+	    String query = "SELECT product.*, SUM(orders.quantity) as sold "
+	    		+ "FROM `shopping-cart`.product LEFT JOIN `shopping-cart`.orders "
+	    		+ "ON product.pid = orders.prodid "
+	    		+ "WHERE lower(product.ptype) LIKE ? GROUP BY product.pid ORDER BY sold DESC";
 
 	    try (Connection con = DBUtil.provideConnection();
 	         PreparedStatement ps = con.prepareStatement(query)) {
@@ -597,6 +601,38 @@ public class ProductServiceImpl implements ProductService {
 	    }
 
 	    return products;
+	}
+	
+	public List<ProductBean> getAllProductsSold()
+	{	
+		List<ProductBean> products = new ArrayList<>();
+		String query = "SELECT product.*, SUM(orders.quantity) as sold "
+				+ "FROM `shopping-cart`.product LEFT JOIN `shopping-cart`.orders "
+				+ "ON product.pid = orders.prodid "
+				+ "GROUP BY product.pid ORDER BY sold DESC";
+		try (Connection con = DBUtil.provideConnection();
+		         PreparedStatement ps = con.prepareStatement(query)) {
+
+		        try (ResultSet rs = ps.executeQuery()) {
+		            while (rs.next()) {
+		                ProductBean product = new ProductBean();
+		                product.setProdId(rs.getString("pid"));
+		                product.setProdName(rs.getString("pname"));
+		                product.setProdType(rs.getString("ptype"));
+		                product.setProdInfo(rs.getString("pinfo"));
+		                product.setProdPrice(rs.getDouble("pprice"));
+		                product.setProdQuantity(rs.getInt("pquantity"));
+		                product.setProdImage(rs.getAsciiStream("image"));
+		                product.setProdSold(rs.getInt("totalSold")); // Set the total sold
+
+		                products.add(product);
+		            }
+		        }
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		    }
+
+		    return products;
 	}
 	
 	public List<ProductBean> getProductsByDiscounts(String type) {
