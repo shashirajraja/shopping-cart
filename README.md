@@ -103,6 +103,24 @@ Step 10: Default Username And Password For Admin Is "admin@gmail.com" And "admin
 
 Step 11: The default Username And Password For User Is "guest@gmail.com" And "guest"
 
+## ====== Minimum VSCode Setup ====== 
+
+**System:**
+- Java JDK
+- Apache-Maven
+- MySQL Server / Workbench (user: root pass: root)
+- Git or Github Desktop
+
+**VS Code extensions:**
+- Community Server Connectors (w/ Apache-Tomcat deploying the .war file made by maven)
+	- At  -> ```C:\Users\YOUR_USER_NAME\.rsp\redhat-community-server-connector\runtimes\installations\tomcat-9.0.30\apache-tomcat-9.0.30\conf\tomcat-users.xml```
+	- Add -> ```<user username="root" password="root" roles="manager-gui,manager-script,manager-jmx,manager-status,admin-gui,admin-script"/>```
+- Extension Pack for Java (by Microsoft, 6 extensions)
+
+**Terminal Commands**
+- Rebuild ```mvn clean package```
+- Recompile Java files only ```mvn compile```
+
 ## FAQ
 **Question:1** Unable to Connect to Database?
 
