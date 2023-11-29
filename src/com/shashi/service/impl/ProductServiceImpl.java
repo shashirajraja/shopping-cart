@@ -533,5 +533,104 @@ public class ProductServiceImpl implements ProductService {
 
 		return quantity;
 	}
+	
+	public List<ProductBean> getProductsByConditions(String type, String condition) {
+	    List<ProductBean> products = new ArrayList<>();
+
+	    String query = "SELECT * FROM `shopping-cart`.product WHERE lower(ptype) LIKE ? AND `condition` = ?;";
+
+	    try (Connection con = DBUtil.provideConnection();
+	         PreparedStatement ps = con.prepareStatement(query)) {
+	        
+	        ps.setString(1, "%" + type.toLowerCase() + "%");
+	        ps.setString(2, condition);
+
+	        try (ResultSet rs = ps.executeQuery()) {
+	            while (rs.next()) {
+	                ProductBean product = new ProductBean();
+	                product.setProdId(rs.getString(1));
+	                product.setProdName(rs.getString(2));
+	                product.setProdType(rs.getString(3));
+	                product.setProdInfo(rs.getString(4));
+	                product.setProdPrice(rs.getDouble(5));
+	                product.setProdQuantity(rs.getInt(6));
+	                product.setProdImage(rs.getAsciiStream(7));
+	                product.setProdCondition(rs.getString(8));
+
+	                products.add(product);
+	            }
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    
+	    return products;
+	}
+	
+	public List<ProductBean> getProductsBySales(String type) {
+	    List<ProductBean> products = new ArrayList<>();
+
+	    String query = "SELECT * FROM `shopping-cart`.product WHERE lower(ptype) LIKE ? AND sold > 0 ORDER BY sold DESC;";
+
+	    try (Connection con = DBUtil.provideConnection();
+	         PreparedStatement ps = con.prepareStatement(query)) {
+	        
+	        ps.setString(1, "%" + type.toLowerCase() + "%");
+
+	        try (ResultSet rs = ps.executeQuery()) {
+	            while (rs.next()) {
+	                ProductBean product = new ProductBean();
+	                product.setProdId(rs.getString(1)); 
+	                product.setProdName(rs.getString(2));
+	                product.setProdType(rs.getString(3));
+	                product.setProdInfo(rs.getString(4));
+	                product.setProdPrice(rs.getDouble(5)); 
+	                product.setProdQuantity(rs.getInt(6));
+	                product.setProdImage(rs.getAsciiStream(7));
+	                product.setProdSold(rs.getInt(9));
+
+	                products.add(product);
+	            }
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return products;
+	}
+	
+	public List<ProductBean> getProductsByDiscounts(String type) {
+	    List<ProductBean> products = new ArrayList<>();
+
+	    String query = "SELECT * FROM `shopping-cart`.product WHERE lower(ptype) LIKE ? AND discount > 0 ORDER BY discount DESC;";
+
+	    try (Connection con = DBUtil.provideConnection();
+	         PreparedStatement ps = con.prepareStatement(query)) {
+	        
+	        ps.setString(1, "%" + type.toLowerCase() + "%");
+
+	        try (ResultSet rs = ps.executeQuery()) {
+	            while (rs.next()) {
+	                ProductBean product = new ProductBean();
+	                product.setProdId(rs.getString(1)); 
+	                product.setProdName(rs.getString(2));
+	                product.setProdType(rs.getString(3));
+	                product.setProdInfo(rs.getString(4));
+	                product.setProdPrice(rs.getDouble(5)); 
+	                product.setProdQuantity(rs.getInt(6));
+	                product.setProdImage(rs.getAsciiStream(7));
+	                product.setProdDiscount(rs.getInt(10));
+
+	                products.add(product);
+	            }
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return products;
+	}
+
+	
 
 }
