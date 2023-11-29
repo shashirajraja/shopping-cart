@@ -1,9 +1,15 @@
 package com.shashi.service;
 
 import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.shashi.beans.ProductBean;
+import com.shashi.utility.DBUtil;
 
 public interface ProductService {
 
@@ -35,4 +41,14 @@ public interface ProductService {
 	public boolean sellNProduct(String prodId, int n);
 
 	public int getProductQuantity(String prodId);
+	
+	// Wenbo 2023/11/28
+	public List<ProductBean> getProductsByConditions(String type, String condition);
+	
+	public List<ProductBean> getProductsByDiscounts(String type);
+	
+	public List<ProductBean> getProductsBySales(String type);
+	
+	
 }
+
