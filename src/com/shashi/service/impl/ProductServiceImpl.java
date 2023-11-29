@@ -21,11 +21,11 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public String addProduct(String prodName, String prodType, String prodInfo, double prodPrice, int prodQuantity,
-			InputStream prodImage) {
+			InputStream prodImage, int amountSold) {
 		String status = null;
 		String prodId = IDUtil.generateId();
 
-		ProductBean product = new ProductBean(prodId, prodName, prodType, prodInfo, prodPrice, prodQuantity, prodImage);
+		ProductBean product = new ProductBean(prodId, prodName, prodType, prodInfo, prodPrice, prodQuantity, prodImage, amountSold);
 
 		status = addProduct(product);
 
@@ -210,7 +210,7 @@ public class ProductServiceImpl implements ProductService {
 				product.setProdPrice(rs.getDouble(5));
 				product.setProdQuantity(rs.getInt(6));
 				product.setProdImage(rs.getAsciiStream(7));
-
+				product.setAmountSold(rs.getInt(8));
 				products.add(product);
 
 			}

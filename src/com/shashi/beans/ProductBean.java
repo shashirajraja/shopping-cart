@@ -21,7 +21,7 @@ public class ProductBean implements Serializable {
 	private int amountSold;
 
 	public ProductBean(String prodId, String prodName, String prodType, String prodInfo, double prodPrice,
-			int prodQuantity, InputStream prodImage) {
+			int prodQuantity, InputStream prodImage, int amountSold) {
 		super();
 		this.prodId = prodId;
 		this.prodName = prodName;
@@ -30,6 +30,7 @@ public class ProductBean implements Serializable {
 		this.prodPrice = prodPrice;
 		this.prodQuantity = prodQuantity;
 		this.prodImage = prodImage;
+		this.amountSold = amountSold;
 	}
 
 	public String getProdId() {
