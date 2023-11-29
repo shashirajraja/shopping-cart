@@ -265,3 +265,33 @@ INSERT INTO `shopping-cart`.`usercart` (`username`, `prodid`, `quantity`) VALUES
 
 COMMIT;
 
+  -- -----------------------------------------------------
+-- Data for table `shopping-cart`.`product` with condition column
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `shopping-cart`;
+ALTER TABLE `shopping-cart`.`product`
+ADD  `condition` ENUM('new', 'used') DEFAULT NULL;
+
+COMMIT;
+
+-- -----------------------------------------------------
+-- Data for table `shopping-cart`.`product` with sold column
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `shopping-cart`;
+ALTER TABLE `shopping-cart`.`product`
+ADD  `sold` int DEFAULT NULL;
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `shopping-cart`.`product` with discount column
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `shopping-cart`;
+ALTER TABLE `shopping-cart`.`product`
+ADD  `discount` int DEFAULT NULL;
+
+COMMIT;
