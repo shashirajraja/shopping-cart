@@ -49,6 +49,8 @@ public interface ProductService {
 	
 	public List<ProductBean> getProductsBySales(String type);
 	
+	public List<ProductBean> getAllProductsSold();
+	
 	
 }
 
