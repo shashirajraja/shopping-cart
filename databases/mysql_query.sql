@@ -275,15 +275,6 @@ ADD  `condition` ENUM('new', 'used') DEFAULT NULL;
 
 COMMIT;
 
--- -----------------------------------------------------
--- Data for table `shopping-cart`.`product` with sold column
--- -----------------------------------------------------
-START TRANSACTION;
-USE `shopping-cart`;
-ALTER TABLE `shopping-cart`.`product`
-ADD  `sold` int DEFAULT NULL;
-
-COMMIT;
 
 
 -- -----------------------------------------------------
