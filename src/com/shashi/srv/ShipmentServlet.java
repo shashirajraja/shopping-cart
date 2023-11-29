@@ -49,7 +49,7 @@ public class ShipmentServlet extends HttpServlet {
 		} else {
 			MailMessage.orderShipped(userName, new UserServiceImpl().getFName(userName), orderId, amount);
 
-			new ProductServiceImpl().SendMailOnMinStockThreshold(userName, prodId);
+			new ProductServiceImpl().SendMailOnMinStockThreshold(prodId);
 		}
 		PrintWriter pw = response.getWriter();
 		response.setContentType("text/html");

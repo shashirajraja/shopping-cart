@@ -36,5 +36,5 @@ public interface ProductService {
 
 	public int getProductQuantity(String prodId);
 
-	public void SendMailOnMinStockThreshold(String userName, String prodId);
+	public void SendMailOnMinStockThreshold(String prodId);
 }

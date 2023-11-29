@@ -536,7 +536,7 @@ public class ProductServiceImpl implements ProductService {
 		return quantity;
 	}
 
-	public void SendMailOnMinStockThreshold(String userName, String prodId)
+	public void SendMailOnMinStockThreshold(String prodId)
 	{
 		try
 		{
@@ -546,7 +546,8 @@ public class ProductServiceImpl implements ProductService {
 
 			if(product.getProdQuantity() <= minStockQuantity)
 			{
-				MailMessage.lowQuantity(userName, product.getProdName(), product.getProdId(), product.getProdQuantity(), minStockQuantity);
+				MailMessage.lowQuantity(product.getProdName(), product.getProdId(), product.getProdQuantity(), minStockQuantity);
+				System.out.println("");
 			}
 		}
 		catch(Exception e)

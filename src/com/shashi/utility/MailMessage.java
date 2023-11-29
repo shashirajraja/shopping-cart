@@ -1,5 +1,7 @@
 package com.shashi.utility;
 
+import java.util.ResourceBundle;
+
 import jakarta.mail.MessagingException;
 
 public class MailMessage {
@@ -109,7 +111,7 @@ public class MailMessage {
 	}
 
 	// Sends an email to administrator when a certain product falls under a number
-	public static void lowQuantity(String recipientEmail, String prodName, String prodId, int prodQuantity, int minThreshold)
+	public static void lowQuantity(String prodName, String prodId, int prodQuantity, int minThreshold)
 	{
 		String subject = "[ALERT: LOW QUANTITY] " + prodName + "is running out of stock!";
 		String htmlTextMessage = 
@@ -134,7 +136,10 @@ public class MailMessage {
 		"</pre></body></html>";
 
 		try {
-			JavaMailUtil.sendMail(recipientEmail, subject, htmlTextMessage);
+			ResourceBundle rb = ResourceBundle.getBundle("application");
+			String adminEmail = rb.getString("mailer.email");
+
+			JavaMailUtil.sendMail(adminEmail, subject, htmlTextMessage);
 		} catch (MessagingException e) {
 			e.printStackTrace();
 		}
