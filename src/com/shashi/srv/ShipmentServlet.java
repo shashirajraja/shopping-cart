@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.shashi.service.impl.OrderServiceImpl;
+import com.shashi.service.impl.ProductServiceImpl;
 import com.shashi.service.impl.UserServiceImpl;
 import com.shashi.utility.MailMessage;
 
@@ -47,6 +48,8 @@ public class ShipmentServlet extends HttpServlet {
 			pagename = "unshippedItems.jsp";
 		} else {
 			MailMessage.orderShipped(userName, new UserServiceImpl().getFName(userName), orderId, amount);
+
+			new ProductServiceImpl().SendMailOnMinStockThreshold(userName, prodId);
 		}
 		PrintWriter pw = response.getWriter();
 		response.setContentType("text/html");
