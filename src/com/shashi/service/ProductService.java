@@ -44,4 +44,8 @@ public interface ProductService {
 	
 	public List<ProductBean> getLeastSellingProducts();
 	public List<ProductBean> getMostSellingProducts();
+
+	public double getSuggestedDiscount(double price, int amountSold);
+	
+	public double discountStrategy(double price, int amountSold);
 }
