@@ -17,6 +17,8 @@ import com.shashi.utility.MailMessage;
 
 public class ProductServiceImpl implements ProductService {
 
+	public static final int minStockQuantity = 3;
+
 	@Override
 	public String addProduct(String prodName, String prodType, String prodInfo, double prodPrice, int prodQuantity,
 			InputStream prodImage) {
@@ -669,4 +671,23 @@ public class ProductServiceImpl implements ProductService {
 
 	
 
+	public void SendMailOnMinStockThreshold(String prodId)
+	{
+		try
+		{
+			ProductBean product = getProductDetails(prodId);
+
+			if(product == null) throw new Exception("Unexpected result: Product was null. Mail not sent.");
+
+			if(product.getProdQuantity() <= minStockQuantity)
+			{
+				MailMessage.lowQuantity(product.getProdName(), product.getProdId(), product.getProdQuantity(), minStockQuantity);
+				System.out.println("");
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
 }

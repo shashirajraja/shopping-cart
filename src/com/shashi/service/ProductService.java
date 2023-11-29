@@ -41,8 +41,9 @@ public interface ProductService {
 	public boolean sellNProduct(String prodId, int n);
 
 	public int getProductQuantity(String prodId);
-	
-	// Wenbo 2023/11/28
+
+	public void SendMailOnMinStockThreshold(String prodId);
+
 	public List<ProductBean> getProductsByConditions(String type, String condition);
 	
 	public List<ProductBean> getProductsByDiscounts(String type);
