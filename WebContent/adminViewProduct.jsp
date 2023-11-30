@@ -65,7 +65,17 @@
 	<!-- Start of Product Items List -->
 	<div class="container" style="background-color: #E6F9E6;">
 		<div class="row text-center">
-
+           		<div class="col-sm-12">
+               			<form>
+                   			<div class="btn-group" role="group">
+                       				<button type="submit" formaction="bestSelling.jsp">Best Selling</button>
+                       				<button type="submit" formaction="leastSelling.jsp">Least Selling</button>
+                   			</div>
+               			</form>
+          		</div>
+       		</div>
+		
+		<div class="row text-center">
 			<%
 			for (ProductBean product : products) {
 			%>
