@@ -117,6 +117,20 @@
 							id="last_name" name="quantity" required>
 					</div>
 				</div>
+				<div class="row">
+					<div class="col-md-6 form-group">
+						<label for="producttype">Product Type</label> <select name="type"
+							id="producttype" class="form-control" required>
+							<option value="new">New</option>
+							<option value="used">Used</option>
+						</select>
+					</div>
+					<div class="col-md-6 form-group">
+						<label for="last_name">Discount</label> <input type="number"
+							placeholder="Enter discount" name="discount"
+							class="form-control" id="last_name" required>
+					</div>
+				</div>
 				<div class="row text-center">
 					<div class="col-md-4" style="margin-bottom: 2px;">
 						<button formaction="adminViewProduct.jsp" class="btn btn-danger">Cancel</button>
