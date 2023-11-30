@@ -16,7 +16,8 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
-<body style="background-color: #E6F9E6;">
+<body style="background: linear-gradient(104.9deg, rgb(255, 95, 162) 2.3%, rgb(254, 201, 154) 92.7%);
+">
 
 	<%
 	/* Checking the user credentials */
@@ -63,7 +64,8 @@
 	<div class="text-center"
 		style="color: black; font-size: 14px; font-weight: bold;"><%=message%></div>
 	<!-- Start of Product Items List -->
-	<div class="container" style="background-color: #E6F9E6;">
+	<div class="container" style="background: linear-gradient(104.9deg, rgb(255, 95, 162) 2.3%, rgb(254, 201, 154) 92.7%);
+">
 		<div class="row text-center">
 
 			<%
@@ -86,11 +88,11 @@
 					<form method="post">
 						<button type="submit"
 							formaction="./RemoveProductSrv?prodid=<%=product.getProdId()%>"
-							class="btn btn-danger">Remove Product</button>
+							class="btn btn-danger" style="background-color: #F9629F; color: black;">Remove Product</button>
 						&nbsp;&nbsp;&nbsp;
 						<button type="submit"
 							formaction="updateProduct.jsp?prodid=<%=product.getProdId()%>"
-							class="btn btn-primary">Update Product</button>
+							class="btn btn-primary" style="background-color: #FFC0CB; color: black;">Update Product</button>
 					</form>
 				</div>
 			</div>
