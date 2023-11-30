@@ -63,7 +63,7 @@
 	<div class="text-center"
 		style="color: black; font-size: 14px; font-weight: bold;"><%=message%></div>
 	<!-- Start of Product Items List -->
-	<div class="container" style="background-color: #E6F9E6;">
+	<div class="container" style="background-color: #FFFFFF;">
 		<div class="row text-center">
 
 			<%

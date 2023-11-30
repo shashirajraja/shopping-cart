@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.shashi.beans.UserBean;
+import com.shashi.beans.UserType;
 import com.shashi.service.impl.UserServiceImpl;
 
 /**
@@ -34,7 +35,7 @@ public class RegisterSrv extends HttpServlet {
 		//TODO parse user type
 		//UserType userType =;
 		if (password != null && password.equals(confirmPassword)) {
-			UserBean user = new UserBean(userName, mobileNo, emailId, address, pinCode, password, userType);
+			UserBean user = new UserBean(userName, mobileNo, emailId, address, pinCode, password, UserType.Admin);
 
 			UserServiceImpl dao = new UserServiceImpl();
 

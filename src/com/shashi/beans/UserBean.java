@@ -19,6 +19,27 @@ public class UserBean implements Serializable {
 		this.password = password;
 		this.userType = userType;
 	}
+	public UserBean(String userName, Long mobileNo, String emailId, String address, int pinCode, String password, int userType) {
+		super();
+		this.name = userName;
+		this.mobile = mobileNo;
+		this.email = emailId;
+		this.address = address;
+		this.pinCode = pinCode;
+		this.password = password;
+		switch (userType) {
+			case 0:
+				this.userType = UserType.Admin;
+				break;
+			case 2:
+				this.userType = UserType.Student;
+				break;
+			default:
+				this.userType = UserType.Guest;
+				break;
+		}
+		
+	}
 
 	private String name;
 	private Long mobile;

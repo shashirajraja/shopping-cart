@@ -38,7 +38,7 @@
 
 	<jsp:include page="header.jsp" />
 
-	<div class="products" style="background-color: #E6F9E6;">
+	<div class="products" style="background-color: #FFFFFF;">
 
 		<div class="tab" align="center">
 			<form>

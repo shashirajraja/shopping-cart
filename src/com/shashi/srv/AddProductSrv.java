@@ -53,9 +53,9 @@ public class AddProductSrv extends HttpServlet {
 
 		Part part = request.getPart("image");
 
-		Boolean usedProd = request.getParameter("used")); //TODO figure out how to parse a boolean
+		Boolean usedProd = false; //request.getParameter("used"); //TODO figure out how to parse a boolean
 		
-		//HashSet<ProductInterest> prodInterests = 
+		HashSet<ProductInterest> prodInterests = null;
 		//TODO figure out how to parse a list of product interests into a hash set
 		
 		InputStream inputStream = part.getInputStream();
