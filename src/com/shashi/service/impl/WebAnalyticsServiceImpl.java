@@ -26,23 +26,11 @@ public class WebAnalyticsServiceImpl implements WebAnalyticsService {
 
     @Override
     public String addInteraction(String userId, String prodId, int weight) {
-        //DEBUG
-		PrintStream out;
-		try {
-			out = new PrintStream(new FileOutputStream("output.log"));
-            System.setOut(out);
-		} catch (FileNotFoundException e) {
-			
-			e.printStackTrace();
-		}
-		
 
         String status = "Failed to Add Interaction";
         
         String checkInteractionStatus = checkInteraction(userId, prodId);
-        //DEBUG
-        System.out.println("Interaction Status: " + checkInteractionStatus);
-        //String checkInteractionStatus = "0";
+
         int interactionCount;
 
         try {
@@ -52,13 +40,12 @@ public class WebAnalyticsServiceImpl implements WebAnalyticsService {
         catch (NumberFormatException e) {
             status += ": " + e.getMessage();
             
-            //DEBUG
-            System.out.println("Error: " + e.getMessage());
             return status;
         }
         
         Connection con = DBUtil.provideConnection();
         
+
         PreparedStatement ps = null;
         ResultSet rs = null;
 
@@ -102,14 +89,11 @@ public class WebAnalyticsServiceImpl implements WebAnalyticsService {
         String status = "Failed to Check Interaction";
         
         Connection con = DBUtil.provideConnection();
-        //DEBUG
-        System.out.println("Connection: " + con);
 
         PreparedStatement ps = null;
         ResultSet rs = null;
 
         try {
-
             ps = con.prepareStatement("select * from interactions where username=? and prodid=?");
 
             ps.setString(1, userId);
@@ -128,7 +112,7 @@ public class WebAnalyticsServiceImpl implements WebAnalyticsService {
             status = interactionCount;
 
         } catch (SQLException e) {
-            status = "Error: " + e.getMessage();
+            status = " Error: " + e.getMessage();
             e.printStackTrace();
         }
 

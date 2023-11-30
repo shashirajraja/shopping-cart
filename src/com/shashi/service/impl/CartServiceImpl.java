@@ -25,21 +25,9 @@ public class CartServiceImpl implements CartService {
 
 	@Override
 	public String addProductToCart(String userId, String prodId, int prodQty) {
-	//DEBUG
-		PrintStream out;
-		try {
-			out = new PrintStream(new FileOutputStream("output.log"));
-            System.setOut(out);
-		} catch (FileNotFoundException e) {
-			
-			e.printStackTrace();
-		}
-
+	
 		String status = "Failed to Add into Cart";
 		
-		// //DEBUG - ADD
-		// WebAnalyticsServiceImpl analyticsDoa = new WebAnalyticsServiceImpl();
-		// analyticsDoa.addInteraction(userId, prodId, 1);
 		
 		Connection con = DBUtil.provideConnection();
 
@@ -49,8 +37,7 @@ public class CartServiceImpl implements CartService {
 		ResultSet rs = null;
 
 		try {
-			//DEBUG
-			System.out.println("addProductToCart: " + userId + " " + prodId + " " + prodQty);
+			
 			ps = con.prepareStatement("select * from usercart where username=? and prodid=?");
 
 			ps.setString(1, userId);
@@ -88,16 +75,9 @@ public class CartServiceImpl implements CartService {
 
 				} else {
 					status = updateProductToCart(userId, prodId, prodQty);
-					//DEBUG
-					System.out.println("Trying addInteraction: " + userId + " " + prodId + " " + 1);
-					// // TODO update Analytics
-					// WebAnalyticsServiceImpl analyticsDoa = new WebAnalyticsServiceImpl();
-					// // analyticsDoa = new WebAnalyticsServiceImpl();
-					// analyticsDoa.addInteraction(userId, prodId, 1);
-
 				}
 			}
-
+			
 		} catch (SQLException e) {
 			status = "Error: " + e.getMessage();
 			e.printStackTrace();
@@ -107,8 +87,6 @@ public class CartServiceImpl implements CartService {
 		DBUtil.closeConnection(ps);
 		DBUtil.closeConnection(rs);
 		DBUtil.closeConnection(ps2);
-		
-		//TODO update Analytics
 		
 		return status;
 	}
@@ -292,6 +270,10 @@ public class CartServiceImpl implements CartService {
 	public String updateProductToCart(String userId, String prodId, int prodQty) {
 
 		String status = "Failed to Add into Cart";
+		
+		//ADDED ANAYTICS HERE, it works as expected.
+		WebAnalyticsServiceImpl webAnalyticsService = new WebAnalyticsServiceImpl();
+        System.out.println(webAnalyticsService.addInteraction(userId, prodId,1));
 
 		Connection con = DBUtil.provideConnection();
 
