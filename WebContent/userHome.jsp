@@ -56,8 +56,27 @@
 	<div class="text-center"
 		style="color: black; font-size: 14px; font-weight: bold;"><%=message%></div>
 	<!-- <script>document.getElementById('mycart').innerHTML='<i data-count="20" class="fa fa-shopping-cart fa-3x icon-white badge" style="background-color:#333;margin:0px;padding:0px; margin-top:5px;"></i>'</script>
- --><button type="button" style="display: block; margin:0 auto;background-color:#55c234;border-color: #55c234;">Most Selling</button>
- <button type="button" style="display: block;margin:0 auto;background-color: #55c234;border-color: #55c234;">Least Selling</button>
+ -->
+ <button type="submit" 
+ 
+ style="display: block; margin:0 auto;background-color:#55c234;border-color: #55c234;">Most Selling</button>
+ 
+ <button type="submit" 
+
+ style="display: block;margin:0 auto;background-color: #55c234;border-color: #55c234;">Least Selling</button>
+ 
+ <p style="color: red;font-size: 250%;">Used products and Sales:</p>
+
+ <div style="
+ text-align: center;
+ border: solid #000000;
+ background: lightgreen;
+ position:static;
+ ">
+nhhhh
+
+</div>
+
 
 	<!-- Start of Product Items List -->
 	<div class="container">
