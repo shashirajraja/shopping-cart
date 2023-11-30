@@ -26,13 +26,13 @@
 
     <jsp:include page="header.jsp" />
 
-    <div class="text-center" style="color: black; font-size: 14px; font-weight: bold;">Best Selling Products</div>
-
     <!-- Fetch best selling products using the ProductServiceImp -->
     <% ProductServiceImpl prodDao = new ProductServiceImpl(); %>
     <% List<ProductBean> bestSellingProducts = prodDao.getBestSelling(); %>
-    <% out.println("Number of best selling products: " + bestSellingProducts.size()); %>
 
+    <div class="text-center" style="color: black; font-size: 14px; font-weight: bold;">Best Selling Products</div>
+    <div class="text-center" style="color: black; font-size: 14px;"><p>Number of best selling products: <%=bestSellingProducts.size()%></p></div>
+    
     <!-- Display best selling products -->
     <div class="container" style="background-color: #E6F9E6;">
         <div class="row text-center">

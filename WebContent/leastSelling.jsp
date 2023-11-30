@@ -26,12 +26,12 @@
 
     <jsp:include page="header.jsp" />
 
-    <div class="text-center" style="color: black; font-size: 14px; font-weight: bold;">Least Selling Products</div>
-
     <!-- Fetch least selling products using the ProductServiceImp -->
     <% ProductServiceImpl prodDao = new ProductServiceImpl(); %>
     <% List<ProductBean> leastSellingProducts = prodDao.getLeastSelling(); %>
-    <% out.println("Number of least selling products: " + leastSellingProducts.size()); %>
+
+    <div class="text-center" style="color: black; font-size: 14px; font-weight: bold;">Least Selling Products</div>
+    <div class="text-center" style="color: black; font-size: 14px;"><p>Number of least selling products: <%=leastSellingProducts.size()%></p></div>
 
     <!-- Display least selling products -->
     <div class="container" style="background-color: #E6F9E6;">
