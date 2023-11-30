@@ -18,7 +18,7 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-<body style="background-color: #E9D3D7;">
+<body style="background-color: #f0f0f0;">
 
 	<%
 	/* Checking the user credentials */

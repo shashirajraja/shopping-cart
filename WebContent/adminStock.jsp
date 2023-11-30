@@ -16,7 +16,7 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
-<body style="background-color:#E9D3D7;">
+<body style="background-color:#f0f0f0;">
 	<%
 	/* Checking the user credentials */
 	String userType = (String) session.getAttribute("usertype");
@@ -39,13 +39,13 @@
 	<jsp:include page="header.jsp" />
 
 	<div class="text-center"
-		style="color: green; font-size: 24px; font-weight: bold;">Stock
+		style="color: #2c2c2c; font-size: 24px; font-weight: bold;">Stock
 		Products</div>
 	<div class="container-fluid">
 		<div class="table-responsive ">
 			<table class="table table-hover table-sm">
 				<thead
-					style="background-color: #2c6c4b; color: white; font-size: 18px;">
+					style="background-color: #2c2c2c; color: white; font-size: 18px;">
 					<tr>
 						<th>Image</th>
 						<th>ProductId</th>
@@ -59,13 +59,12 @@
 				</thead>
 				<tbody style="background-color: white; font-size: 16px;">
 
-
-
 					<%
 					ProductServiceImpl productDao = new ProductServiceImpl();
 					List<ProductBean> products = new ArrayList<ProductBean>();
 					products = productDao.getAllProducts();
-					for (ProductBean product : products) {
+					for (ProductBean product : products) { 
+						if (product.getProdQuantity() <= 3) {
 					%>
 
 					<tr>
@@ -100,8 +99,50 @@
 					</tr>
 
 					<%
+						}
 					}
 					%>
+					<%
+					for (ProductBean product : products) { 
+						if (product.getProdQuantity() > 3) {
+					%>
+
+					<tr>
+						<td><img src="./ShowImage?pid=<%=product.getProdId()%>"
+							style="width: 50px; height: 50px;"></td>
+						<td><a
+							href="./updateProduct.jsp?prodid=<%=product.getProdId()%>"><%=product.getProdId()%></a></td>
+						<%
+						String name = product.getProdName();
+						name = name.substring(0, Math.min(name.length(), 25)) + "..";
+						%>
+						<td><%=name%></td>
+						<td><%=product.getProdType().toUpperCase()%></td>
+						<td><%=product.getProdPrice()%></td>
+						<td><%=new OrderServiceImpl().countSoldItem(product.getProdId())%></td>
+						<td><%=product.getProdQuantity()%></td>
+						<td>
+							<form method="post">
+								<button type="submit"
+									formaction="updateProduct.jsp?prodid=<%=product.getProdId()%>"
+									class="btn btn-primary">Update</button>
+							</form>
+						</td>
+						<td>
+							<form method="post">
+								<button type="submit"
+									formaction="./RemoveProductSrv?prodid=<%=product.getProdId()%>"
+									class="btn btn-danger">Remove</button>
+							</form>
+						</td>
+
+					</tr>
+
+					<%
+						}
+					}
+					%>
+
 					<%
 					if (products.size() == 0) {
 					%>
