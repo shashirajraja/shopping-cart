@@ -18,7 +18,8 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-<body style="background-color: #E6F9E6;">
+<body style="background: linear-gradient(104.9deg, rgb(255, 95, 162) 2.3%, rgb(254, 201, 154) 92.7%);
+">
 
 	<%
 	/* Checking the user credentials */
@@ -88,7 +89,7 @@
 								<p class="mb-0">Full Name</p>
 							</div>
 							<div class="col-sm-9">
-								<p class="text-muted mb-0"><%=user.getName()%></p>
+								<p class="text-muted mb-0" style="color: black;"><%=user.getName()%></p>
 							</div>
 						</div>
 						<hr>
@@ -97,7 +98,7 @@
 								<p class="mb-0">Email</p>
 							</div>
 							<div class="col-sm-9">
-								<p class="text-muted mb-0"><%=user.getEmail()%>
+								<p class="text-muted mb-0" style="color: black;"><%=user.getEmail()%>
 								</p>
 							</div>
 						</div>
@@ -107,7 +108,7 @@
 								<p class="mb-0">Phone</p>
 							</div>
 							<div class="col-sm-9">
-								<p class="text-muted mb-0"><%=user.getMobile()%>
+								<p class="text-muted mb-0" style="color: black;"><%=user.getMobile()%>
 								</p>
 							</div>
 						</div>
@@ -117,17 +118,17 @@
 								<p class="mb-0">Address</p>
 							</div>
 							<div class="col-sm-9">
-								<p class="text-muted mb-0"><%=user.getAddress()%>
+								<p class="text-muted mb-0" style="color: black;"><%=user.getAddress()%>
 								</p>
 							</div>
 						</div>
 						<hr>
 						<div class="row">
 							<div class="col-sm-3">
-								<p class="mb-0">PinCode</p>
+								<p class="mb-0" style="color: black;">PinCode</p>
 							</div>
 							<div class="col-sm-9">
-								<p class="text-muted mb-0"><%=user.getPinCode()%>
+								<p class="text-muted mb-0" style="color: black;"><%=user.getPinCode()%>
 								</p>
 							</div>
 						</div>
