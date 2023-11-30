@@ -17,7 +17,7 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body style="background-color: #E6F9E6;">
-
+	
 	<%
 	/* Checking the user credentials */
 	String userName = (String) session.getAttribute("username");
@@ -57,6 +57,27 @@
 		style="color: black; font-size: 14px; font-weight: bold;"><%=message%></div>
 	<!-- <script>document.getElementById('mycart').innerHTML='<i data-count="20" class="fa fa-shopping-cart fa-3x icon-white badge" style="background-color:#333;margin:0px;padding:0px; margin-top:5px;"></i>'</script>
  -->
+ <button type="submit" 
+ 
+ style="display: block; margin:0 auto;background-color:#55c234;border-color: #55c234;">Most Selling</button>
+ 
+ <button type="submit" 
+
+ style="display: block;margin:0 auto;background-color: #55c234;border-color: #55c234;">Least Selling</button>
+ 
+ <p style="color: red;font-size: 250%;">Used products and Sales:</p>
+
+ <div style="
+ text-align: center;
+ border: solid #000000;
+ background: lightgreen;
+ position:static;
+ ">
+nhhhh
+
+</div>
+
+
 	<!-- Start of Product Items List -->
 	<div class="container">
 		<div class="row text-center">
@@ -66,6 +87,7 @@
 				int cartQty = new CartServiceImpl().getCartItemCount(userName, product.getProdId());
 			%>
 			<div class="col-sm-4" style='height: 350px;'>
+				
 				<div class="thumbnail">
 					<img src="./ShowImage?pid=<%=product.getProdId()%>" alt="Product"
 						style="height: 150px; max-width: 180px">
@@ -92,6 +114,8 @@
 						<button type="submit"
 							formaction="./AddtoCart?uid=<%=userName%>&pid=<%=product.getProdId()%>&pqty=1"
 							class="btn btn-primary">Buy Now</button>
+							
+
 						<%
 						} else {
 						%>
