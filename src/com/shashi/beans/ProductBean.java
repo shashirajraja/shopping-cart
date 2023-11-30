@@ -22,7 +22,7 @@ public class ProductBean implements Serializable {
 
 
 	public ProductBean(String prodId, String prodName, String prodType, String prodInfo, double prodPrice,
-			int prodQuantity, InputStream prodImage) {
+			int prodQuantity, InputStream prodImage, int used) {
 		super();
 		this.prodId = prodId;
 		this.prodName = prodName;
@@ -111,15 +111,15 @@ public class ProductBean implements Serializable {
 		return this.used;
 	}
 
-	public void setDiscounted(int discounted) {
-		if (x==0)
-			this.discounted = false;
-		else
-			this.discounted = true;
-	}
-
-	public boolean getDiscounted() {
-		return this.discounted;
-	}
+//	public void setDiscounted(int discounted) {
+//		if (x==0)
+//			this.discounted = false;
+//		else
+//			this.discounted = true;
+//	}
+//
+//	public boolean getDiscounted() {
+//		return this.discounted;
+//	}
 
 }

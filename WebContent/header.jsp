@@ -18,10 +18,19 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
+
+<!-- Mumna: This is to style the sort by recommended -->
+<style>
+    .right-aligned-div {
+        float: right;
+    }
+</style>
+
 <body style="background-color: #E6F9E6;">
 	<!--Company Header Starting  -->
+	<!-- Mumna: Here I changed the padding to see the title -->
 	<div class="container-fluid text-center"
-		style="margin-top: 45px; background-color: #33cc33; color: white; padding: 5px;">
+		style="margin-top: 45px; background-color: #33cc33; color: white; padding: 85px;">
 		<h2>Ellison Electronics</h2>
 		<h6>We specialize in Electronics</h6>
 		<form class="form-inline" action="index.jsp" method="get">
@@ -36,7 +45,9 @@
 		<p align="center"
 			style="color: blue; font-weight: bold; margin-top: 5px; margin-bottom: 5px;"
 			id="message"></p>
-	</div>
+				</div>
+							
+
 	<!-- Company Header Ending -->
 
 	<%
@@ -73,8 +84,8 @@
 							<li><a href="index.jsp?type=speaker">Speakers</a></li>
 							<li><a href="index.jsp?type=tablet">Tablets</a></li>
 							<li><a href="index.jsp?type=mostSelling">most selling</a></li>
-                            							<li><a href="index.jsp?type=leastSelling">least selling</a></li>
-                            							<li><a href="index.jsp?type=used">Used</a></li>
+                            <li><a href="index.jsp?type=leastSelling">least selling</a></li>
+                           	<li><a href="index.jsp?type=used">Used</a></li>
 						</ul></li>
 				</ul>
 			</div>
@@ -117,6 +128,7 @@
                            <li><a href="userHome.jsp?type=used">Used</a></li>
 
 						</ul></li>
+						
 					<%
 					if (notf == 0) {
 					%>
@@ -142,6 +154,24 @@
 				</ul>
 			</div>
 		</div>
+		
+		
+<!-- Mumna: This is the sort by recommended we need to create a method for discount, and make sure these for category -->
+<div class="right-aligned-div">
+    <ul class="nav">
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Sort by Recommended<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li><a href="userHome.jsp">Recommended</a></li>
+                <li><a href="userHome.jsp?type=mostSelling">Selling: High to Low</a></li>
+                <li><a href="userHome.jsp?type=leastSelling">Selling: Low to High</a></li>
+                <li><a href="userHome.jsp?type=mostDiscount">Discount: High to Low</a></li>
+                <li><a href="userHome.jsp?type=leastDiscount">Discount: Low to High</a></li>
+                <li><a href="userHome.jsp?type=used">Low Cost Used</a></li>    
+            </ul>
+        </li>
+    </ul>
+</div>
 	</nav>
 	<%
 	} else { //ADMIN HEADER
@@ -170,12 +200,28 @@
 							<li><a href="adminViewProduct.jsp?type=camera">Camera</a></li>
 							<li><a href="adminViewProduct.jsp?type=speaker">Speakers</a></li>
 							<li><a href="adminViewProduct.jsp?type=tablet">Tablets</a></li>
-							<li><a href="adminViewProduct.jsp?type=mostSelling">most selling</a></li>
-                            							<li><a href="adminViewProduct.jsp?type=leastSelling">least selling</a></li>
-                            							<li><a href="adminViewProduct.jsp?type=used">Used</a></li>
+							<li><a href="adminViewProduct.jsp?type=mostSelling">most
+									selling</a></li>
+							<li><a href="adminViewProduct.jsp?type=leastSelling">least
+									selling</a></li>
+							<li><a href="adminViewProduct.jsp?type=used">Used</a></li>
 
 						</ul></li>
-					<li><a href="adminStock.jsp">Stock</a></li>
+
+
+		<!-- Mumna: Here I added a drop-down for stock & restock we need to fill out the restock page -->
+					<li class="dropdown"><a class="dropdown-toggle"
+						data-toggle="dropdown" href="#">Stock<span class="caret"></span>
+					</a>
+						<ul class="dropdown-menu">
+							<li><a href="adminStock.jsp">Stock</a></li>
+							<li><a href="restock.jsp">Restock</a></li>
+							<li><a href="Discount.jsp">Discounts</a></li>
+
+						</ul></li>
+
+
+
 					<li><a href="shippedItems.jsp">Shipped</a></li>
 					<li><a href="unshippedItems.jsp">Orders</a></li>
 					<!-- <li><a href=""> <span class="glyphicon glyphicon-shopping-cart"></span>&nbsp;Cart</a></li> -->
