@@ -702,7 +702,39 @@ public class ProductServiceImpl implements ProductService {
 	    return products;
 	}
 	
+	public List<ProductBean> getBestSelling() {
+	    List<ProductBean> products = new ArrayList<>();
 
+	    String query = "SELECT product.*, IFNULL(SUM(orders.quantity), 0) as sold "
+	            + "FROM `shopping-cart`.product LEFT JOIN `shopping-cart`.orders "
+	            + "ON product.pid = orders.prodid "
+	            + "GROUP BY product.pid ORDER BY sold DESC";
+
+	    try (Connection con = DBUtil.provideConnection();
+	         PreparedStatement ps = con.prepareStatement(query)) {
+
+	        try (ResultSet rs = ps.executeQuery()) {
+	            while (rs.next()) {
+	                ProductBean product = new ProductBean();
+	                product.setProdId(rs.getString("pid"));
+	                product.setProdName(rs.getString("pname"));
+	                product.setProdType(rs.getString("ptype"));
+	                product.setProdInfo(rs.getString("pinfo"));
+	                product.setProdPrice(rs.getDouble("pprice"));
+	                product.setProdQuantity(rs.getInt("pquantity"));
+	                product.setProdImage(rs.getAsciiStream("image"));
+	                product.setProdSold(rs.getInt("sold"));
+
+	                products.add(product);
+	            }
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return products;
+	}
+	
 	public void SendMailOnMinStockThreshold(String prodId)
 	{
 		try

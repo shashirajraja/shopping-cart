@@ -53,6 +53,8 @@ public interface ProductService {
 	public List<ProductBean> getAllProductsSold();
 
 	public List<ProductBean> getLeastSelling();
+
+	public List<ProductBean> getBestSelling();
 	
 	
 }
