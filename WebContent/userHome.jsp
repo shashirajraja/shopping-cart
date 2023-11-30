@@ -18,9 +18,9 @@
     .product-status {
         padding: 5px;
         margin-top: 5px;
-        background-color: #f2f2f2; /* Light grey background */
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Subtle shadow */
-        border-radius: 4px; /* Slightly rounded corners */
+        background-color: #f2f2f2; 
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
+        border-radius: 4px; 
         text-align: center;
         font-weight: bold;
     }
@@ -62,7 +62,8 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
-<body style="background-color: #E6F9E6;">
+<body style="background: linear-gradient(104.9deg, rgb(255, 95, 162) 2.3%, rgb(254, 201, 154) 92.7%);
+">
 
 	<%
 	/* Checking the user credentials */
@@ -158,7 +159,7 @@
 						%>
 						<button type="submit"
 							formaction="./AddtoCart?uid=<%=userName%>&pid=<%=product.getProdId()%>&pqty=1"
-							class="btn btn-success">Add to Cart</button>
+							class="btn btn-success"style="background-color: #FFC0CB; color: black;">Add to Cart</button>
 						&nbsp;&nbsp;&nbsp;
 						
 					
@@ -168,10 +169,10 @@
 						%>
 						<button type="submit"
 							formaction="./AddtoCart?uid=<%=userName%>&pid=<%=product.getProdId()%>&pqty=0"
-							class="btn btn-danger">Remove From Cart</button>
+							class="btn btn-danger"style="background-color: #F9629F; color: black;">Remove From Cart</button>
 						&nbsp;&nbsp;&nbsp;
 						<button type="submit" formaction="cartDetails.jsp"
-							class="btn btn-success">Checkout</button>
+							class="btn btn-success"style="background-color: #FFC0CB; color: black;">Checkout</button>
 						<%
 						} 
 						%>
