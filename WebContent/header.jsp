@@ -30,15 +30,15 @@
 	<!--Company Header Starting  -->
 	<!-- Mumna: Here I changed the padding to see the title -->
 	<div class="container-fluid text-center"
-		style="margin-top: 45px; background-color: #33cc33; color: white; padding: 85px;">
-		<h2>Ellison Electronics</h2>
-		<h6>We specialize in Electronics</h6>
+		style="margin-top: 45px; background-color: #f4aeba; color: white; padding: 85px;">
+		<h2>E-Concordia Cart</h2>
+		<h6>We specialize in Electronics for Students</h6>
 		<form class="form-inline" action="index.jsp" method="get">
 			<div class="input-group">
-				<input type="text" class="form-control" size="50" name="search"
+				<input type="text" class="form-control" size="50" name="search" 
 					placeholder="Search Items" required>
 				<div class="input-group-btn">
-					<input type="submit" class="btn btn-danger" value="Search" />
+					<input type="submit" class="btn btn-danger" value="Search" style="background-color: #F9629F; color: black;"/>
 				</div>
 			</div>
 		</form>
@@ -66,11 +66,11 @@
 						class="icon-bar"></span>
 				</button>
 				<a class="navbar-brand" href="index.jsp"><span
-					class="glyphicon glyphicon-home">&nbsp;</span>Shopping Center</a>
+					class="glyphicon glyphicon-home" >&nbsp;</span>Shopping Center</a>
 			</div>
 			<div class="collapse navbar-collapse" id="myNavbar">
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="login.jsp">Login</a></li>
+					<li><a href="login.jsp" >Login</a></li>
 					<li><a href="register.jsp">Register</a></li>
 					<li><a href="index.jsp">Products</a></li>
 					<li class="dropdown"><a class="dropdown-toggle"
