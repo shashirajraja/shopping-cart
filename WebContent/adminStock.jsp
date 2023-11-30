@@ -16,7 +16,8 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
-<body style="background-color: #E6F9E6;">
+<body style="background: linear-gradient(104.9deg, rgb(255, 95, 162) 2.3%, rgb(254, 201, 154) 92.7%);
+">
 	<%
 	/* Checking the user credentials */
 	String userType = (String) session.getAttribute("usertype");
@@ -42,11 +43,11 @@
 	<div class="container-fluid">
 		<div class="table-responsive ">
 		<div class="text-center"
-		style="color: green; font-size: 24px; font-weight: bold;">Top 5
+		style="color: white; font-size: 24px; font-weight: bold;">Top 5
 		Products</div>
 			<table class="table table-hover table-sm">
 				<thead
-					style="background-color: #2c6c4b; color: white; font-size: 18px;">
+					style="background-color: #FF69B4; color: white; font-size: 18px;">
 					<tr>
 						<th>Image</th>
 						<th>ProductId</th>
@@ -87,14 +88,14 @@
 							<form method="post">
 								<button type="submit"
 									formaction="updateProduct.jsp?prodid=<%=product.getProdId()%>"
-									class="btn btn-primary">Update</button>
+									class="btn btn-primary" style="background-color: #FFC0CB; color: black;">Update</button>
 							</form>
 						</td>
 						<td>
 							<form method="post">
 								<button type="submit"
 									formaction="./RemoveProductSrv?prodid=<%=product.getProdId()%>"
-									class="btn btn-danger">Remove</button>
+									class="btn btn-danger" style="background-color: #F9629F; color: black;">Remove</button>
 							</form>
 						</td>
 
@@ -117,11 +118,11 @@
 				</tbody>
 			</table>
 			<div class="text-center"
-		style="color: green; font-size: 24px; font-weight: bold;">5 least selling
+		style="color: white; font-size: 24px; font-weight: bold;">5 least selling
 		Products</div>
 			<table class="table table-hover table-sm">
 				<thead
-					style="background-color: #2c6c4b; color: white; font-size: 18px;">
+					style="background-color: #FF69B4; color: white; font-size: 18px;">
 					<tr>
 						<th>Image</th>
 						<th>ProductId</th>
@@ -162,14 +163,14 @@
 							<form method="post">
 								<button type="submit"
 									formaction="updateProduct.jsp?prodid=<%=product.getProdId()%>"
-									class="btn btn-primary">Update</button>
+									class="btn btn-primary" style="background-color: #FFC0CB; color: black;">Update</button>
 							</form>
 						</td>
 						<td>
 							<form method="post">
 								<button type="submit"
 									formaction="./RemoveProductSrv?prodid=<%=product.getProdId()%>"
-									class="btn btn-danger">Remove</button>
+									class="btn btn-danger" style="background-color: #F9629F; color: black;">Remove</button>
 							</form>
 						</td>
 
