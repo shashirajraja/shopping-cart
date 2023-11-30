@@ -101,9 +101,9 @@ public class UserBeanTest {
 
     @Test
     public void testSetUserInterests() {
-        HashSet<ProductInterest> interests = new HashSet<>();
-        interests.add(new ProductInterest("Interest1"));
-        interests.add(new ProductInterest("Interest2"));
+        HashSet<String> interests = new HashSet<>();
+        interests.add("Interest1");
+        interests.add("Interest2");
 
         testUser.setUserInterests(interests);
 
@@ -112,8 +112,8 @@ public class UserBeanTest {
 
     @Test
     public void testClearUserInterests() {
-        testUser.addUserInterest(new ProductInterest("Interest1"));
-        testUser.addUserInterest(new ProductInterest("Interest2"));
+        testUser.addUserInterest("Interest1");
+        testUser.addUserInterest("Interest2");
 
         testUser.clearUserInterests();
 
@@ -122,7 +122,7 @@ public class UserBeanTest {
 
     @Test
     public void testAddUserInterest() {
-        ProductInterest interest = new ProductInterest("Interest1");
+        String interest = "Interest1";
 
         testUser.addUserInterest(interest);
 
@@ -131,7 +131,7 @@ public class UserBeanTest {
 
     @Test
     public void testAddUserInterest_Duplicate() {
-        ProductInterest interest = new ProductInterest("Interest1");
+        String interest = "Interest1";
 
         // Adding the same interest twice
         testUser.addUserInterest(interest);
@@ -142,7 +142,7 @@ public class UserBeanTest {
 
     @Test
     public void testRemoveUserInterest() {
-        ProductInterest interest = new ProductInterest("Interest1");
+        String interest = "Interest1";
 
         testUser.addUserInterest(interest);
         testUser.removeUserInterest(interest);
@@ -152,7 +152,7 @@ public class UserBeanTest {
 
     @Test
     public void testRemoveUserInterest_NotExists() {
-        ProductInterest interest = new ProductInterest("Interest1");
+        String interest = "Interest1";
 
         // Removing an interest that was not added
         testUser.removeUserInterest(interest);
@@ -161,4 +161,5 @@ public class UserBeanTest {
         assertTrue(testUser.getUserInterests().isEmpty());
     }
 }
+
 
