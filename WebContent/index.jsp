@@ -19,9 +19,6 @@
 <body style="background-color: #E6F9E6;">
 
 	<%
-	
-	CartServiceImpl cartService = new CartServiceImpl();
-	out.println(cartService.addProductToCart("guest@gmail.com", "P20230423083830", 1));
 	/* Checking the user credentials */
 	String userName = (String) session.getAttribute("username");
 	String password = (String) session.getAttribute("password");
