@@ -6,6 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
 import java.lang.Integer;
 
 import com.shashi.beans.InteractionBean;
@@ -14,12 +17,32 @@ import com.shashi.utility.DBUtil;
 
 public class WebAnalyticsServiceImpl implements WebAnalyticsService {
 
+    public static void main(String[] args) {
+        WebAnalyticsServiceImpl webAnalyticsService = new WebAnalyticsServiceImpl();
+        System.out.println(webAnalyticsService.addInteraction("guest@gmail.com", "P20230423083830",1));
+        //Print current working directory
+        System.out.println("Current working directory: " + System.getProperty("user.dir"));
+    }
 
     @Override
     public String addInteraction(String userId, String prodId, int weight) {
-        String status = "Failed to Add Interaction";
+        //DEBUG
+		PrintStream out;
+		try {
+			out = new PrintStream(new FileOutputStream("output.log"));
+            System.setOut(out);
+		} catch (FileNotFoundException e) {
+			
+			e.printStackTrace();
+		}
+		
 
+        String status = "Failed to Add Interaction";
+        
         String checkInteractionStatus = checkInteraction(userId, prodId);
+        //DEBUG
+        System.out.println("Interaction Status: " + checkInteractionStatus);
+        //String checkInteractionStatus = "0";
         int interactionCount;
 
         try {
@@ -28,6 +51,9 @@ public class WebAnalyticsServiceImpl implements WebAnalyticsService {
         }
         catch (NumberFormatException e) {
             status += ": " + e.getMessage();
+            
+            //DEBUG
+            System.out.println("Error: " + e.getMessage());
             return status;
         }
         
@@ -74,8 +100,10 @@ public class WebAnalyticsServiceImpl implements WebAnalyticsService {
     @Override
     public String checkInteraction(String userId, String prodId) {
         String status = "Failed to Check Interaction";
-
+        
         Connection con = DBUtil.provideConnection();
+        //DEBUG
+        System.out.println("Connection: " + con);
 
         PreparedStatement ps = null;
         ResultSet rs = null;

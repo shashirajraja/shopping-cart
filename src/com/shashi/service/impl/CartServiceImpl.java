@@ -1,5 +1,8 @@
 package com.shashi.service.impl;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,18 +18,39 @@ import com.shashi.utility.DBUtil;
 
 public class CartServiceImpl implements CartService {
 
+	public static void main(String[] args) {
+		CartServiceImpl cartService = new CartServiceImpl();
+		System.out.println(cartService.addProductToCart("guest@gmail.com", "P20230423083830", 1));
+	}
+
 	@Override
 	public String addProductToCart(String userId, String prodId, int prodQty) {
-		String status = "Failed to Add into Cart";
+	//DEBUG
+		PrintStream out;
+		try {
+			out = new PrintStream(new FileOutputStream("output.log"));
+            System.setOut(out);
+		} catch (FileNotFoundException e) {
+			
+			e.printStackTrace();
+		}
 
+		String status = "Failed to Add into Cart";
+		
+		// //DEBUG - ADD
+		// WebAnalyticsServiceImpl analyticsDoa = new WebAnalyticsServiceImpl();
+		// analyticsDoa.addInteraction(userId, prodId, 1);
+		
 		Connection con = DBUtil.provideConnection();
 
 		PreparedStatement ps = null;
 		PreparedStatement ps2 = null;
+
 		ResultSet rs = null;
 
 		try {
-
+			//DEBUG
+			System.out.println("addProductToCart: " + userId + " " + prodId + " " + prodQty);
 			ps = con.prepareStatement("select * from usercart where username=? and prodid=?");
 
 			ps.setString(1, userId);
@@ -64,6 +88,12 @@ public class CartServiceImpl implements CartService {
 
 				} else {
 					status = updateProductToCart(userId, prodId, prodQty);
+					//DEBUG
+					System.out.println("Trying addInteraction: " + userId + " " + prodId + " " + 1);
+					// // TODO update Analytics
+					// WebAnalyticsServiceImpl analyticsDoa = new WebAnalyticsServiceImpl();
+					// // analyticsDoa = new WebAnalyticsServiceImpl();
+					// analyticsDoa.addInteraction(userId, prodId, 1);
 
 				}
 			}
