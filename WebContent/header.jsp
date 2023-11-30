@@ -163,6 +163,7 @@
 							<li><a href="adminViewProduct.jsp?type=camera">Camera</a></li>
 							<li><a href="adminViewProduct.jsp?type=speaker">Speakers</a></li>
 							<li><a href="adminViewProduct.jsp?type=tablet">Tablets</a></li>
+							<li><a href="adminViewProduct.jsp?type=used">Used items</a></li>
 						</ul></li>
 					<li><a href="adminStock.jsp">Stock</a></li>
 					<li><a href="shippedItems.jsp">Shipped</a></li>
