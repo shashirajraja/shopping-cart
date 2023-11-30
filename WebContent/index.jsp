@@ -11,12 +11,59 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="css/changes.css">
+<style>
+    body {
+        background-color: #510400;
+    }
+    .product-status {
+        padding: 5px;
+        margin-top: 5px;
+        background-color: #f2f2f2; 
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
+        border-radius: 4px; 
+        text-align: center;
+        font-weight: bold;
+    }
+    .thumbnail {
+        position: relative;
+        padding: 10px;
+        background-color: #fff; /* White background for product thumbnail */
+        border: 1px solid #ddd; /* Thin border */
+        border-radius: 4px; /* Slightly rounded corners for the thumbnail */
+        margin-bottom: 20px; /* Spacing between thumbnails */
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Shadow for the thumbnail */
+    }
+    .product-status {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        padding: 5px 10px;
+        background-color: #f2f2f2; /* Light grey background */
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Subtle shadow */
+        border-radius: 4px; /* Slightly rounded corners */
+        text-align: center;
+        font-weight: bold;
+        font-size: 0.8em;
+    }
+    .used-product {
+        background-color: #ffdede; /* Light red for used products */
+    }
+    .new-product {
+        background-color: #defde0; /* Light green for new products */
+    }
+    .custom-product {
+    top:50px;
+    margin-top: 20px;
+        background-color: #e0eaff; /* Light blue for custom products */
+    }
+</style>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
-<body style="background-color: #E6F9E6;">
+<body style="background: linear-gradient(104.9deg, rgb(255, 95, 162) 2.3%, rgb(254, 201, 154) 92.7%);
+">
 
 	<%
 	/* Checking the user credentials */
@@ -82,26 +129,27 @@
 						Rs
 						<%=product.getProdPrice()%>
 					</p>
+					
+					
+					
 					<form method="post">
 						<%
 						if (cartQty == 0) {
 						%>
 						<button type="submit"
 							formaction="./AddtoCart?uid=<%=userName%>&pid=<%=product.getProdId()%>&pqty=1"
-							class="btn btn-success">Add to Cart</button>
+							class="btn btn-success" style="background-color: #FFC0CB; color: black;">Add to Cart</button>
 						&nbsp;&nbsp;&nbsp;
-						<button type="submit"
-							formaction="./AddtoCart?uid=<%=userName%>&pid=<%=product.getProdId()%>&pqty=1"
-							class="btn btn-primary">Buy Now</button>
+						
 						<%
 						} else {
 						%>
 						<button type="submit"
 							formaction="./AddtoCart?uid=<%=userName%>&pid=<%=product.getProdId()%>&pqty=0"
-							class="btn btn-danger">Remove From Cart</button>
+							class="btn btn-danger" style="background-color: #F9629F; color: black;">Remove From Cart</button>
 						&nbsp;&nbsp;&nbsp;
 						<button type="submit" formaction="cartDetails.jsp"
-							class="btn btn-success">Checkout</button>
+							class="btn btn-success" style="background-color: #FFC0CB; color: black;">Checkout</button>
 						<%
 						}
 						%>
