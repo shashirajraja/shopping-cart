@@ -6,6 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
 import java.lang.Integer;
 
 import com.shashi.beans.InteractionBean;
@@ -14,12 +17,20 @@ import com.shashi.utility.DBUtil;
 
 public class WebAnalyticsServiceImpl implements WebAnalyticsService {
 
+    public static void main(String[] args) {
+        WebAnalyticsServiceImpl webAnalyticsService = new WebAnalyticsServiceImpl();
+        System.out.println(webAnalyticsService.addInteraction("guest@gmail.com", "P20230423083830",1));
+        //Print current working directory
+        System.out.println("Current working directory: " + System.getProperty("user.dir"));
+    }
 
     @Override
     public String addInteraction(String userId, String prodId, int weight) {
-        String status = "Failed to Add Interaction";
 
+        String status = "Failed to Add Interaction";
+        
         String checkInteractionStatus = checkInteraction(userId, prodId);
+
         int interactionCount;
 
         try {
@@ -28,11 +39,13 @@ public class WebAnalyticsServiceImpl implements WebAnalyticsService {
         }
         catch (NumberFormatException e) {
             status += ": " + e.getMessage();
+            
             return status;
         }
         
         Connection con = DBUtil.provideConnection();
         
+
         PreparedStatement ps = null;
         ResultSet rs = null;
 
@@ -74,14 +87,13 @@ public class WebAnalyticsServiceImpl implements WebAnalyticsService {
     @Override
     public String checkInteraction(String userId, String prodId) {
         String status = "Failed to Check Interaction";
-
+        
         Connection con = DBUtil.provideConnection();
 
         PreparedStatement ps = null;
         ResultSet rs = null;
 
         try {
-
             ps = con.prepareStatement("select * from interactions where username=? and prodid=?");
 
             ps.setString(1, userId);
@@ -100,7 +112,7 @@ public class WebAnalyticsServiceImpl implements WebAnalyticsService {
             status = interactionCount;
 
         } catch (SQLException e) {
-            status = "Error: " + e.getMessage();
+            status = " Error: " + e.getMessage();
             e.printStackTrace();
         }
 

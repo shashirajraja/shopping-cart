@@ -35,6 +35,9 @@ public class OrderServiceImpl implements OrderService {
 		// System.out.println("Transaction: "+transaction.getTransactionId()+"
 		// "+transaction.getTransAmount()+" "+transaction.getUserName()+"
 		// "+transaction.getTransDateTime());
+		
+		// Added: Web Analytics Handler
+		WebAnalyticsServiceImpl webAnalyticsServiceDoa = new WebAnalyticsServiceImpl();
 
 		for (CartBean item : cartItems) {
 
@@ -52,6 +55,10 @@ public class OrderServiceImpl implements OrderService {
 			if (!ordered)
 				break;
 			else
+				//Added: Web Analytics
+				webAnalyticsServiceDoa.addInteraction(item.getUserId(), item.getProdId(), (item.getQuantity() * 3));
+
+
 				ordered = new ProductServiceImpl().sellNProduct(item.getProdId(), item.getQuantity());
 				//TODO ADD quantity check, and send email if less than 4
 				int remainingQuantity = new ProductServiceImpl().getProductQuantity(item.getProdId());
