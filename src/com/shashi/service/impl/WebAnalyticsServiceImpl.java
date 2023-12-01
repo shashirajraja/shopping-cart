@@ -6,12 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.PrintStream;
 import java.lang.Integer;
 
 import com.shashi.beans.InteractionBean;
+import com.shashi.beans.ProductBean;
 import com.shashi.service.WebAnalyticsService;
 import com.shashi.utility.DBUtil;
 
@@ -20,8 +18,43 @@ public class WebAnalyticsServiceImpl implements WebAnalyticsService {
     public static void main(String[] args) {
         WebAnalyticsServiceImpl webAnalyticsService = new WebAnalyticsServiceImpl();
         System.out.println(webAnalyticsService.addInteraction("guest@gmail.com", "P20230423083830",1));
-        //Print current working directory
-        System.out.println("Current working directory: " + System.getProperty("user.dir"));
+
+    List<ProductBean> forYouProducts = new ArrayList<ProductBean>();
+	List<ProductBean> studentSpecials = new ArrayList<ProductBean>();
+	List<String> userCategories = new WebAnalyticsServiceImpl().getUserCategories("guest@gmail.com", 0);
+	List<String> userStudentCategories = new ArrayList<String>();
+
+
+    //DEBUG ADDED   
+    ProductServiceImpl prodDao = new ProductServiceImpl();
+    System.out.println("User Categories: " + userCategories);
+	
+	if (!userCategories.contains("textbook")){
+		for (String category : userCategories) {
+			forYouProducts.addAll(prodDao.getAllProductsByType(category));
+		}
+	}
+	else{
+		for (String category : userCategories) {
+			forYouProducts.addAll(prodDao.getAllProductsByType(category));
+		}
+		userStudentCategories = new WebAnalyticsServiceImpl().getUserStudentCategories("guest@gmail.com", 0);
+        
+        //DEBUG ADDED
+        System.out.println("User Student Categories: " + userStudentCategories);
+		
+        for (String category : userStudentCategories) {
+			studentSpecials.addAll(prodDao.getProductsByQuality(category, "used"));
+		}
+	}
+	
+	//Truncate the lists to max 6 items
+	if (forYouProducts.size() > 6) {
+		forYouProducts = forYouProducts.subList(0, 6);
+	}
+	if (studentSpecials.size() > 6) {
+		studentSpecials = studentSpecials.subList(0, 6);
+	}
     }
 
     @Override
@@ -191,7 +224,7 @@ public class WebAnalyticsServiceImpl implements WebAnalyticsService {
         try {
 
             ps = con.prepareStatement(
-                "SELECT p.ptype, SUM(i.interactioncount) AS totalinteractions" +
+                "SELECT p.ptype, SUM(i.interactioncount) AS totalinteractions " +
                     "FROM `shopping-cart`.`interactions` AS i " + 
                     "JOIN `shopping-cart`.`product` AS p ON i.prodid = p.pid " +
                     "WHERE i.username=? " + 
@@ -246,10 +279,10 @@ public class WebAnalyticsServiceImpl implements WebAnalyticsService {
         try {
 
             ps = con.prepareStatement(
-                "SELECT p.ptype, SUM(i.interactioncount) AS totalinteractions" +
+                "SELECT p.ptype, SUM(i.interactioncount) AS totalinteractions " +
                     "FROM `shopping-cart`.`interactions` AS i " + 
                     "JOIN `shopping-cart`.`product` AS p ON i.prodid = p.pid " +
-                    "WHERE i.username=? AND p.ptype IN ('mobile','textbook','tablet')" + //TODO: Add student catagories
+                    "WHERE i.username=? AND p.ptype IN ('mobile','textbook','tablet') " +
                     "GROUP BY p.ptype " +
                     "ORDER BY SUM(i.interactioncount) DESC");
 
