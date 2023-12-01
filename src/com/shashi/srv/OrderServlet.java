@@ -33,6 +33,7 @@ public class OrderServlet extends HttpServlet {
 		}
 
 		double paidAmount = Double.parseDouble(request.getParameter("amount"));
+		System.out.println("Paid amount: " + paidAmount);
 		String status = new OrderServiceImpl().paymentSuccess(userName, paidAmount);
 
 		PrintWriter pw = response.getWriter();

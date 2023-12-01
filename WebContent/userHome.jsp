@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Ellison Electronics</title>
+<title>Concordia Shopping Cart App</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
@@ -17,7 +17,8 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body style="background-color: #E6F9E6;">
-
+	
+	
 	<%
 	/* Checking the user credentials */
 	String userName = (String) session.getAttribute("username");
@@ -30,6 +31,8 @@
 
 	ProductServiceImpl prodDao = new ProductServiceImpl();
 	List<ProductBean> products = new ArrayList<ProductBean>();
+	String forYouHidden = "hidden";
+	String studentSpecialsHidden = "hidden";
 
 	String search = request.getParameter("search");
 	String type = request.getParameter("type");
@@ -47,25 +50,75 @@
 		message = "No items found for the search '" + (search != null ? search : type) + "'";
 		products = prodDao.getAllProducts();
 	}
+
+	List<ProductBean> forYouProducts = new ArrayList<ProductBean>();
+	List<ProductBean> studentSpecials = new ArrayList<ProductBean>();
+	List<String> userCategories = new WebAnalyticsServiceImpl().getUserCategories(userName, 0);
+	List<String> userStudentCategories = new ArrayList<String>();
+	
+	if (!userCategories.contains("textbook")){
+		for (String category : userCategories) {
+			forYouProducts.addAll(prodDao.getAllProductsByType(category));
+		}
+	}
+	else{
+		userStudentCategories = new WebAnalyticsServiceImpl().getUserStudentCategories(userName, 0);
+		for (String category : userCategories) {
+			forYouProducts.addAll(prodDao.getProductsByQuality(category, "new"));
+		}
+		for (String category : userStudentCategories) {
+			studentSpecials.addAll(prodDao.getProductsByQuality(category, "used"));
+		}
+	}
+	
+	//Truncate the lists to max 6 items
+	if (forYouProducts.size() > 6) {
+		forYouProducts = forYouProducts.subList(0, 6);
+	}
+	if (studentSpecials.size() > 6) {
+		studentSpecials = studentSpecials.subList(0, 6);
+	}
+
+    // Toggle display of For You and Student Specials sections
+	boolean forYouIsVisible = true; // This could also be set based on some logic or conditions
+	boolean studentSpecialsIsVisible = true; // This could also be set based on some logic or conditions
+    
+	if (search != null || type != null || userCategories.size() == 0) {
+		forYouIsVisible = false;
+	}
+
+	if (search != null || type != null || userCategories.size() == 0) {
+		studentSpecialsIsVisible = false;
+	}
+
+	String forYouDisplayStyle = forYouIsVisible ? "display: block;" : "display: none;";
+	String studentSpecialsDisplayStyle = studentSpecialsIsVisible ? "display: block;" : "display: none;";
+	
 	%>
 
 
 
 	<jsp:include page="header.jsp" />
+	
+	<div class="text-center" style="${forYouDisplayStyle} color: black; font-size: 14px; font-weight: bold;">For You</div>
 
-	<div class="text-center"
-		style="color: black; font-size: 14px; font-weight: bold;"><%=message%></div>
-	<!-- <script>document.getElementById('mycart').innerHTML='<i data-count="20" class="fa fa-shopping-cart fa-3x icon-white badge" style="background-color:#333;margin:0px;padding:0px; margin-top:5px;"></i>'</script>
- -->
-	<!-- Start of Product Items List -->
-	<div class="container">
+	<div class="container">	
+
+	</div>
+
+
+ 
+ 	<!-- Start of For You Items List -->
+	<div class="container" style="${forYouDisplayStyle}" >
 		<div class="row text-center">
 
 			<%
-			for (ProductBean product : products) {
+
+			for (ProductBean product : forYouProducts) {
 				int cartQty = new CartServiceImpl().getCartItemCount(userName, product.getProdId());
 			%>
 			<div class="col-sm-4" style='height: 350px;'>
+				
 				<div class="thumbnail">
 					<img src="./ShowImage?pid=<%=product.getProdId()%>" alt="Product"
 						style="height: 150px; max-width: 180px">
@@ -92,6 +145,141 @@
 						<button type="submit"
 							formaction="./AddtoCart?uid=<%=userName%>&pid=<%=product.getProdId()%>&pqty=1"
 							class="btn btn-primary">Buy Now</button>
+							
+
+						<%
+						} else {
+						%>
+						<button type="submit"
+							formaction="./AddtoCart?uid=<%=userName%>&pid=<%=product.getProdId()%>&pqty=0"
+							class="btn btn-danger">Remove From Cart</button>
+						&nbsp;&nbsp;&nbsp;
+						<button type="submit" formaction="cartDetails.jsp"
+							class="btn btn-success">Checkout</button>
+						<%
+						}
+						%>
+					</form>
+					<br />
+				</div>
+			</div>
+
+			<%
+			}
+			%>
+
+		</div>
+	</div>
+	<!-- ENd of For You Items List -->
+
+	<div class="text-center" style="${studentSpecialsDisplayStyle} color: black; font-size: 14px; font-weight: bold;">Student Specials</div>
+
+ 	<!-- Start of Student Specials Items List -->
+	 <div class="container" style="${studentSpecialsDisplayStyle}">
+		<div class="row text-center">
+
+			<%
+			for (ProductBean product : studentSpecials) {
+				int cartQty = new CartServiceImpl().getCartItemCount(userName, product.getProdId());
+			%>
+			<div class="col-sm-4" style='height: 350px;'>
+				
+				<div class="thumbnail">
+					<img src="./ShowImage?pid=<%=product.getProdId()%>" alt="Product"
+						style="height: 150px; max-width: 180px">
+					<p class="productname"><%=product.getProdName()%>
+					</p>
+					<%
+					String description = product.getProdInfo();
+					description = description.substring(0, Math.min(description.length(), 100));
+					%>
+					<p class="productinfo"><%=description%>..
+					</p>
+					<p class="price">
+						Rs
+						<%=product.getProdPrice()%>
+					</p>
+					<form method="post">
+						<%
+						if (cartQty == 0) {
+						%>
+						<button type="submit"
+							formaction="./AddtoCart?uid=<%=userName%>&pid=<%=product.getProdId()%>&pqty=1"
+							class="btn btn-success">Add to Cart</button>
+						&nbsp;&nbsp;&nbsp;
+						<button type="submit"
+							formaction="./AddtoCart?uid=<%=userName%>&pid=<%=product.getProdId()%>&pqty=1"
+							class="btn btn-primary">Buy Now</button>
+							
+
+						<%
+						} else {
+						%>
+						<button type="submit"
+							formaction="./AddtoCart?uid=<%=userName%>&pid=<%=product.getProdId()%>&pqty=0"
+							class="btn btn-danger">Remove From Cart</button>
+						&nbsp;&nbsp;&nbsp;
+						<button type="submit" formaction="cartDetails.jsp"
+							class="btn btn-success">Checkout</button>
+						<%
+						}
+						%>
+					</form>
+					<br />
+				</div>
+			</div>
+
+			<%
+			}
+			%>
+
+		</div>
+	</div>
+	<!-- End of Student Specials Items List -->
+
+
+	<div class="text-center"
+	style="color: black; font-size: 14px; font-weight: bold;"><%=message%></div>
+<!-- <script>document.getElementById('mycart').innerHTML='<i data-count="20" class="fa fa-shopping-cart fa-3x icon-white badge" style="background-color:#333;margin:0px;padding:0px; margin-top:5px;"></i>'</script>
+-->
+	<!-- Start of Product Items List -->
+	<div class="container">
+		<div class="row text-center">
+
+			<%
+			for (ProductBean product : products) {
+				int cartQty = new CartServiceImpl().getCartItemCount(userName, product.getProdId());
+			%>
+			<div class="col-sm-4" style='height: 350px;'>
+				
+				<div class="thumbnail">
+					<img src="./ShowImage?pid=<%=product.getProdId()%>" alt="Product"
+						style="height: 150px; max-width: 180px">
+					<p class="productname"><%=product.getProdName()%>
+					</p>
+					<%
+					String description = product.getProdInfo();
+					description = description.substring(0, Math.min(description.length(), 100));
+					%>
+					<p class="productinfo"><%=description%>..
+					</p>
+					<p class="price">
+						Rs
+						<%=product.getProdPrice()%>
+					</p>
+					<form method="post">
+						<%
+						if (cartQty == 0) {
+						%>
+						<button type="submit"
+							formaction="./AddtoCart?uid=<%=userName%>&pid=<%=product.getProdId()%>&pqty=1"
+							class="btn btn-success">Add to Cart</button>
+						&nbsp;&nbsp;&nbsp;
+						<button type="submit"
+							formaction="./AddtoCart?uid=<%=userName%>&pid=<%=product.getProdId()%>&pqty=1"
+							class="btn btn-primary">Buy Now</button>
+							
+
 						<%
 						} else {
 						%>
