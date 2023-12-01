@@ -80,14 +80,15 @@
 						%>
 						<label for="producttype">Product Type</label> <select name="type"
 							id="producttype" class="form-control" required>
-							<option value="mobile"
+							
+							<option value="ENCS"
 								<%="ENCS".equalsIgnoreCase(ptype) ? "selected" : ""%>>ENCS</option>
 							<option value="AAS"
 								<%="".equalsIgnoreCase(ptype) ? "selected" : ""%>>AAS</option>
 							<option value="JMSB"
-								<%="camera".equalsIgnoreCase(ptype) ? "selected" : ""%>>JMSB</option>
+								<%="JMSB".equalsIgnoreCase(ptype) ? "selected" : ""%>>JMSB</option>
 							<option value="FA"
-								<%="laptop".equalsIgnoreCase(ptype) ? "selected" : ""%>>FA</option>
+								<%="FA".equalsIgnoreCase(ptype) ? "selected" : ""%>>FA</option>
 						</select>
 					</div>
 				</div>

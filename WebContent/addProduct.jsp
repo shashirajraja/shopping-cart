@@ -67,13 +67,10 @@
 					<div class="col-md-6 form-group">
 						<label for="producttype">Product Type</label> <select name="type"
 							id="producttype" class="form-control" required>
-							<option value="mobile">MOBILE</option>
-							<option value="tv">TV</option>
-							<option value="camera">CAMERA</option>
-							<option value="laptop">LAPTOP</option>
-							<option value="tablet">TABLET</option>
-							<option value="speaker">SPEAKER</option>
-							<option value="other">Some Other Appliances</option>
+							<option value="encs">ENCS</option>
+							<option value="aas">AAS</option>
+							<option value="jmsb">JMSB</option>
+							<option value="fa">FA</option>
 						</select>
 					</div>
 				</div>
