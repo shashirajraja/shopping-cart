@@ -572,6 +572,7 @@ public class ProductServiceImpl implements ProductService {
 	                product.setProdQuantity(rs.getInt(6));
 	                product.setProdImage(rs.getAsciiStream(7));
 	                product.setProdQuality(rs.getString(8));
+					product.setProdDiscount(rs.getInt(9));
 
 	                products.add(product);
 	            }
@@ -607,7 +608,9 @@ public class ProductServiceImpl implements ProductService {
 	                product.setProdPrice(rs.getDouble(5)); 
 	                product.setProdQuantity(rs.getInt(6));
 	                product.setProdImage(rs.getAsciiStream(7));
-	                product.setProdSold(rs.getInt(9));
+					product.setProdQuality(rs.getString(8));
+					product.setProdDiscount(rs.getInt(9));
+	                product.setProdSold(rs.getInt(10));
 
 	                products.add(product);
 	            }
@@ -639,7 +642,9 @@ public class ProductServiceImpl implements ProductService {
 		                product.setProdPrice(rs.getDouble("pprice"));
 		                product.setProdQuantity(rs.getInt("pquantity"));
 		                product.setProdImage(rs.getAsciiStream("image"));
-		                product.setProdSold(rs.getInt("totalSold")); // Set the total sold
+		                product.setProdSold(rs.getInt("sold")); // Set the total sold
+						product.setProdQuality(rs.getString("quality"));
+						product.setProdDiscount(rs.getInt("discount"));
 
 		                products.add(product);
 		            }
@@ -650,7 +655,7 @@ public class ProductServiceImpl implements ProductService {
 
 		    return products;
 	}
-	
+
 	public List<ProductBean> getProductsByDiscounts(String type) {
 	    List<ProductBean> products = new ArrayList<>();
 
@@ -671,7 +676,8 @@ public class ProductServiceImpl implements ProductService {
 	                product.setProdPrice(rs.getDouble(5)); 
 	                product.setProdQuantity(rs.getInt(6));
 	                product.setProdImage(rs.getAsciiStream(7));
-	                product.setProdDiscount(rs.getInt(10));
+					product.setProdQuality(rs.getString(8));
+	                product.setProdDiscount(rs.getInt(9));
 
 	                products.add(product);
 	            }
@@ -705,6 +711,7 @@ public class ProductServiceImpl implements ProductService {
 	                product.setProdQuantity(rs.getInt("pquantity"));
 	                product.setProdImage(rs.getAsciiStream("image"));
 	                product.setProdSold(rs.getInt("sold"));
+					product.setProdQuality(rs.getString("quality"));
 
 	                products.add(product);
 	            }
