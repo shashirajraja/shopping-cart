@@ -45,9 +45,14 @@
 		products = prodDao.searchAllProducts(search);
 		message = "Showing Results for '" + search + "'";
 	} else if (type != null) {
-		products = prodDao.getAllProductsByType(type);
-		message = "Showing Results for '" + type + "'";
-	} else {
+         if ("used".equalsIgnoreCase(type)) {
+             //Handle "Used items" separately
+             products = prodDao.getProductsByConditions(type, "used"); 
+         } else {
+             products = prodDao.getAllProductsByType(type);
+         }
+         message = "Showing Results for '" + type + "'";
+        } else {
 		products = prodDao.getAllProducts();
 	}
 	if (products.isEmpty()) {
