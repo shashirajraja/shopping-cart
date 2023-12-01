@@ -95,7 +95,7 @@
 				</div>
 				<div class="row">
 					<div class="col-md-6 form-group">
-						<label for="producttype">Condition</label> <select name="type"
+						<label for="producttype">Product Quality</label> <select name="type"
 							id="producttype" class="form-control" required>
 							<option value="new">New</option>
 							<option value="used">Used</option>
