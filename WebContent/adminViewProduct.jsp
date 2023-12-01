@@ -45,9 +45,14 @@
 		products = prodDao.searchAllProducts(search);
 		message = "Showing Results for '" + search + "'";
 	} else if (type != null) {
-		products = prodDao.getAllProductsByType(type);
-		message = "Showing Results for '" + type + "'";
-	} else {
+         if ("used".equalsIgnoreCase(type)) {
+             //Handle "Used items" separately
+             products = prodDao.getProductsByQuality(type, "used"); 
+         } else {
+             products = prodDao.getAllProductsByType(type);
+         }
+         message = "Showing Results for '" + type + "'";
+        } else {
 		products = prodDao.getAllProducts();
 	}
 	if (products.isEmpty()) {
@@ -74,7 +79,12 @@
                			</form>
           		</div>
        		</div>
-		
+
+		<%
+		//Retrieve the updated price from the saleProduct
+		double updatedPrice = Double.parseDouble(request.getParameter("updatedPrice"));
+		%>
+
 		<div class="row text-center">
 			<%
 			for (ProductBean product : products) {
@@ -89,10 +99,16 @@
 						)
 					</p>
 					<p class="productinfo"><%=product.getProdInfo()%></p>
+					
+					<!-- Display the original price -->
 					<p class="price">
-						Rs
+						Original price: Rs
 						<%=product.getProdPrice()%>
 					</p>
+					
+					<!-- Display the updated price -->
+                			<p class="price">Sale price: Rs <%= request.getParameter("updatedPrice") %></p>
+
 					<form method="post">
 						<button type="submit"
 							formaction="./RemoveProductSrv?prodid=<%=product.getProdId()%>"

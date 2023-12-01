@@ -1,20 +1,14 @@
 package com.shashi.service;
 
 import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import com.shashi.beans.ProductBean;
-import com.shashi.utility.DBUtil;
 
 public interface ProductService {
 
 	public String addProduct(String prodName, String prodType, String prodInfo, double prodPrice, int prodQuantity,
-			InputStream prodImage);
+			InputStream prodImage, String prodString, int prodDiscount);
 
 	public String addProduct(ProductBean product);
 
@@ -44,7 +38,7 @@ public interface ProductService {
 
 	public void SendMailOnMinStockThreshold(String prodId);
 
-	public List<ProductBean> getProductsByConditions(String type, String condition);
+	public List<ProductBean> getProductsByQuality(String type, String condition);
 	
 	public List<ProductBean> getProductsByDiscounts(String type);
 	
