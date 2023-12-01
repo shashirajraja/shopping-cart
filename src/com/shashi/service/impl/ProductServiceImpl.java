@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Collections;
 import com.shashi.beans.DemandBean;
 import com.shashi.beans.ProductBean;
 import com.shashi.service.ProductService;
@@ -19,11 +19,11 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public String addProduct(String prodName, String prodType, String prodInfo, double prodPrice, int prodQuantity,
-			InputStream prodImage) {
+			InputStream prodImage,int used) {
 		String status = null;
 		String prodId = IDUtil.generateId();
 
-		ProductBean product = new ProductBean(prodId, prodName, prodType, prodInfo, prodPrice, prodQuantity, prodImage);
+		ProductBean product = new ProductBean(prodId, prodName, prodType, prodInfo, prodPrice, prodQuantity, prodImage,used);
 
 		status = addProduct(product);
 
@@ -224,6 +224,289 @@ public class ProductServiceImpl implements ProductService {
 		return products;
 	}
 
+
+	@Override
+	public List<ProductBean> getMostSelling(){
+		List<ProductBean> products = new ArrayList<ProductBean>();
+
+		Connection con = DBUtil.provideConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		try {
+			ps = con.prepareStatement("select * from product ORDER BY soldQ");
+
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+
+				ProductBean product = new ProductBean();
+
+				product.setProdId(rs.getString(1));
+				product.setProdName(rs.getString(2));
+				product.setProdType(rs.getString(3));
+				product.setProdInfo(rs.getString(4));
+				product.setProdPrice(rs.getDouble(5));
+				product.setProdQuantity(rs.getInt(6));
+				product.setProdImage(rs.getAsciiStream(7));
+				product.setSoldQ(rs.getInt(8));
+				product.setUsed(rs.getInt(9));
+
+				products.add(product);
+
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		DBUtil.closeConnection(con);
+		DBUtil.closeConnection(ps);
+		DBUtil.closeConnection(rs);
+		Collections.reverse(products);
+		
+
+		return products;
+	}	
+	
+	public List<ProductBean> getfiveSelling(String type){
+		List<ProductBean> products = new ArrayList<ProductBean>();
+
+		Connection con = DBUtil.provideConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		try {
+			ps = con.prepareStatement("select * from product ORDER BY soldQ");
+
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+
+				ProductBean product = new ProductBean();
+
+				product.setProdId(rs.getString(1));
+				product.setProdName(rs.getString(2));
+				product.setProdType(rs.getString(3));
+				product.setProdInfo(rs.getString(4));
+				product.setProdPrice(rs.getDouble(5));
+				product.setProdQuantity(rs.getInt(6));
+				product.setProdImage(rs.getAsciiStream(7));
+				product.setSoldQ(rs.getInt(8));
+				product.setUsed(rs.getInt(9));
+
+				products.add(product);
+
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		DBUtil.closeConnection(con);
+		DBUtil.closeConnection(ps);
+		DBUtil.closeConnection(rs);
+		if(type.equalsIgnoreCase("most")){
+		Collections.reverse(products);
+		}
+		List<ProductBean> fiveproducts = new ArrayList<ProductBean>();
+		for(int x=0;x<5;x++) {
+			fiveproducts.add(products.get(x));
+		}
+		return fiveproducts;
+	}
+
+	@Override
+	public List<ProductBean> getAllUsed(){
+		List<ProductBean> products = new ArrayList<ProductBean>();
+
+		Connection con = DBUtil.provideConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		try {
+			ps = con.prepareStatement("SELECT * FROM product WHERE used = 1 ORDER BY soldQ");
+
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+
+				ProductBean product = new ProductBean();
+
+				product.setProdId(rs.getString(1));
+				product.setProdName(rs.getString(2));
+				product.setProdType(rs.getString(3));
+				product.setProdInfo(rs.getString(4));
+				product.setProdPrice(rs.getDouble(5));
+				product.setProdQuantity(rs.getInt(6));
+				product.setProdImage(rs.getAsciiStream(7));
+				product.setSoldQ(rs.getInt(8));
+				product.setUsed(rs.getInt(9));
+
+				products.add(product);
+
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		DBUtil.closeConnection(con);
+		DBUtil.closeConnection(ps);
+		DBUtil.closeConnection(rs);
+		Collections.reverse(products);
+
+		return products;
+	}
+
+	
+//	public List<ProductBean> displayDiscounts() {
+//		List<ProductBean> products = new ArrayList<ProductBean>();
+//
+//		Connection con = DBUtil.provideConnection();
+//		PreparedStatement ps = null;
+//		ResultSet rs = null;
+//		
+//		try {
+//			ps = con.prepareStatement("select * from product ORDER BY soldQ DESC");
+//
+//			rs = ps.executeQuery();
+//			
+//			//Top 5 most selling only
+//			while (rs.next() && products.size() < 5) {
+//				
+//				// if the product has not already been discounted, discount it, otherwise skip
+//				if (rs.getInt(10) == 0) {
+//					applyDiscount(rs.getString(1));
+//				}
+//				
+//
+//				ProductBean product = new ProductBean();
+//
+//				product.setProdId(rs.getString(1));
+//				product.setProdName(rs.getString(2));
+//				product.setProdType(rs.getString(3));
+//				product.setProdInfo(rs.getString(4));
+//				
+//				product.setProdPrice(rs.getDouble(5));
+//				
+//				product.setProdQuantity(rs.getInt(6));
+//				product.setProdImage(rs.getAsciiStream(7));
+//				product.setSoldQ(rs.getInt(8));
+//				product.setUsed(rs.getInt(9));
+//				product.setDiscounted(rs.getInt(10));
+//
+//				products.add(product);
+//
+//			}
+//			
+//			
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//		
+//		
+//		DBUtil.closeConnection(con);
+//		DBUtil.closeConnection(ps);
+//		DBUtil.closeConnection(rs);
+//
+//		return products;
+//		
+//	}
+
+	//Suggests the 5 most selling items which have not already been discounted. If the admin wishes to apply the discount, he can do so by calling applyDiscount on the desired product from this list.
+	public List<ProductBean> suggestDiscounts() {
+		List<ProductBean> products = new ArrayList<ProductBean>();
+
+		Connection con = DBUtil.provideConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		try {
+			ps = con.prepareStatement("select * from product ORDER BY soldQ DESC");
+
+			rs = ps.executeQuery();
+			
+			//Top 5 most selling and not discounted items
+			while (rs.next() && products.size() < 5) {
+				
+				// include the product in list only if it has not already been discounted
+				if (rs.getInt(10) == 0) {
+					
+					ProductBean product = new ProductBean();
+
+					product.setProdId(rs.getString(1));
+					product.setProdName(rs.getString(2));
+					product.setProdType(rs.getString(3));
+					product.setProdInfo(rs.getString(4));
+					
+					product.setProdPrice(rs.getDouble(5));
+					
+					product.setProdQuantity(rs.getInt(6));
+					product.setProdImage(rs.getAsciiStream(7));
+					product.setSoldQ(rs.getInt(8));
+					product.setUsed(rs.getInt(9));
+				
+
+					products.add(product);
+				}
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		DBUtil.closeConnection(con);
+		DBUtil.closeConnection(ps);
+		DBUtil.closeConnection(rs);
+
+		return products;
+	}
+
+	public List<ProductBean> suggestRestock() {
+		List<ProductBean> products = new ArrayList<ProductBean>();
+
+		Connection con = DBUtil.provideConnection();
+
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		try {
+			ps = con.prepareStatement("select * from product where pquantity < 4");
+
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+
+				ProductBean product = new ProductBean();
+
+				product.setProdId(rs.getString(1));
+				product.setProdName(rs.getString(2));
+				product.setProdType(rs.getString(3));
+				product.setProdInfo(rs.getString(4));
+				product.setProdPrice(rs.getDouble(5));
+				product.setProdQuantity(rs.getInt(6));
+				product.setProdImage(rs.getAsciiStream(7));
+				product.setSoldQ(rs.getInt(8));
+				product.setUsed(rs.getInt(9));
+			
+				
+				products.add(product);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		DBUtil.closeConnection(con);
+		DBUtil.closeConnection(ps);
+		DBUtil.closeConnection(rs);
+
+		return products;
+	}
+	
 	@Override
 	public List<ProductBean> getAllProductsByType(String type) {
 		List<ProductBean> products = new ArrayList<ProductBean>();
@@ -533,5 +816,122 @@ public class ProductServiceImpl implements ProductService {
 
 		return quantity;
 	}
+	@Override
+	public boolean increaseSoldQ(String prodId, int n) {
+		boolean flag = false;
+
+		Connection con = DBUtil.provideConnection();
+
+		PreparedStatement ps = null;
+
+		try {
+
+			ps = con.prepareStatement("update product set soldQ=(psoldQ  + ?) where pid=?");
+
+			ps.setInt(1, n);
+
+			ps.setString(2, prodId);
+
+			int k = ps.executeUpdate();
+
+			if (k > 0)
+				flag = true;
+		} catch (SQLException e) {
+			flag = false;
+			e.printStackTrace();
+		}
+
+		DBUtil.closeConnection(con);
+		DBUtil.closeConnection(ps);
+
+		return flag;
+	}
+
+//	
+//	public boolean applyDiscount(String prodId) {
+//		boolean flag = false;
+//		
+//		Connection con = DBUtil.provideConnection();
+//
+//		PreparedStatement ps = null;
+//		
+//		ResultSet rs = null;
+//		
+//		int discount = 0;
+//		double price = 0;
+//		
+//		//Find the product's current price and soldQ (to be used to determine the discounted price)
+//		try {
+//			ps = con.prepareStatement("select * from product where pid=?");
+//
+//			rs = ps.executeQuery();
+//			
+//			ps.setString(1, prodId);
+//			rs = ps.executeQuery();
+//			
+//			discount = rs.getInt(8); //soldQ value
+//			price = rs.getDouble(5); //price value
+//			
+//			
+//		}  catch (SQLException e) {
+//			flag = false;
+//			e.printStackTrace();
+//		}
+//
+//		DBUtil.closeConnection(con);
+//		DBUtil.closeConnection(ps);
+//		DBUtil.closeConnection(rs);
+//
+//		Connection con = DBUtil.provideConnection();
+//
+//		PreparedStatement ps = null;
+//		
+//		// Calculate discount to apply: Higher soldQ values yield greater discounts (capped at 30%)
+//		discount *= 5;
+//		if (discount > 30)
+//			discount = 30;
+//		discount = 100 - discount;
+//		
+//		price = price * discount/100;
+//		
+//		
+//		//Update the product's price and set the value of discounted to true
+//		try {
+//
+//			ps = con.prepareStatement("update product set discounted=1, pprice=? where pid=?");
+//
+//			ps.setDouble(1, price);
+//
+//			ps.setString(2, prodId);
+//
+//			int k = ps.executeUpdate();
+//
+//			if (k > 0)
+//				flag = true;
+//		} catch (SQLException e) {
+//			flag = false;
+//			e.printStackTrace();
+//		}
+//
+//		DBUtil.closeConnection(con);
+//		DBUtil.closeConnection(ps);
+//		
+//
+//		return flag;
+//		
+//	}
+
+	@Override
+	public boolean applyDiscount(String prodId, double newPrice) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+@Override
+public List<ProductBean> displayDiscounts() {
+	// TODO Auto-generated method stub
+	return null;
+}
+
 
 }

@@ -16,8 +16,7 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
-<body style="background: linear-gradient(104.9deg, rgb(255, 95, 162) 2.3%, rgb(254, 201, 154) 92.7%);
-">
+<body style="background-color: #E6F9E6;">
 	<%
 	/* Checking the user credentials */
 	String utype = (String) session.getAttribute("usertype");
@@ -47,7 +46,7 @@
 			style="margin-top: 5px; margin-left: 2px; margin-right: 2px;">
 			<form action="./UpdateProductSrv" method="post"
 				class="col-md-6 col-md-offset-3"
-				style="border: 2px solid black; border-radius: 10px; background-color: #fdfdcb; padding: 10px;">
+				style="border: 2px solid black; border-radius: 10px; background-color: #FFE5CC; padding: 10px;">
 				<div style="font-weight: bold;" class="text-center">
 					<div class="form-group">
 						<img src="./ShowImage?pid=<%=product.getProdId()%>"

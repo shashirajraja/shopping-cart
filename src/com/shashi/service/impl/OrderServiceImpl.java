@@ -53,6 +53,7 @@ public class OrderServiceImpl implements OrderService {
 				break;
 			else
 				ordered = new ProductServiceImpl().sellNProduct(item.getProdId(), item.getQuantity());
+			new ProductServiceImpl().increaseSoldQ(item.getProdId(), item.getQuantity());
 
 			if (!ordered)
 				break;

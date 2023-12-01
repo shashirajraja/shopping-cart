@@ -27,6 +27,9 @@ CREATE TABLE IF NOT EXISTS `shopping-cart`.`product` (
   `pprice` DECIMAL(12,2) NULL DEFAULT NULL,
   `pquantity` INT NULL DEFAULT NULL,
   `image` LONGBLOB NULL DEFAULT NULL,
+  `soldQ` INT NULL DEFAULT NULL, -- ===========================================ADDED THREE PRODUCT VARIABLES========================================
+  `used` INT NULL DEFAULT NULL, -- ===========================================ADDED THREE PRODUCT VARIABLES========================================
+  `discounted` INT NULL DEFAULT NULL, -- ===========================================ADDED THREE PRODUCT VARIABLES========================================
   PRIMARY KEY (`pid`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4

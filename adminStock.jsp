@@ -16,8 +16,7 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
-<body style="background: linear-gradient(104.9deg, rgb(255, 95, 162) 2.3%, rgb(254, 201, 154) 92.7%);
-">
+<body style="background-color: #E6F9E6;">
 	<%
 	/* Checking the user credentials */
 	String userType = (String) session.getAttribute("usertype");
@@ -39,22 +38,31 @@
 
 	<jsp:include page="header.jsp" />
 
-
+	<div class="text-center"
+		style="color: green; font-size: 24px; font-weight: bold;">Stock
+		Products</div>
 	<div class="container-fluid">
 		<div class="table-responsive ">
-		<div class="text-center"
-		style="color: white; font-size: 24px; font-weight: bold;">Top 5
-		Products</div>
 			<table class="table table-hover table-sm">
 				<thead
-					style="background-color: #FF69B4; color: white; font-size: 18px;">
+					style="background-color: #2c6c4b; color: white; font-size: 18px;">
 					<tr>
 						<th>Image</th>
 						<th>ProductId</th>
 						<th>Name</th>
 						<th>Type</th>
 						<th>Price</th>
-						<th>Sold Qty</th>
+						
+						<!-- here we need to show the products from most/least sold -->
+						<th>Sold Qty 
+						 <a
+							href="!!!!uparrow"> <span style="color: pink;">&#9650;</span>
+						</a> 
+						 <a
+							href="!!!!downarrow"> <span style="color: pink;">&#9660;</span>
+						</a>
+
+						</th>
 						<th>Stock Qty</th>
 						<th colspan="2" style="text-align: center">Actions</th>
 					</tr>
@@ -66,7 +74,7 @@
 					<%
 					ProductServiceImpl productDao = new ProductServiceImpl();
 					List<ProductBean> products = new ArrayList<ProductBean>();
-					products = productDao.getfiveSelling("least");
+					products = productDao.getAllProducts();
 					for (ProductBean product : products) {
 					%>
 
@@ -88,89 +96,14 @@
 							<form method="post">
 								<button type="submit"
 									formaction="updateProduct.jsp?prodid=<%=product.getProdId()%>"
-									class="btn btn-primary" style="background-color: #FFC0CB; color: black;">Update</button>
+									class="btn btn-primary">Update</button>
 							</form>
 						</td>
 						<td>
 							<form method="post">
 								<button type="submit"
 									formaction="./RemoveProductSrv?prodid=<%=product.getProdId()%>"
-									class="btn btn-danger" style="background-color: #F9629F; color: black;">Remove</button>
-							</form>
-						</td>
-
-					</tr>
-
-					<%
-					}
-					%>
-					<%
-					if (products.size() == 0) {
-					%>
-					<tr style="background-color: grey; color: white;">
-						<td colspan="7" style="text-align: center;">No Items
-							Available</td>
-
-					</tr>
-					<%
-					}
-					%>
-				</tbody>
-			</table>
-			<div class="text-center"
-		style="color: white; font-size: 24px; font-weight: bold;">5 least selling
-		Products</div>
-			<table class="table table-hover table-sm">
-				<thead
-					style="background-color: #FF69B4; color: white; font-size: 18px;">
-					<tr>
-						<th>Image</th>
-						<th>ProductId</th>
-						<th>Name</th>
-						<th>Type</th>
-						<th>Price</th>
-						<th>Sold Qty</th>
-						<th>Stock Qty</th>
-						<th colspan="2" style="text-align: center">Actions</th>
-					</tr>
-				</thead>
-				<tbody style="background-color: white; font-size: 16px;">
-
-
-
-					<%
-					ProductServiceImpl productDao2 = new ProductServiceImpl();
-					List<ProductBean> products2 = new ArrayList<ProductBean>();
-					products = productDao.getfiveSelling("most");
-					for (ProductBean product : products) {
-					%>
-
-					<tr>
-						<td><img src="./ShowImage?pid=<%=product.getProdId()%>"
-							style="width: 50px; height: 50px;"></td>
-						<td><a
-							href="./updateProduct.jsp?prodid=<%=product.getProdId()%>"><%=product.getProdId()%></a></td>
-						<%
-						String name = product.getProdName();
-						name = name.substring(0, Math.min(name.length(), 25)) + "..";
-						%>
-						<td><%=name%></td>
-						<td><%=product.getProdType().toUpperCase()%></td>
-						<td><%=product.getProdPrice()%></td>
-						<td><%=product.getSoldQ()%></td>
-						<td><%=product.getProdQuantity()%></td>
-						<td>
-							<form method="post">
-								<button type="submit"
-									formaction="updateProduct.jsp?prodid=<%=product.getProdId()%>"
-									class="btn btn-primary" style="background-color: #FFC0CB; color: black;">Update</button>
-							</form>
-						</td>
-						<td>
-							<form method="post">
-								<button type="submit"
-									formaction="./RemoveProductSrv?prodid=<%=product.getProdId()%>"
-									class="btn btn-danger" style="background-color: #F9629F; color: black;">Remove</button>
+									class="btn btn-danger">Remove</button>
 							</form>
 						</td>
 
