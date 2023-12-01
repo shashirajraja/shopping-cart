@@ -21,11 +21,11 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public String addProduct(String prodName, String prodType, String prodInfo, double prodPrice, int prodQuantity,
-			InputStream prodImage) {
+			InputStream prodImage, String prodQuality, int prodDiscount) {
 		String status = null;
 		String prodId = IDUtil.generateId();
 
-		ProductBean product = new ProductBean(prodId, prodName, prodType, prodInfo, prodPrice, prodQuantity, prodImage);
+		ProductBean product = new ProductBean(prodId, prodName, prodType, prodInfo, prodPrice, prodQuantity, prodImage, prodQuality, prodDiscount);
 
 		status = addProduct(product);
 
@@ -44,7 +44,7 @@ public class ProductServiceImpl implements ProductService {
 		PreparedStatement ps = null;
 
 		try {
-			ps = con.prepareStatement("insert into product values(?,?,?,?,?,?,?);");
+			ps = con.prepareStatement("insert into product values(?,?,?,?,?,?,?,?,?);");
 			ps.setString(1, product.getProdId());
 			ps.setString(2, product.getProdName());
 			ps.setString(3, product.getProdType());
@@ -52,6 +52,8 @@ public class ProductServiceImpl implements ProductService {
 			ps.setDouble(5, product.getProdPrice());
 			ps.setInt(6, product.getProdQuantity());
 			ps.setBlob(7, product.getProdImage());
+			ps.setString(6, product.getProdQuality());
+			ps.setInt(7, product.getProdDiscount());
 
 			int k = ps.executeUpdate();
 
@@ -130,7 +132,7 @@ public class ProductServiceImpl implements ProductService {
 
 		try {
 			ps = con.prepareStatement(
-					"update product set pname=?,ptype=?,pinfo=?,pprice=?,pquantity=?,image=? where pid=?");
+					"update product set pname=?,ptype=?,pinfo=?,pprice=?,pquantity=?,image=?,quality=?,discount=? where pid=?");
 
 			ps.setString(1, updatedProduct.getProdName());
 			ps.setString(2, updatedProduct.getProdType());
@@ -138,7 +140,9 @@ public class ProductServiceImpl implements ProductService {
 			ps.setDouble(4, updatedProduct.getProdPrice());
 			ps.setInt(5, updatedProduct.getProdQuantity());
 			ps.setBlob(6, updatedProduct.getProdImage());
-			ps.setString(7, prevProduct.getProdId());
+			ps.setString(7, updatedProduct.getProdQuality());
+			ps.setInt(8, updatedProduct.getProdDiscount());
+			ps.setString(9, prevProduct.getProdId());
 
 			int k = ps.executeUpdate();
 
@@ -210,6 +214,8 @@ public class ProductServiceImpl implements ProductService {
 				product.setProdPrice(rs.getDouble(5));
 				product.setProdQuantity(rs.getInt(6));
 				product.setProdImage(rs.getAsciiStream(7));
+				product.setProdQuality(rs.getString(8));
+				product.setProdDiscount(rs.getInt(9));
 
 				products.add(product);
 
@@ -251,6 +257,8 @@ public class ProductServiceImpl implements ProductService {
 				product.setProdPrice(rs.getDouble(5));
 				product.setProdQuantity(rs.getInt(6));
 				product.setProdImage(rs.getAsciiStream(7));
+				product.setProdQuality(rs.getString(8));
+				product.setProdDiscount(rs.getInt(9));
 
 				products.add(product);
 
@@ -296,6 +304,8 @@ public class ProductServiceImpl implements ProductService {
 				product.setProdPrice(rs.getDouble(5));
 				product.setProdQuantity(rs.getInt(6));
 				product.setProdImage(rs.getAsciiStream(7));
+				product.setProdQuality(rs.getString(8));
+				product.setProdDiscount(rs.getInt(9));
 
 				products.add(product);
 
@@ -367,6 +377,8 @@ public class ProductServiceImpl implements ProductService {
 				product.setProdPrice(rs.getDouble(5));
 				product.setProdQuantity(rs.getInt(6));
 				product.setProdImage(rs.getAsciiStream(7));
+				product.setProdQuality(rs.getString(8));
+				product.setProdDiscount(rs.getInt(9));
 			}
 
 		} catch (SQLException e) {
@@ -397,14 +409,16 @@ public class ProductServiceImpl implements ProductService {
 		PreparedStatement ps = null;
 
 		try {
-			ps = con.prepareStatement("update product set pname=?,ptype=?,pinfo=?,pprice=?,pquantity=? where pid=?");
+			ps = con.prepareStatement("update product set pname=?,ptype=?,pinfo=?,pprice=?,pquantity=?,quality=?,discount=? where pid=?");
 
 			ps.setString(1, updatedProduct.getProdName());
 			ps.setString(2, updatedProduct.getProdType());
 			ps.setString(3, updatedProduct.getProdInfo());
 			ps.setDouble(4, updatedProduct.getProdPrice());
 			ps.setInt(5, updatedProduct.getProdQuantity());
-			ps.setString(6, prevProductId);
+			ps.setString(6, updatedProduct.getProdQuality());
+			ps.setInt(7, updatedProduct.getProdDiscount());
+			ps.setString(8, prevProductId);
 
 			int k = ps.executeUpdate();
 			// System.out.println("prevQuantity: "+prevQuantity);
@@ -536,7 +550,7 @@ public class ProductServiceImpl implements ProductService {
 		return quantity;
 	}
 	
-	public List<ProductBean> getProductsByConditions(String type, String condition) {
+	public List<ProductBean> getProductsByQuality(String type, String quality) {
 	    List<ProductBean> products = new ArrayList<>();
 
 	    String query = "SELECT * FROM `shopping-cart`.product WHERE lower(ptype) LIKE ? AND `condition` = ?;";
@@ -545,7 +559,7 @@ public class ProductServiceImpl implements ProductService {
 	         PreparedStatement ps = con.prepareStatement(query)) {
 	        
 	        ps.setString(1, "%" + type.toLowerCase() + "%");
-	        ps.setString(2, condition);
+	        ps.setString(2, quality);
 
 	        try (ResultSet rs = ps.executeQuery()) {
 	            while (rs.next()) {
@@ -557,7 +571,7 @@ public class ProductServiceImpl implements ProductService {
 	                product.setProdPrice(rs.getDouble(5));
 	                product.setProdQuantity(rs.getInt(6));
 	                product.setProdImage(rs.getAsciiStream(7));
-	                product.setProdCondition(rs.getString(8));
+	                product.setProdQuality(rs.getString(8));
 
 	                products.add(product);
 	            }

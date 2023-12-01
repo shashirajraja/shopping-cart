@@ -47,7 +47,7 @@
 	} else if (type != null) {
          if ("used".equalsIgnoreCase(type)) {
              //Handle "Used items" separately
-             products = prodDao.getProductsByConditions(type, "used"); 
+             products = prodDao.getProductsByQuality(type, "used"); 
          } else {
              products = prodDao.getAllProductsByType(type);
          }
