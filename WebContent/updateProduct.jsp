@@ -128,7 +128,7 @@
 						<label for="last_name">Discount</label> <input type="number"
 						value="<%=product.getProdDiscount()%>"	
 						placeholder="Enter discount" name="discount"
-							class="form-control" id="last_name" required>
+							class="form-control" id="last_name" size="3" min="0" max="100" required >
 					</div>
 				</div>
 				<div class="row text-center">
