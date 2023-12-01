@@ -57,14 +57,16 @@
 		style="color: black; font-size: 14px; font-weight: bold;"><%=message%></div>
 	<!-- <script>document.getElementById('mycart').innerHTML='<i data-count="20" class="fa fa-shopping-cart fa-3x icon-white badge" style="background-color:#333;margin:0px;padding:0px; margin-top:5px;"></i>'</script>
  -->
- <button type="submit" 
- 
- style="display: block; margin:0 auto;background-color:#55c234;border-color: #55c234;">Most Selling</button>
- 
- <button type="submit" 
-
- style="display: block;margin:0 auto;background-color: #55c234;border-color: #55c234;">Least Selling</button>
- 
+ <div class="row text-center">
+	<div class="col-sm-12">
+			<form>
+				<div class="btn-group" role="group">
+						<button type="submit" formaction="bestSelling.jsp">Best Selling</button>
+						<button type="submit" formaction="leastSelling.jsp">Least Selling</button>
+				</div>
+			</form>
+   </div>
+</div>
  <p style="color: red;font-size: 250%;">Used products and Sales:</p>
 
  <div style="
@@ -73,7 +75,7 @@
  background: lightgreen;
  position:static;
  ">
-nhhhh
+
 
 </div>
 

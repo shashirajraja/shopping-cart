@@ -58,6 +58,28 @@
 		style="color: black; font-size: 14px; font-weight: bold;"><%=message%></div>
 	<div class="text-center" id="message"
 		style="color: black; font-size: 14px; font-weight: bold;"></div>
+
+
+		<div class="row text-center">
+			<div class="col-sm-12">
+					<form>
+						<div class="btn-group" role="group">
+								<button type="submit" formaction="bestSelling.jsp">Best Selling</button>
+								<button type="submit" formaction="leastSelling.jsp">Least Selling</button>
+						</div>
+					</form>
+		   </div>
+		</div>
+
+		<div style="
+		text-align: center;
+		border: solid #000000;
+		background: lightgreen;
+		position:static;
+		">
+	   
+	   
+	   </div>
 	<!-- Start of Product Items List -->
 	<div class="container">
 		<div class="row text-center">
