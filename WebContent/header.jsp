@@ -153,12 +153,10 @@
 						data-toggle="dropdown" href="#">Category <span class="caret"></span>
 					</a>
 						<ul class="dropdown-menu">
-							<li><a href="adminViewProduct.jsp?type=mobile">Mobiles</a></li>
-							<li><a href="adminViewProduct.jsp?type=tv">Tvs</a></li>
-							<li><a href="adminViewProduct.jsp?type=laptop">Laptops</a></li>
-							<li><a href="adminViewProduct.jsp?type=camera">Camera</a></li>
-							<li><a href="adminViewProduct.jsp?type=speaker">Speakers</a></li>
-							<li><a href="adminViewProduct.jsp?type=tablet">Tablets</a></li>
+							<li><a href="adminViewProduct.jsp?type=encs">ENCS</a></li>
+							<li><a href="adminViewProduct.jsp?type=aas">AAS</a></li>
+							<li><a href="adminViewProduct.jsp?type=jmsb">JMSB</a></li>
+							<li><a href="adminViewProduct.jsp?type=fa">FA</a></li>
 						</ul></li>
 					<li><a href="adminStock.jsp">Stock</a></li>
 					<li><a href="shippedItems.jsp">Shipped</a></li>
