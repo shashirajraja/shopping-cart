@@ -553,7 +553,7 @@ public class ProductServiceImpl implements ProductService {
 	public List<ProductBean> getProductsByQuality(String type, String quality) {
 	    List<ProductBean> products = new ArrayList<>();
 
-	    String query = "SELECT * FROM `shopping-cart`.product WHERE lower(ptype) LIKE ? AND `condition` = ?;";
+	    String query = "SELECT * FROM `shopping-cart`.product WHERE lower(ptype) LIKE ? AND `quality` = ?;";
 
 	    try (Connection con = DBUtil.provideConnection();
 	         PreparedStatement ps = con.prepareStatement(query)) {

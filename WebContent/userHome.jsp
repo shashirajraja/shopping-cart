@@ -18,6 +18,7 @@
 </head>
 <body style="background-color: #E6F9E6;">
 	
+	
 	<%
 	/* Checking the user credentials */
 	String userName = (String) session.getAttribute("username");
@@ -47,31 +48,191 @@
 		message = "No items found for the search '" + (search != null ? search : type) + "'";
 		products = prodDao.getAllProducts();
 	}
+
+	List<ProductBean> forYouProducts = new ArrayList<ProductBean>();
+	List<ProductBean> studentSpecials = new ArrayList<ProductBean>();
+	List<String> userCategories = new WebAnalyticsServiceImpl().getUserCategories(userName, 0);
+	List<String> userStudentCategories = new ArrayList<String>();
+	
+	if (!userCategories.contains("textbook")){
+		for (String category : userCategories) {
+			forYouProducts.addAll(prodDao.getAllProductsByType(category));
+		}
+	}
+	else{
+		for (String category : userCategories) {
+			forYouProducts.addAll(prodDao.getAllProductsByType(category));
+		}
+		userStudentCategories = new WebAnalyticsServiceImpl().getUserStudentCategories(userName, 0);
+		for (String category : userStudentCategories) {
+			studentSpecials.addAll(prodDao.getProductsByQuality(category, "used"));
+		}
+	}
+	
+	//Truncate the lists to max 6 items
+	if (forYouProducts.size() > 6) {
+		forYouProducts = forYouProducts.subList(0, 6);
+	}
+	if (studentSpecials.size() > 6) {
+		studentSpecials = studentSpecials.subList(0, 6);
+	}
+
+	
 	%>
 
 
 
 	<jsp:include page="header.jsp" />
+	
+	<div class="text-center"
+		style="color: black; font-size: 14px; font-weight: bold;">For You</div>
+
+	<div class="container">	
+
+	</div>
+
+
+ 
+ 	<!-- Start of For You Items List -->
+	<div class="container">
+		<div class="row text-center">
+
+			<%
+			//DEBUG
+			out.println(forYouProducts.size());
+
+			for (ProductBean product : forYouProducts) {
+				int cartQty = new CartServiceImpl().getCartItemCount(userName, product.getProdId());
+			%>
+			<div class="col-sm-4" style='height: 350px;'>
+				
+				<div class="thumbnail">
+					<img src="./ShowImage?pid=<%=product.getProdId()%>" alt="Product"
+						style="height: 150px; max-width: 180px">
+					<p class="productname"><%=product.getProdName()%>
+					</p>
+					<%
+					String description = product.getProdInfo();
+					description = description.substring(0, Math.min(description.length(), 100));
+					%>
+					<p class="productinfo"><%=description%>..
+					</p>
+					<p class="price">
+						Rs
+						<%=product.getProdPrice()%>
+					</p>
+					<form method="post">
+						<%
+						if (cartQty == 0) {
+						%>
+						<button type="submit"
+							formaction="./AddtoCart?uid=<%=userName%>&pid=<%=product.getProdId()%>&pqty=1"
+							class="btn btn-success">Add to Cart</button>
+						&nbsp;&nbsp;&nbsp;
+						<button type="submit"
+							formaction="./AddtoCart?uid=<%=userName%>&pid=<%=product.getProdId()%>&pqty=1"
+							class="btn btn-primary">Buy Now</button>
+							
+
+						<%
+						} else {
+						%>
+						<button type="submit"
+							formaction="./AddtoCart?uid=<%=userName%>&pid=<%=product.getProdId()%>&pqty=0"
+							class="btn btn-danger">Remove From Cart</button>
+						&nbsp;&nbsp;&nbsp;
+						<button type="submit" formaction="cartDetails.jsp"
+							class="btn btn-success">Checkout</button>
+						<%
+						}
+						%>
+					</form>
+					<br />
+				</div>
+			</div>
+
+			<%
+			}
+			%>
+
+		</div>
+	</div>
+	<!-- ENd of For You Items List -->
 
 	<div class="text-center"
-		style="color: black; font-size: 14px; font-weight: bold;"><%=message%></div>
-	<!-- <script>document.getElementById('mycart').innerHTML='<i data-count="20" class="fa fa-shopping-cart fa-3x icon-white badge" style="background-color:#333;margin:0px;padding:0px; margin-top:5px;"></i>'</script>
- -->
- 
- 
- <p style="color: red;font-size: 250%;">Used products and Sales:</p>
+	style="color: black; font-size: 14px; font-weight: bold;">Student Specials</div>
 
- <div style="
- text-align: center;
- border: solid #000000;
- background: lightgreen;
- position:static;
- ">
-nhhhh
+ 	<!-- Start of Student Specials Items List -->
+	 <div class="container">
+		<div class="row text-center">
 
-</div>
+			<%
+
+			//DEBUG
+			out.println(studentSpecials.size());
+			for (ProductBean product : forYouProducts) {
+				int cartQty = new CartServiceImpl().getCartItemCount(userName, product.getProdId());
+			%>
+			<div class="col-sm-4" style='height: 350px;'>
+				
+				<div class="thumbnail">
+					<img src="./ShowImage?pid=<%=product.getProdId()%>" alt="Product"
+						style="height: 150px; max-width: 180px">
+					<p class="productname"><%=product.getProdName()%>
+					</p>
+					<%
+					String description = product.getProdInfo();
+					description = description.substring(0, Math.min(description.length(), 100));
+					%>
+					<p class="productinfo"><%=description%>..
+					</p>
+					<p class="price">
+						Rs
+						<%=product.getProdPrice()%>
+					</p>
+					<form method="post">
+						<%
+						if (cartQty == 0) {
+						%>
+						<button type="submit"
+							formaction="./AddtoCart?uid=<%=userName%>&pid=<%=product.getProdId()%>&pqty=1"
+							class="btn btn-success">Add to Cart</button>
+						&nbsp;&nbsp;&nbsp;
+						<button type="submit"
+							formaction="./AddtoCart?uid=<%=userName%>&pid=<%=product.getProdId()%>&pqty=1"
+							class="btn btn-primary">Buy Now</button>
+							
+
+						<%
+						} else {
+						%>
+						<button type="submit"
+							formaction="./AddtoCart?uid=<%=userName%>&pid=<%=product.getProdId()%>&pqty=0"
+							class="btn btn-danger">Remove From Cart</button>
+						&nbsp;&nbsp;&nbsp;
+						<button type="submit" formaction="cartDetails.jsp"
+							class="btn btn-success">Checkout</button>
+						<%
+						}
+						%>
+					</form>
+					<br />
+				</div>
+			</div>
+
+			<%
+			}
+			%>
+
+		</div>
+	</div>
+	<!-- End of Student Specials Items List -->
 
 
+	<div class="text-center"
+	style="color: black; font-size: 14px; font-weight: bold;"><%=message%></div>
+<!-- <script>document.getElementById('mycart').innerHTML='<i data-count="20" class="fa fa-shopping-cart fa-3x icon-white badge" style="background-color:#333;margin:0px;padding:0px; margin-top:5px;"></i>'</script>
+-->
 	<!-- Start of Product Items List -->
 	<div class="container">
 		<div class="row text-center">
