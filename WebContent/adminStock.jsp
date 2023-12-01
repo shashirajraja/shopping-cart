@@ -52,13 +52,14 @@
 						<th>Name</th>
 						<th>Type</th>
 						<th>Price</th>
+						<th>Discount</th>
 						<th>Sold Qty</th>
 						<th>Stock Qty</th>
 						<th colspan="2" style="text-align: center">Actions</th>
 					</tr>
 				</thead>
 				<tbody style="background-color: white; font-size: 16px;">
-
+					<tr style="background-color: #c8c8c8"> <td colspan="10" style="text-align: center"> Low Stock Items </td> </tr>
 					<%
 					ProductServiceImpl productDao = new ProductServiceImpl();
 					List<ProductBean> products = new ArrayList<ProductBean>();
@@ -79,6 +80,48 @@
 						<td><%=name%></td>
 						<td><%=product.getProdType().toUpperCase()%></td>
 						<td><%=product.getProdPrice()%></td>
+						<td><%=product.getCurrentDiscount()%></td>
+						<td><%=new OrderServiceImpl().countSoldItem(product.getProdId())%></td>
+						<td style="color: red"><%=product.getProdQuantity()%></td>
+						<td>
+							<form method="post">
+								<button type="submit"
+									formaction="updateProduct.jsp?prodid=<%=product.getProdId()%>"
+									class="btn btn-primary">Update</button>
+							</form>
+						</td>
+						<td>
+							<form method="post">
+								<button type="submit"
+									formaction="./RemoveProductSrv?prodid=<%=product.getProdId()%>"
+									class="btn btn-danger">Remove</button>
+							</form>
+						</td>
+
+					</tr>
+					<%
+						}
+					}
+					%>
+					<tr style="background-color: #c8c8c8"> <td colspan="10" style="text-align: center">Low Selling Items</td> </tr>
+					<%
+					for (ProductBean product : products) { 
+						if (product.getProdQuantity() >= 500 && ((new OrderServiceImpl().countSoldItem(product.getProdId())) <= 10)) {
+					%>
+
+					<tr>
+						<td><img src="./ShowImage?pid=<%=product.getProdId()%>"
+							style="width: 50px; height: 50px;"></td>
+						<td><a
+							href="./updateProduct.jsp?prodid=<%=product.getProdId()%>"><%=product.getProdId()%></a></td>
+						<%
+						String name = product.getProdName();
+						name = name.substring(0, Math.min(name.length(), 25)) + "..";
+						%>
+						<td><%=name%></td>
+						<td><%=product.getProdType().toUpperCase()%></td>
+						<td><%=product.getProdPrice()%></td>
+						<td style="color: #39FF14"> <%=product.getCurrentDiscount()%> </td>
 						<td><%=new OrderServiceImpl().countSoldItem(product.getProdId())%></td>
 						<td><%=product.getProdQuantity()%></td>
 						<td>
@@ -102,9 +145,12 @@
 						}
 					}
 					%>
+					
+					<tr style="background-color: #c8c8c8"> <td colspan="10" style="text-align: center">Popular Items</td> </tr>
+					
 					<%
 					for (ProductBean product : products) { 
-						if (product.getProdQuantity() > 3) {
+						if ((new OrderServiceImpl().countSoldItem(product.getProdId())) >= 100) {
 					%>
 
 					<tr>
@@ -119,6 +165,51 @@
 						<td><%=name%></td>
 						<td><%=product.getProdType().toUpperCase()%></td>
 						<td><%=product.getProdPrice()%></td>
+						<td style="color: #39FF14"><%=product.getCurrentDiscount()%></td>
+						<td><%=new OrderServiceImpl().countSoldItem(product.getProdId())%></td>
+						<td style="color: red"><%=product.getProdQuantity()%></td>
+						<td>
+							<form method="post">
+								<button type="submit"
+									formaction="updateProduct.jsp?prodid=<%=product.getProdId()%>"
+									class="btn btn-primary">Update</button>
+							</form>
+						</td>
+						<td>
+							<form method="post">
+								<button type="submit"
+									formaction="./RemoveProductSrv?prodid=<%=product.getProdId()%>"
+									class="btn btn-danger">Remove</button>
+							</form>
+						</td>
+
+					</tr>
+
+					<%
+						}
+					}
+					%>
+					<tr style="background-color: #c8c8c8"> <td colspan="10" style="text-align: center"> Items </td> </tr>
+					<%
+					for (ProductBean product : products) { 
+						if  ( (product.getProdQuantity() > 3) 
+							&& ( ((new OrderServiceImpl().countSoldItem(product.getProdId())) > 10) || (product.getProdQuantity() < 500 ) ) 
+							&& ( ((new OrderServiceImpl().countSoldItem(product.getProdId())) < 100)) ) {
+					%>
+
+					<tr>
+						<td><img src="./ShowImage?pid=<%=product.getProdId()%>"
+							style="width: 50px; height: 50px;"></td>
+						<td><a
+							href="./updateProduct.jsp?prodid=<%=product.getProdId()%>"><%=product.getProdId()%></a></td>
+						<%
+						String name = product.getProdName();
+						name = name.substring(0, Math.min(name.length(), 25)) + "..";
+						%>
+						<td><%=name%></td>
+						<td><%=product.getProdType().toUpperCase()%></td>
+						<td><%=product.getProdPrice()%></td>
+						<td><%=product.getCurrentDiscount()%></td>
 						<td><%=new OrderServiceImpl().countSoldItem(product.getProdId())%></td>
 						<td><%=product.getProdQuantity()%></td>
 						<td>

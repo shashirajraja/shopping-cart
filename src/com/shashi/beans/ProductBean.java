@@ -115,7 +115,7 @@ public class ProductBean implements Serializable {
 	public void setCurrentDiscount(int discountAmount) {
 		
 		//Clamp discount amount between 0 and 100
-		this.currentDiscount = discountAmount > 100? 100 : discountAmount < 0 ? 0 : discountAmount;
+		this.currentDiscount = discountAmount;// > 100? 100 : discountAmount < 0 ? 0 : discountAmount;
 	}
 	
 	public int getCurrentDiscount() {

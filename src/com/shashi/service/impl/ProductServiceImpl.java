@@ -45,14 +45,15 @@ public class ProductServiceImpl implements ProductService {
 		PreparedStatement ps = null;
 
 		try {
-			ps = con.prepareStatement("insert into product values(?,?,?,?,?,?,?);");
+			ps = con.prepareStatement("insert into product values(?,?,?,?,?,?,?,?);");
 			ps.setString(1, product.getProdId());
 			ps.setString(2, product.getProdName());
 			ps.setString(3, product.getProdType());
 			ps.setString(4, product.getProdInfo());
 			ps.setDouble(5, product.getProdPrice());
-			ps.setInt(6, product.getProdQuantity());
-			ps.setBlob(7, product.getProdImage());
+			ps.setInt(6, product.getCurrentDiscount());
+			ps.setInt(7, product.getProdQuantity());
+			ps.setBlob(8, product.getProdImage());
 
 			int k = ps.executeUpdate();
 
@@ -131,15 +132,16 @@ public class ProductServiceImpl implements ProductService {
 
 		try {
 			ps = con.prepareStatement(
-					"update product set pname=?,ptype=?,pinfo=?,pprice=?,pquantity=?,image=? where pid=?");
+					"update product set pname=?,ptype=?,pinfo=?,pprice=?,pdiscount=?, pquantity=?,image=? where pid=?");
 
 			ps.setString(1, updatedProduct.getProdName());
 			ps.setString(2, updatedProduct.getProdType());
 			ps.setString(3, updatedProduct.getProdInfo());
 			ps.setDouble(4, updatedProduct.getProdPrice());
-			ps.setInt(5, updatedProduct.getProdQuantity());
-			ps.setBlob(6, updatedProduct.getProdImage());
-			ps.setString(7, prevProduct.getProdId());
+			ps.setInt(5, updatedProduct.getCurrentDiscount());
+			ps.setInt(6, updatedProduct.getProdQuantity());
+			ps.setBlob(7, updatedProduct.getProdImage());
+			ps.setString(8, prevProduct.getProdId());
 
 			int k = ps.executeUpdate();
 
@@ -209,8 +211,9 @@ public class ProductServiceImpl implements ProductService {
 				product.setProdType(rs.getString(3));
 				product.setProdInfo(rs.getString(4));
 				product.setProdPrice(rs.getDouble(5));
-				product.setProdQuantity(rs.getInt(6));
-				product.setProdImage(rs.getAsciiStream(7));
+				product.setCurrentDiscount(rs.getInt(6));
+				product.setProdQuantity(rs.getInt(7));
+				product.setProdImage(rs.getAsciiStream(8));
 
 				products.add(product);
 
@@ -251,7 +254,8 @@ public class ProductServiceImpl implements ProductService {
 				product.setProdInfo(rs.getString(4));
 				product.setProdPrice(rs.getDouble(5));
 				product.setProdQuantity(rs.getInt(6));
-				product.setProdImage(rs.getAsciiStream(7));
+				product.setProdQuantity(rs.getInt(7));
+				product.setProdImage(rs.getAsciiStream(8));
 
 				products.add(product);
 
@@ -295,8 +299,9 @@ public class ProductServiceImpl implements ProductService {
 				product.setProdType(rs.getString(3));
 				product.setProdInfo(rs.getString(4));
 				product.setProdPrice(rs.getDouble(5));
-				product.setProdQuantity(rs.getInt(6));
-				product.setProdImage(rs.getAsciiStream(7));
+				product.setCurrentDiscount(rs.getInt(6));
+				product.setProdQuantity(rs.getInt(7));
+				product.setProdImage(rs.getAsciiStream(8));
 
 				products.add(product);
 
@@ -366,8 +371,9 @@ public class ProductServiceImpl implements ProductService {
 				product.setProdType(rs.getString(3));
 				product.setProdInfo(rs.getString(4));
 				product.setProdPrice(rs.getDouble(5));
-				product.setProdQuantity(rs.getInt(6));
-				product.setProdImage(rs.getAsciiStream(7));
+				product.setCurrentDiscount(rs.getInt(6));
+				product.setProdQuantity(rs.getInt(7));
+				product.setProdImage(rs.getAsciiStream(8));
 			}
 
 		} catch (SQLException e) {
@@ -398,14 +404,15 @@ public class ProductServiceImpl implements ProductService {
 		PreparedStatement ps = null;
 
 		try {
-			ps = con.prepareStatement("update product set pname=?,ptype=?,pinfo=?,pprice=?,pquantity=? where pid=?");
+			ps = con.prepareStatement("update product set pname=?,ptype=?,pinfo=?,pprice=?, pdiscount=?, pquantity=? where pid=?");
 
 			ps.setString(1, updatedProduct.getProdName());
 			ps.setString(2, updatedProduct.getProdType());
 			ps.setString(3, updatedProduct.getProdInfo());
 			ps.setDouble(4, updatedProduct.getProdPrice());
-			ps.setInt(5, updatedProduct.getProdQuantity());
-			ps.setString(6, prevProductId);
+			ps.setInt(5, updatedProduct.getCurrentDiscount());
+			ps.setInt(6, updatedProduct.getProdQuantity());
+			ps.setString(7, prevProductId);
 
 			int k = ps.executeUpdate();
 			// System.out.println("prevQuantity: "+prevQuantity);

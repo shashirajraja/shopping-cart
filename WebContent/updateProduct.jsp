@@ -116,6 +116,12 @@
 							placeholder="Enter Stock Quantity" class="form-control"
 							id="last_name" name="quantity" required>
 					</div>
+					<div class="col-md-6 form-group">
+						<label for="last_name">Current Discount</label> <input type="number"
+							value="<%=product.getCurrentDiscount()%>"
+							placeholder="Enter Product discount" class="form-control"
+							id="last_name" name="discount" required>
+					</div>
 				</div>
 				<div class="row text-center">
 					<div class="col-md-4" style="margin-bottom: 2px;">
