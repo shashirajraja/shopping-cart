@@ -44,7 +44,7 @@
 		if (type == "used") {
 			products = prodDao.getAllProductsUsed();
 		}
-		else if (type == "discounted"){
+		else if (type == "discount"){
 			products = prodDao.getAllProductsDiscounted();
 		}
 		else {

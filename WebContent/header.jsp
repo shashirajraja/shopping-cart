@@ -66,10 +66,12 @@
 						data-toggle="dropdown" href="#">Category <span class="caret"></span>
 					</a>
 						<ul class="dropdown-menu">
-							<li><a href="index.jsp?type=ENCS">ENCS</a></li>
-							<li><a href="index.jsp?type=AAS">AAS</a></li>
-							<li><a href="index.jsp?type=JMSB">JMSB</a></li>
-							<li><a href="index.jsp?type=FA">FA</a></li>
+							<li><a href="index.jsp?type=encs">ENCS</a></li>
+							<li><a href="index.jsp?type=aas">AAS</a></li>
+							<li><a href="index.jsp?type=jmsb">JMSB</a></li>
+							<li><a href="index.jsp?type=fa">FA</a></li>
+							<li><a href="index.jsp?type=discount">Discounted</a></li>
+							<li><a href="index.jsp?type=used">Used</a></li>
 						</ul></li>
 				</ul>
 			</div>
@@ -101,10 +103,12 @@
 						data-toggle="dropdown" href="#">Category <span class="caret"></span>
 					</a>
 						<ul class="dropdown-menu">					
-							<li><a href="userHome.jsp?type=ENCS">ENCS</a></li>
-							<li><a href="userHome.jsp?type=AAS">AAS</a></li>
-							<li><a href="userHome.jsp?type=JMSB">JMSB</a></li>
-							<li><a href="userHome.jsp?type=FA">FA</a></li>
+							<li><a href="userHome.jsp?type=encs">ENCS</a></li>
+							<li><a href="userHome.jsp?type=aas">AAS</a></li>
+							<li><a href="userHome.jsp?type=jmsb">JMSB</a></li>
+							<li><a href="userHome.jsp?type=fa">FA</a></li>
+							<li><a href="userHome.jsp?type=discount">Used</a></li>
+							<li><a href="userHome.jsp?type=used">Discounted</a></li>
 						</ul></li>
 					<%
 					if (notf == 0) {
@@ -153,7 +157,7 @@
 						data-toggle="dropdown" href="#">Category <span class="caret"></span>
 					</a>
 						<ul class="dropdown-menu">
-							<li><a href="adminViewProduct.jsp?type=discount">Discounts</a></li>
+							<li><a href="adminViewProduct.jsp?type=discount">Discounted</a></li>
 							<li><a href="adminViewProduct.jsp?type=used">Used</a></li>
 							<li><a href="adminViewProduct.jsp?type=encs">ENCS</a></li>
 							<li><a href="adminViewProduct.jsp?type=aas">AAS</a></li>
