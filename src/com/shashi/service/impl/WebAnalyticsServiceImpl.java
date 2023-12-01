@@ -249,7 +249,7 @@ public class WebAnalyticsServiceImpl implements WebAnalyticsService {
                 "SELECT p.ptype, SUM(i.interactioncount) AS totalinteractions" +
                     "FROM `shopping-cart`.`interactions` AS i " + 
                     "JOIN `shopping-cart`.`product` AS p ON i.prodid = p.pid " +
-                    "WHERE i.username=? AND p.ptype IN ('','','')" + //TODO: Add student catagories
+                    "WHERE i.username=? AND p.ptype IN ('mobile','textbook','tablet')" + //TODO: Add student catagories
                     "GROUP BY p.ptype " +
                     "ORDER BY SUM(i.interactioncount) DESC");
 

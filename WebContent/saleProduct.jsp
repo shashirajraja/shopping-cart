@@ -124,10 +124,10 @@
 			$('#discountedPrice').text(discountedPrice.toFixed(2));
 
 			// Directly update the displayed price on the page
-	        	$('#originalPrice').text(discountedPrice.toFixed(2));
+	        //	$('#originalPrice').text(discountedPrice.toFixed(2));
 			
 	        	// Update the hidden field with the updated price
-	        	$('#updatedPrice').val(discountedPrice.toFixed(2));
+	        //	$('#updatedPrice').val(discountedPrice.toFixed(2));
 		}
 	</script>
 </body>
