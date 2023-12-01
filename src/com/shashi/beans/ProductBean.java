@@ -20,7 +20,6 @@ public class ProductBean implements Serializable {
 	private Boolean prodUsed;
 	private HashSet<ProductInterest> prodInterests;
 	private int currentDiscount;
-	private int amountSold;
 	
 	public ProductBean(String prodId, String prodName, String prodType, String prodInfo, double prodPrice,
 			int prodQuantity, InputStream prodImage, Boolean prodUsed, HashSet<ProductInterest> prodInterests) {
@@ -129,13 +128,5 @@ public class ProductBean implements Serializable {
 	
 	public Boolean isDiscounted() {
 		return currentDiscount > 0;
-	}
-	
-	public void setAmountSold(int newAmountSold) {
-		amountSold = newAmountSold;
-	}
-	
-	public int getAmountSold() {
-		return amountSold;
 	}
 }
