@@ -81,20 +81,13 @@
 						<label for="producttype">Product Type</label> <select name="type"
 							id="producttype" class="form-control" required>
 							<option value="mobile"
-								<%="mobile".equalsIgnoreCase(ptype) ? "selected" : ""%>>MOBILE</option>
-							<option value="tv"
-								<%="tv".equalsIgnoreCase(ptype) ? "selected" : ""%>>TV</option>
-							<option value="camera"
-								<%="camera".equalsIgnoreCase(ptype) ? "selected" : ""%>>CAMERA</option>
-							<option value="laptop"
-								<%="laptop".equalsIgnoreCase(ptype) ? "selected" : ""%>>LAPTOP</option>
-							<option value="tablet"
-								<%="tablet".equalsIgnoreCase(ptype) ? "selected" : ""%>>TABLET</option>
-							<option value="speaker"
-								<%="speaker".equalsIgnoreCase(ptype) ? "selected" : ""%>>SPEAKER</option>
-							<option value="other"
-								<%="other".equalsIgnoreCase(ptype) ? "selected" : ""%>>Some
-								Other Appliances</option>
+								<%="ENCS".equalsIgnoreCase(ptype) ? "selected" : ""%>>ENCS</option>
+							<option value="AAS"
+								<%="".equalsIgnoreCase(ptype) ? "selected" : ""%>>AAS</option>
+							<option value="JMSB"
+								<%="camera".equalsIgnoreCase(ptype) ? "selected" : ""%>>JMSB</option>
+							<option value="FA"
+								<%="laptop".equalsIgnoreCase(ptype) ? "selected" : ""%>>FA</option>
 						</select>
 					</div>
 				</div>

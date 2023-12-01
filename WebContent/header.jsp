@@ -66,12 +66,10 @@
 						data-toggle="dropdown" href="#">Category <span class="caret"></span>
 					</a>
 						<ul class="dropdown-menu">
-							<li><a href="index.jsp?type=mobile">Mobiles</a></li>
-							<li><a href="index.jsp?type=tv">TVs</a></li>
-							<li><a href="index.jsp?type=laptop">Laptops</a></li>
-							<li><a href="index.jsp?type=camera">Camera</a></li>
-							<li><a href="index.jsp?type=speaker">Speakers</a></li>
-							<li><a href="index.jsp?type=tablet">Tablets</a></li>
+							<li><a href="index.jsp?type=ENCS">ENCS</a></li>
+							<li><a href="index.jsp?type=AAS">AAS</a></li>
+							<li><a href="index.jsp?type=JMSB">JMSB</a></li>
+							<li><a href="index.jsp?type=FA">FA</a></li>
 						</ul></li>
 				</ul>
 			</div>
@@ -102,13 +100,11 @@
 					<li class="dropdown"><a class="dropdown-toggle"
 						data-toggle="dropdown" href="#">Category <span class="caret"></span>
 					</a>
-						<ul class="dropdown-menu">
-							<li><a href="userHome.jsp?type=mobile">Mobiles</a></li>
-							<li><a href="userHome.jsp?type=tv">TV</a></li>
-							<li><a href="userHome.jsp?type=laptop">Laptops</a></li>
-							<li><a href="userHome.jsp?type=camera">Camera</a></li>
-							<li><a href="userHome.jsp?type=speaker">Speakers</a></li>
-							<li><a href="userHome.jsp?type=tablet">Tablets</a></li>
+						<ul class="dropdown-menu">					
+							<li><a href="userHome.jsp?type=ENCS">ENCS</a></li>
+							<li><a href="userHome.jsp?type=AAS">AAS</a></li>
+							<li><a href="userHome.jsp?type=JMSB">JMSB</a></li>
+							<li><a href="userHome.jsp?type=FA">FA</a></li>
 						</ul></li>
 					<%
 					if (notf == 0) {
