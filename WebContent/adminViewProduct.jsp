@@ -82,7 +82,7 @@
 
 		<%
 		//Retrieve the updated price from the saleProduct
-		double updatedPrice = Double.parseDouble(request.getParameter("updatedPrice"));
+		//double updatedPrice = Double.parseDouble(request.getParameter("updatedPrice"));
 		%>
 
 		<div class="row text-center">
@@ -107,7 +107,7 @@
 					</p>
 					
 					<!-- Display the updated price -->
-                			<p class="price">Sale price: Rs <%= request.getParameter("updatedPrice") %></p>
+                				<!--<p class="price">Sale price: Rs <%= request.getParameter("updatedPrice") %></p>-->
 
 					<form method="post">
 						<button type="submit"
