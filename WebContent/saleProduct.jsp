@@ -44,7 +44,7 @@
 	<div class="container">
 		<div class="row"
 			style="margin-top: 5px; margin-left: 2px; margin-right: 2px;">
-			<form action="adminViewProduct.jsp" method="post"
+			<form action="adminViewProduct.jsp?prodid=<%=product.getProdId()%>" method="post"
 				class="col-md-6 col-md-offset-3"
 				style="border: 2px solid black; border-radius: 10px; background-color: #FFE5CC; padding: 10px;">
 				<div style="font-weight: bold;" class="text-center">
@@ -90,6 +90,10 @@
 						<label>Price after discount: $<span id="discountedPrice"><%=product.getProdPrice()%></span></label>
 					</div>
 				</div>
+
+				<!-- Add a hidden field to store the updated price -->
+				<input type="hidden" id="updatedPrice" name="updatedPrice" value="<%=product.getProdPrice()%>">
+			
 			</form>
 		</div>
 	</div>
@@ -119,6 +123,11 @@
 			// Update the displayed discounted price
 			$('#discountedPrice').text(discountedPrice.toFixed(2));
 
+			// Directly update the displayed price on the page
+	        	$('#originalPrice').text(discountedPrice.toFixed(2));
+			
+	        	// Update the hidden field with the updated price
+	        	$('#updatedPrice').val(discountedPrice.toFixed(2));
 		}
 	</script>
 </body>

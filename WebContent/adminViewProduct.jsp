@@ -79,7 +79,12 @@
                			</form>
           		</div>
        		</div>
-		
+
+		<%
+		//Retrieve the updated price from the saleProduct
+		double updatedPrice = Double.parseDouble(request.getParameter("updatedPrice"));
+		%>
+
 		<div class="row text-center">
 			<%
 			for (ProductBean product : products) {
@@ -94,10 +99,16 @@
 						)
 					</p>
 					<p class="productinfo"><%=product.getProdInfo()%></p>
+					
+					<!-- Display the original price -->
 					<p class="price">
-						Rs
+						Original price: Rs
 						<%=product.getProdPrice()%>
 					</p>
+					
+					<!-- Display the updated price -->
+                			<p class="price">Sale price: Rs <%= request.getParameter("updatedPrice") %></p>
+
 					<form method="post">
 						<button type="submit"
 							formaction="./RemoveProductSrv?prodid=<%=product.getProdId()%>"
