@@ -153,6 +153,8 @@
 						data-toggle="dropdown" href="#">Category <span class="caret"></span>
 					</a>
 						<ul class="dropdown-menu">
+							<li><a href="adminViewProduct.jsp?type=discount">Discounts</a></li>
+							<li><a href="adminViewProduct.jsp?type=used">Used</a></li>
 							<li><a href="adminViewProduct.jsp?type=encs">ENCS</a></li>
 							<li><a href="adminViewProduct.jsp?type=aas">AAS</a></li>
 							<li><a href="adminViewProduct.jsp?type=jmsb">JMSB</a></li>
