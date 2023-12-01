@@ -271,6 +271,88 @@ public class ProductServiceImpl implements ProductService {
 
 		return products;
 	}
+	
+	public List<ProductBean> getAllProductsUsed() {
+		List<ProductBean> products = new ArrayList<ProductBean>();
+
+		Connection con = DBUtil.provideConnection();
+
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		try {
+			ps = con.prepareStatement("select * from product");
+
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+				if( rs.getBoolean(9)) {
+					ProductBean product = new ProductBean();
+	
+					product.setProdId(rs.getString(1));
+					product.setProdName(rs.getString(2));
+					product.setProdType(rs.getString(3));
+					product.setProdInfo(rs.getString(4));
+					product.setProdPrice(rs.getDouble(5));
+					product.setCurrentDiscount(rs.getInt(6));
+					product.setProdQuantity(rs.getInt(7));
+					product.setProdImage(rs.getAsciiStream(8));
+	
+					products.add(product);
+				}
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		DBUtil.closeConnection(con);
+		DBUtil.closeConnection(ps);
+		DBUtil.closeConnection(rs);
+
+		return products;
+	}
+	
+	public List<ProductBean> getAllProductsDiscounted() {
+		List<ProductBean> products = new ArrayList<ProductBean>();
+
+		Connection con = DBUtil.provideConnection();
+
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		try {
+			ps = con.prepareStatement("select * from product");
+
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+				if( rs.getInt(6) >0 ) {
+					ProductBean product = new ProductBean();
+	
+					product.setProdId(rs.getString(1));
+					product.setProdName(rs.getString(2));
+					product.setProdType(rs.getString(3));
+					product.setProdInfo(rs.getString(4));
+					product.setProdPrice(rs.getDouble(5));
+					product.setCurrentDiscount(rs.getInt(6));
+					product.setProdQuantity(rs.getInt(7));
+					product.setProdImage(rs.getAsciiStream(8));
+	
+					products.add(product);
+				}
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		DBUtil.closeConnection(con);
+		DBUtil.closeConnection(ps);
+		DBUtil.closeConnection(rs);
+
+		return products;
+	}
 
 	@Override
 	public List<ProductBean> searchAllProducts(String search) {

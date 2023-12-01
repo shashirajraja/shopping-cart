@@ -41,7 +41,15 @@
 		products = prodDao.searchAllProducts(search);
 		message = "Showing Results for '" + search + "'";
 	} else if (type != null) {
-		products = prodDao.getAllProductsByType(type);
+		if (type == "used") {
+			products = prodDao.getAllProductsUsed();
+		}
+		else if (type == "discounted"){
+			products = prodDao.getAllProductsDiscounted();
+		}
+		else {
+			products = prodDao.getAllProductsByType(type);
+		}
 		message = "Showing Results for '" + type + "'";
 	} else {
 		products = prodDao.getAllProducts();
@@ -78,9 +86,14 @@
 					%>
 					<p class="productinfo"><%=description%>..
 					</p>
+					<%if (product.isDiscounted()) {%>
+					<p style="color: #FFFF00"class="price">
+					<% }
+					else { %>
 					<p class="price">
-						Rs
-						<%=product.getProdPrice()%>
+					<% } %>
+						$
+						<%=product.getCurrentPrice()%>
 					</p>
 					<form method="post">
 						<%
