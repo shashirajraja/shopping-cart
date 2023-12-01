@@ -31,6 +31,8 @@
 
 	ProductServiceImpl prodDao = new ProductServiceImpl();
 	List<ProductBean> products = new ArrayList<ProductBean>();
+	String forYouHidden = "hidden";
+	String studentSpecialsHidden = "hidden";
 
 	String search = request.getParameter("search");
 	String type = request.getParameter("type");
@@ -60,10 +62,10 @@
 		}
 	}
 	else{
-		for (String category : userCategories) {
-			forYouProducts.addAll(prodDao.getAllProductsByType(category));
-		}
 		userStudentCategories = new WebAnalyticsServiceImpl().getUserStudentCategories(userName, 0);
+		for (String category : userCategories) {
+			forYouProducts.addAll(prodDao.getProductsByQuality(category, "new"));
+		}
 		for (String category : userStudentCategories) {
 			studentSpecials.addAll(prodDao.getProductsByQuality(category, "used"));
 		}
@@ -77,6 +79,20 @@
 		studentSpecials = studentSpecials.subList(0, 6);
 	}
 
+    // Toggle display of For You and Student Specials sections
+	boolean forYouIsVisible = true; // This could also be set based on some logic or conditions
+	boolean studentSpecialsIsVisible = true; // This could also be set based on some logic or conditions
+    
+	if (search != null || type != null || userCategories.size() == 0) {
+		forYouIsVisible = false;
+	}
+
+	if (search != null || type != null || userCategories.size() == 0) {
+		studentSpecialsIsVisible = false;
+	}
+
+	String forYouDisplayStyle = forYouIsVisible ? "display: block;" : "display: none;";
+	String studentSpecialsDisplayStyle = studentSpecialsIsVisible ? "display: block;" : "display: none;";
 	
 	%>
 
@@ -84,8 +100,7 @@
 
 	<jsp:include page="header.jsp" />
 	
-	<div class="text-center"
-		style="color: black; font-size: 14px; font-weight: bold;">For You</div>
+	<div class="text-center" style="${forYouDisplayStyle} color: black; font-size: 14px; font-weight: bold;">For You</div>
 
 	<div class="container">	
 
@@ -94,12 +109,10 @@
 
  
  	<!-- Start of For You Items List -->
-	<div class="container">
+	<div class="container" style="${forYouDisplayStyle}" >
 		<div class="row text-center">
 
 			<%
-			//DEBUG
-			out.println(forYouProducts.size());
 
 			for (ProductBean product : forYouProducts) {
 				int cartQty = new CartServiceImpl().getCartItemCount(userName, product.getProdId());
@@ -159,18 +172,14 @@
 	</div>
 	<!-- ENd of For You Items List -->
 
-	<div class="text-center"
-	style="color: black; font-size: 14px; font-weight: bold;">Student Specials</div>
+	<div class="text-center" style="${studentSpecialsDisplayStyle} color: black; font-size: 14px; font-weight: bold;">Student Specials</div>
 
  	<!-- Start of Student Specials Items List -->
-	 <div class="container">
+	 <div class="container" style="${studentSpecialsDisplayStyle}">
 		<div class="row text-center">
 
 			<%
-
-			//DEBUG
-			out.println(studentSpecials.size());
-			for (ProductBean product : forYouProducts) {
+			for (ProductBean product : studentSpecials) {
 				int cartQty = new CartServiceImpl().getCartItemCount(userName, product.getProdId());
 			%>
 			<div class="col-sm-4" style='height: 350px;'>
