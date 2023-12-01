@@ -45,6 +45,15 @@
 		products = prodDao.searchAllProducts(search);
 		message = "Showing Results for '" + search + "'";
 	} else if (type != null) {
+		if (type == "used") {
+			products = prodDao.getAllProductsUsed();
+		}
+		else if (type == "discount"){
+			products = prodDao.getAllProductsDiscounted();
+		}
+		else {
+			products = prodDao.getAllProductsByType(type);
+		}
 		products = prodDao.getAllProductsByType(type);
 		message = "Showing Results for '" + type + "'";
 	} else {

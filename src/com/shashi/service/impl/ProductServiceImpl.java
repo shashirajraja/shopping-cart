@@ -297,8 +297,12 @@ public class ProductServiceImpl implements ProductService {
 					product.setCurrentDiscount(rs.getInt(6));
 					product.setProdQuantity(rs.getInt(7));
 					product.setProdImage(rs.getAsciiStream(8));
-	
-					products.add(product);
+					product.setProdUsed(rs.getBoolean(9));
+					
+					if (product.getProdUsed()) {
+						products.add(product);
+					}
+					
 				}
 			}
 
@@ -327,7 +331,8 @@ public class ProductServiceImpl implements ProductService {
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
-				if( rs.getInt(6) >0 ) {
+				
+				
 					ProductBean product = new ProductBean();
 	
 					product.setProdId(rs.getString(1));
@@ -338,9 +343,11 @@ public class ProductServiceImpl implements ProductService {
 					product.setCurrentDiscount(rs.getInt(6));
 					product.setProdQuantity(rs.getInt(7));
 					product.setProdImage(rs.getAsciiStream(8));
-	
-					products.add(product);
-				}
+					if( product.getCurrentDiscount() > 0 ) {
+						products.add(product);
+					}
+					
+				
 			}
 
 		} catch (SQLException e) {
@@ -384,7 +391,7 @@ public class ProductServiceImpl implements ProductService {
 				product.setCurrentDiscount(rs.getInt(6));
 				product.setProdQuantity(rs.getInt(7));
 				product.setProdImage(rs.getAsciiStream(8));
-
+				
 				products.add(product);
 
 			}
