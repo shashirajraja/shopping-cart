@@ -275,7 +275,7 @@ COMMIT;
 START TRANSACTION;
 USE `shopping-cart`;
 ALTER TABLE `shopping-cart`.`product`
-ADD  `condition` ENUM('new', 'used') DEFAULT 'new';
+ADD  `quality` ENUM('new', 'used') DEFAULT 'new';
 
 COMMIT;
 
