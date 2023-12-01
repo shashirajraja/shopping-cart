@@ -9,14 +9,14 @@ public class ProductBean implements Serializable {
 	public ProductBean() {
 	}
 
-	private String prodId;
+	private String prodId;	
 	private String prodName;
 	private String prodType;
 	private String prodInfo;
 	private double prodPrice;
 	private int prodQuantity;
 	private InputStream prodImage;
-	private String pordCondition;
+	private String prodCondition;
 	private int prodSold;
 	private int prodDiscount;
 
@@ -30,7 +30,7 @@ public class ProductBean implements Serializable {
 		this.prodPrice = prodPrice;
 		this.prodQuantity = prodQuantity;
 		this.prodImage = prodImage;
-		this.pordCondition = "";
+		this.prodCondition = "";
 		this.prodSold = 0;
 		this.prodDiscount = 0;
 	}
@@ -65,7 +65,7 @@ public class ProductBean implements Serializable {
 	
 	public String getProdCondition()
 	{
-		return this.pordCondition;
+		return this.prodCondition;
 	}
 	
 	public int getProdSold()
@@ -108,7 +108,7 @@ public class ProductBean implements Serializable {
 	
 	public void setProdCondition(String prodCondition) // either 'new' or 'used;
 	{
-		this.pordCondition = prodCondition;
+		this.prodCondition = prodCondition;
 	}
 	
 	public void setProdSold(int sold)
