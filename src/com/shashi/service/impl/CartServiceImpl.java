@@ -15,18 +15,26 @@ import com.shashi.utility.DBUtil;
 
 public class CartServiceImpl implements CartService {
 
+	public static void main(String[] args) {
+		CartServiceImpl cartService = new CartServiceImpl();
+		System.out.println(cartService.addProductToCart("guest@gmail.com", "P20230423083830", 1));
+	}
+
 	@Override
 	public String addProductToCart(String userId, String prodId, int prodQty) {
+	
 		String status = "Failed to Add into Cart";
-
+		
+		
 		Connection con = DBUtil.provideConnection();
 
 		PreparedStatement ps = null;
 		PreparedStatement ps2 = null;
+
 		ResultSet rs = null;
 
 		try {
-
+			
 			ps = con.prepareStatement("select * from usercart where username=? and prodid=?");
 
 			ps.setString(1, userId);
@@ -64,10 +72,9 @@ public class CartServiceImpl implements CartService {
 
 				} else {
 					status = updateProductToCart(userId, prodId, prodQty);
-
 				}
 			}
-
+			
 		} catch (SQLException e) {
 			status = "Error: " + e.getMessage();
 			e.printStackTrace();
@@ -77,7 +84,7 @@ public class CartServiceImpl implements CartService {
 		DBUtil.closeConnection(ps);
 		DBUtil.closeConnection(rs);
 		DBUtil.closeConnection(ps2);
-
+		
 		return status;
 	}
 
@@ -260,6 +267,10 @@ public class CartServiceImpl implements CartService {
 	public String updateProductToCart(String userId, String prodId, int prodQty) {
 
 		String status = "Failed to Add into Cart";
+		
+		//ADDED ANAYTICS HERE, it works as expected.
+		WebAnalyticsServiceImpl webAnalyticsService = new WebAnalyticsServiceImpl();
+        System.out.println(webAnalyticsService.addInteraction(userId, prodId,1));
 
 		Connection con = DBUtil.provideConnection();
 

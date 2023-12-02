@@ -10,6 +10,7 @@ import java.util.List;
 import com.shashi.beans.CartBean;
 import com.shashi.beans.OrderBean;
 import com.shashi.beans.OrderDetails;
+import com.shashi.beans.ProductBean;
 import com.shashi.beans.TransactionBean;
 import com.shashi.service.OrderService;
 import com.shashi.utility.DBUtil;
@@ -35,11 +36,16 @@ public class OrderServiceImpl implements OrderService {
 		// System.out.println("Transaction: "+transaction.getTransactionId()+"
 		// "+transaction.getTransAmount()+" "+transaction.getUserName()+"
 		// "+transaction.getTransDateTime());
+		
+		// Added: Web Analytics Handler
+		WebAnalyticsServiceImpl webAnalyticsServiceDoa = new WebAnalyticsServiceImpl();
 
 		for (CartBean item : cartItems) {
 
-			double amount = new ProductServiceImpl().getProductPrice(item.getProdId()) * item.getQuantity();
+			ProductBean product = new ProductServiceImpl().getProductDetails(item.getProdId());
 
+			double amount =  item.getQuantity() * product.getProdPrice() * (1.0f - (product.getProdDiscount()/100.0f));
+			System.out.println("Amount saved to DB: " + amount);
 			OrderBean order = new OrderBean(transactionId, item.getProdId(), item.getQuantity(), amount);
 
 			ordered = addOrder(order);
@@ -52,7 +58,17 @@ public class OrderServiceImpl implements OrderService {
 			if (!ordered)
 				break;
 			else
+				//Added: Web Analytics
+				webAnalyticsServiceDoa.addInteraction(item.getUserId(), item.getProdId(), (item.getQuantity() * 3));
+
+
 				ordered = new ProductServiceImpl().sellNProduct(item.getProdId(), item.getQuantity());
+				//TODO ADD quantity check, and send email if less than 4
+				int remainingQuantity = new ProductServiceImpl().getProductQuantity(item.getProdId());
+
+				if(remainingQuantity < 4) {
+					//MailMessage.lowQuantity(item.getProdId(), remainingQuantity);
+				}
 
 			if (!ordered)
 				break;

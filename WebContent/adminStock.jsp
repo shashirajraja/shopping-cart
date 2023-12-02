@@ -96,6 +96,12 @@
 									class="btn btn-danger">Remove</button>
 							</form>
 						</td>
+						<td>
+    						<form method="post" action="saleProduct.jsp">
+        						<input type="hidden" name="prodid" value="<%=product.getProdId()%>">
+        						<button type="submit" class="btn btn-danger">Sale</button>
+    						</form>
+						</td>
 
 					</tr>
 

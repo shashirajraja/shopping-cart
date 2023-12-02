@@ -92,9 +92,8 @@
 								<%="tablet".equalsIgnoreCase(ptype) ? "selected" : ""%>>TABLET</option>
 							<option value="speaker"
 								<%="speaker".equalsIgnoreCase(ptype) ? "selected" : ""%>>SPEAKER</option>
-							<option value="other"
-								<%="other".equalsIgnoreCase(ptype) ? "selected" : ""%>>Some
-								Other Appliances</option>
+							<option value="textbook"
+								<%="other".equalsIgnoreCase(ptype) ? "selected" : ""%>>TEXTBOOK</option>
 						</select>
 					</div>
 				</div>
@@ -115,6 +114,21 @@
 							value="<%=product.getProdQuantity()%>"
 							placeholder="Enter Stock Quantity" class="form-control"
 							id="last_name" name="quantity" required>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6 form-group">
+						<label for="last_name">Product Quality</label> <select name="quality"
+							id="producttype" class="form-control" required>
+							<option value="new">New</option>
+							<option value="used">Used</option>
+						</select>
+					</div>
+					<div class="col-md-6 form-group">
+						<label for="last_name">Discount</label> <input type="number"
+						value="<%=product.getProdDiscount()%>"	
+						placeholder="Enter discount" name="discount"
+							class="form-control" id="last_name" size="3" min="0" max="100" required >
 					</div>
 				</div>
 				<div class="row text-center">

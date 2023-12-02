@@ -17,13 +17,15 @@ import com.shashi.utility.MailMessage;
 
 public class ProductServiceImpl implements ProductService {
 
+	public static final int minStockQuantity = 3;
+
 	@Override
 	public String addProduct(String prodName, String prodType, String prodInfo, double prodPrice, int prodQuantity,
-			InputStream prodImage) {
+			InputStream prodImage, String prodQuality, int prodDiscount) {
 		String status = null;
 		String prodId = IDUtil.generateId();
 
-		ProductBean product = new ProductBean(prodId, prodName, prodType, prodInfo, prodPrice, prodQuantity, prodImage);
+		ProductBean product = new ProductBean(prodId, prodName, prodType, prodInfo, prodPrice, prodQuantity, prodImage, prodQuality, prodDiscount);
 
 		status = addProduct(product);
 
@@ -42,7 +44,7 @@ public class ProductServiceImpl implements ProductService {
 		PreparedStatement ps = null;
 
 		try {
-			ps = con.prepareStatement("insert into product values(?,?,?,?,?,?,?);");
+			ps = con.prepareStatement("insert into product values(?,?,?,?,?,?,?,?,?);");
 			ps.setString(1, product.getProdId());
 			ps.setString(2, product.getProdName());
 			ps.setString(3, product.getProdType());
@@ -50,6 +52,8 @@ public class ProductServiceImpl implements ProductService {
 			ps.setDouble(5, product.getProdPrice());
 			ps.setInt(6, product.getProdQuantity());
 			ps.setBlob(7, product.getProdImage());
+			ps.setString(6, product.getProdQuality());
+			ps.setInt(7, product.getProdDiscount());
 
 			int k = ps.executeUpdate();
 
@@ -128,7 +132,7 @@ public class ProductServiceImpl implements ProductService {
 
 		try {
 			ps = con.prepareStatement(
-					"update product set pname=?,ptype=?,pinfo=?,pprice=?,pquantity=?,image=? where pid=?");
+					"update product set pname=?,ptype=?,pinfo=?,pprice=?,pquantity=?,image=?,quality=?,discount=? where pid=?");
 
 			ps.setString(1, updatedProduct.getProdName());
 			ps.setString(2, updatedProduct.getProdType());
@@ -136,7 +140,9 @@ public class ProductServiceImpl implements ProductService {
 			ps.setDouble(4, updatedProduct.getProdPrice());
 			ps.setInt(5, updatedProduct.getProdQuantity());
 			ps.setBlob(6, updatedProduct.getProdImage());
-			ps.setString(7, prevProduct.getProdId());
+			ps.setString(7, updatedProduct.getProdQuality());
+			ps.setInt(8, updatedProduct.getProdDiscount());
+			ps.setString(9, prevProduct.getProdId());
 
 			int k = ps.executeUpdate();
 
@@ -208,6 +214,8 @@ public class ProductServiceImpl implements ProductService {
 				product.setProdPrice(rs.getDouble(5));
 				product.setProdQuantity(rs.getInt(6));
 				product.setProdImage(rs.getAsciiStream(7));
+				product.setProdQuality(rs.getString(8));
+				product.setProdDiscount(rs.getInt(9));
 
 				products.add(product);
 
@@ -249,6 +257,8 @@ public class ProductServiceImpl implements ProductService {
 				product.setProdPrice(rs.getDouble(5));
 				product.setProdQuantity(rs.getInt(6));
 				product.setProdImage(rs.getAsciiStream(7));
+				product.setProdQuality(rs.getString(8));
+				product.setProdDiscount(rs.getInt(9));
 
 				products.add(product);
 
@@ -294,6 +304,8 @@ public class ProductServiceImpl implements ProductService {
 				product.setProdPrice(rs.getDouble(5));
 				product.setProdQuantity(rs.getInt(6));
 				product.setProdImage(rs.getAsciiStream(7));
+				product.setProdQuality(rs.getString(8));
+				product.setProdDiscount(rs.getInt(9));
 
 				products.add(product);
 
@@ -365,6 +377,8 @@ public class ProductServiceImpl implements ProductService {
 				product.setProdPrice(rs.getDouble(5));
 				product.setProdQuantity(rs.getInt(6));
 				product.setProdImage(rs.getAsciiStream(7));
+				product.setProdQuality(rs.getString(8));
+				product.setProdDiscount(rs.getInt(9));
 			}
 
 		} catch (SQLException e) {
@@ -395,14 +409,16 @@ public class ProductServiceImpl implements ProductService {
 		PreparedStatement ps = null;
 
 		try {
-			ps = con.prepareStatement("update product set pname=?,ptype=?,pinfo=?,pprice=?,pquantity=? where pid=?");
+			ps = con.prepareStatement("update product set pname=?,ptype=?,pinfo=?,pprice=?,pquantity=?,quality=?,discount=? where pid=?");
 
 			ps.setString(1, updatedProduct.getProdName());
 			ps.setString(2, updatedProduct.getProdType());
 			ps.setString(3, updatedProduct.getProdInfo());
 			ps.setDouble(4, updatedProduct.getProdPrice());
 			ps.setInt(5, updatedProduct.getProdQuantity());
-			ps.setString(6, prevProductId);
+			ps.setString(6, updatedProduct.getProdQuality());
+			ps.setInt(7, updatedProduct.getProdDiscount());
+			ps.setString(8, prevProductId);
 
 			int k = ps.executeUpdate();
 			// System.out.println("prevQuantity: "+prevQuantity);
@@ -533,5 +549,207 @@ public class ProductServiceImpl implements ProductService {
 
 		return quantity;
 	}
+	
+	public List<ProductBean> getProductsByQuality(String type, String quality) {
+	    List<ProductBean> products = new ArrayList<>();
 
+	    String query = "SELECT * FROM `shopping-cart`.product WHERE lower(ptype) LIKE ? AND `quality` = ?;";
+
+	    try (Connection con = DBUtil.provideConnection();
+	         PreparedStatement ps = con.prepareStatement(query)) {
+	        
+	        ps.setString(1, "%" + type.toLowerCase() + "%");
+	        ps.setString(2, quality);
+
+	        try (ResultSet rs = ps.executeQuery()) {
+	            while (rs.next()) {
+	                ProductBean product = new ProductBean();
+	                product.setProdId(rs.getString(1));
+	                product.setProdName(rs.getString(2));
+	                product.setProdType(rs.getString(3));
+	                product.setProdInfo(rs.getString(4));
+	                product.setProdPrice(rs.getDouble(5));
+	                product.setProdQuantity(rs.getInt(6));
+	                product.setProdImage(rs.getAsciiStream(7));
+	                product.setProdQuality(rs.getString(8));
+					product.setProdDiscount(rs.getInt(9));
+
+	                products.add(product);
+	            }
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    
+	    return products;
+	}
+	// get a product sold of a specific type
+	public List<ProductBean> getProductsBySales(String type) {
+	    List<ProductBean> products = new ArrayList<>();
+
+	    //String query = "SELECT * FROM `shopping-cart`.product WHERE lower(ptype) LIKE ? AND sold > 0 ORDER BY sold DESC;";
+	    String query = "SELECT product.*, SUM(orders.quantity) as sold "
+	    		+ "FROM `shopping-cart`.product LEFT JOIN `shopping-cart`.orders "
+	    		+ "ON product.pid = orders.prodid "
+	    		+ "WHERE lower(product.ptype) LIKE ? GROUP BY product.pid ORDER BY sold DESC";
+
+	    try (Connection con = DBUtil.provideConnection();
+	         PreparedStatement ps = con.prepareStatement(query)) {
+	        
+	        ps.setString(1, "%" + type.toLowerCase() + "%");
+
+	        try (ResultSet rs = ps.executeQuery()) {
+	            while (rs.next()) {
+	                ProductBean product = new ProductBean();
+	                product.setProdId(rs.getString(1)); 
+	                product.setProdName(rs.getString(2));
+	                product.setProdType(rs.getString(3));
+	                product.setProdInfo(rs.getString(4));
+	                product.setProdPrice(rs.getDouble(5)); 
+	                product.setProdQuantity(rs.getInt(6));
+	                product.setProdImage(rs.getAsciiStream(7));
+					product.setProdQuality(rs.getString(8));
+					product.setProdDiscount(rs.getInt(9));
+	                product.setProdSold(rs.getInt(10));
+
+	                products.add(product);
+	            }
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return products;
+	}
+	
+	public List<ProductBean> getAllProductsSold()
+	{	
+		List<ProductBean> products = new ArrayList<>();
+		String query = "SELECT product.*, SUM(orders.quantity) as sold "
+				+ "FROM `shopping-cart`.product LEFT JOIN `shopping-cart`.orders "
+				+ "ON product.pid = orders.prodid "
+				+ "GROUP BY product.pid ORDER BY sold DESC";
+		try (Connection con = DBUtil.provideConnection();
+		         PreparedStatement ps = con.prepareStatement(query)) {
+
+		        try (ResultSet rs = ps.executeQuery()) {
+		            while (rs.next()) {
+		                ProductBean product = new ProductBean();
+		                product.setProdId(rs.getString("pid"));
+		                product.setProdName(rs.getString("pname"));
+		                product.setProdType(rs.getString("ptype"));
+		                product.setProdInfo(rs.getString("pinfo"));
+		                product.setProdPrice(rs.getDouble("pprice"));
+		                product.setProdQuantity(rs.getInt("pquantity"));
+		                product.setProdImage(rs.getAsciiStream("image"));
+		                product.setProdSold(rs.getInt("sold")); // Set the total sold
+						product.setProdQuality(rs.getString("quality"));
+						product.setProdDiscount(rs.getInt("discount"));
+
+		                products.add(product);
+		            }
+		        }
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		    }
+
+		    return products;
+	}
+
+	public List<ProductBean> getProductsByDiscounts(String type) {
+	    List<ProductBean> products = new ArrayList<>();
+
+	    String query = "SELECT * FROM `shopping-cart`.product WHERE lower(ptype) LIKE ? AND discount > 0 ORDER BY discount DESC;";
+
+	    try (Connection con = DBUtil.provideConnection();
+	         PreparedStatement ps = con.prepareStatement(query)) {
+	        
+	        ps.setString(1, "%" + type.toLowerCase() + "%");
+
+	        try (ResultSet rs = ps.executeQuery()) {
+	            while (rs.next()) {
+	                ProductBean product = new ProductBean();
+	                product.setProdId(rs.getString(1)); 
+	                product.setProdName(rs.getString(2));
+	                product.setProdType(rs.getString(3));
+	                product.setProdInfo(rs.getString(4));
+	                product.setProdPrice(rs.getDouble(5)); 
+	                product.setProdQuantity(rs.getInt(6));
+	                product.setProdImage(rs.getAsciiStream(7));
+					product.setProdQuality(rs.getString(8));
+	                product.setProdDiscount(rs.getInt(9));
+
+	                products.add(product);
+	            }
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return products;
+	}
+
+	private List<ProductBean> getSales(String sort) {
+	    List<ProductBean> products = new ArrayList<>();
+
+	    String query = "SELECT product.*, IFNULL(SUM(orders.quantity), 0) as sold "
+	            + "FROM `shopping-cart`.product LEFT JOIN `shopping-cart`.orders "
+	            + "ON product.pid = orders.prodid "
+	            + "GROUP BY product.pid ORDER BY sold " + sort;
+
+	    try (Connection con = DBUtil.provideConnection();
+	         PreparedStatement ps = con.prepareStatement(query)) {
+
+	        try (ResultSet rs = ps.executeQuery()) {
+	            while (rs.next()) {
+	                ProductBean product = new ProductBean();
+	                product.setProdId(rs.getString("pid"));
+	                product.setProdName(rs.getString("pname"));
+	                product.setProdType(rs.getString("ptype"));
+	                product.setProdInfo(rs.getString("pinfo"));
+	                product.setProdPrice(rs.getDouble("pprice"));
+	                product.setProdQuantity(rs.getInt("pquantity"));
+	                product.setProdImage(rs.getAsciiStream("image"));
+	                product.setProdSold(rs.getInt("sold"));
+					product.setProdQuality(rs.getString("quality"));
+
+	                products.add(product);
+	            }
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return products;
+	}
+
+	public List<ProductBean> getLeastSelling() {
+	    
+	    return getSales("ASC");
+	}
+	
+	public List<ProductBean> getBestSelling() {
+	    
+	    return getSales("DESC");
+	}
+	
+	public void SendMailOnMinStockThreshold(String prodId)
+	{
+		try
+		{
+			ProductBean product = getProductDetails(prodId);
+
+			if(product == null) throw new Exception("Unexpected result: Product was null. Mail not sent.");
+
+			if(product.getProdQuantity() <= minStockQuantity)
+			{
+				MailMessage.lowQuantity(product.getProdName(), product.getProdId(), product.getProdQuantity(), minStockQuantity);
+				System.out.println("");
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
 }

@@ -73,11 +73,12 @@
 				style="background-color: #186188; color: white; font-size: 16px; font-weight: bold;">
 				<tr>
 					<th>Picture</th>
-					<th>Products</th>
+					<th style="width: auto;">Products</th>
 					<th>Price</th>
-					<th>Quantity</th>
-					<th>Add</th>
-					<th>Remove</th>
+					<th style="width: 160px;">Quantity</th>
+					<th style="width: 75px;">Add</th>
+					<th style="width: 75px;">Remove</th>
+					<th>Discount</th>
 					<th>Amount</th>
 				</tr>
 			</thead>
@@ -99,7 +100,7 @@
 
 					ProductBean product = new ProductServiceImpl().getProductDetails(prodId);
 
-					double currAmount = product.getProdPrice() * prodQuantity;
+					double currAmount = product.getProdPrice() * prodQuantity * (1.0f - ((float)product.getProdDiscount()/100.0f));
 
 					totAmount += currAmount;
 
@@ -118,12 +119,14 @@
 								type="submit" name="Update" value="Update"
 								style="max-width: 80px;">
 						</form></td>
-					<td><a
+					<td>
+						<a
 						href="cartDetails.jsp?add=1&uid=<%=userName%>&pid=<%=product.getProdId()%>&avail=<%=product.getProdQuantity()%>&qty=<%=prodQuantity%>"><i
 							class="fa fa-plus"></i></a></td>
 					<td><a
 						href="cartDetails.jsp?add=0&uid=<%=userName%>&pid=<%=product.getProdId()%>&avail=<%=product.getProdQuantity()%>&qty=<%=prodQuantity%>"><i
-							class="fa fa-minus"></i></a></td>
+							class="fa fa-minus"></i></a></td>	
+					<td><div style="text-align: center"><%=product.getProdDiscount()%>%</div></td>
 					<td><%=currAmount%></td>
 				</tr>
 

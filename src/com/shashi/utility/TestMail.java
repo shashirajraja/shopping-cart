@@ -9,8 +9,8 @@ public class TestMail {
 			String subject = "Mail Configuration Successfull";
 			String htmlTextMessage = "" + "<html>"
 					+ "<head><title>Java Mail Configuration Test</title><style>.greenText{color:green;} p{font-size:14;}</style></head><body>"
-					+ "<h2 style='color:red;'>Welcome to Ellison Electronics</h2>" + "<p>Hey,<br>"
-					+ "Thanks for singing up with Ellison Electronics.<br>"
+					+ "<h2 style='color:red;'>Welcome to Concordia Shopping Cart App</h2>" + "<p>Hey,<br>"
+					+ "Thanks for singing up with Concordia Shopping Cart App.<br>"
 					+ "We are glad that you choose <bold>us. We invite you to check out our latest collection of new electonics appliances."
 					+ "<br>We are providing upto 60% OFF on most of the electronic gadgets. So please visit our site and explore the collections. <br>"
 					+ " <br>Our Online electronics is growing in a larger amount these days and we are in high demand so we thanks all of you for "
