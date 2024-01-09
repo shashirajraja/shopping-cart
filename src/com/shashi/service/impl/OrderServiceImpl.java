@@ -20,56 +20,43 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public String paymentSuccess(String userName, double paidAmount) {
 		String status = "Order Placement Failed!";
+		List<CartBean> cartItems = new CartServiceImpl().getAllCartItems(userName);
 
-		List<CartBean> cartItems = new ArrayList<CartBean>();
-		cartItems = new CartServiceImpl().getAllCartItems(userName);
-
-		if (cartItems.size() == 0)
+		if (cartItems.isEmpty()) {
 			return status;
+		}
 
 		TransactionBean transaction = new TransactionBean(userName, paidAmount);
-		boolean ordered = false;
-
 		String transactionId = transaction.getTransactionId();
-
-		// System.out.println("Transaction: "+transaction.getTransactionId()+"
-		// "+transaction.getTransAmount()+" "+transaction.getUserName()+"
-		// "+transaction.getTransDateTime());
+		boolean ordered = true;
 
 		for (CartBean item : cartItems) {
-
 			double amount = new ProductServiceImpl().getProductPrice(item.getProdId()) * item.getQuantity();
-
 			OrderBean order = new OrderBean(transactionId, item.getProdId(), item.getQuantity(), amount);
-
-			ordered = addOrder(order);
-			if (!ordered)
+			ordered = ordered && processOrder(order, item);
+			if (!ordered) {
 				break;
-			else {
-				ordered = new CartServiceImpl().removeAProduct(item.getUserId(), item.getProdId());
-			}
-
-			if (!ordered)
-				break;
-			else
-				ordered = new ProductServiceImpl().sellNProduct(item.getProdId(), item.getQuantity());
-
-			if (!ordered)
-				break;
-		}
-
-		if (ordered) {
-			ordered = new OrderServiceImpl().addTransaction(transaction);
-			if (ordered) {
-
-				MailMessage.transactionSuccess(userName, new UserServiceImpl().getFName(userName),
-						transaction.getTransactionId(), transaction.getTransAmount());
-
-				status = "Order Placed Successfully!";
 			}
 		}
-
+		if (ordered && addTransactionAndNotify(transaction, userName)) {
+			status = "Order Placed Successfully!";
+		}
 		return status;
+	}
+
+	private boolean processOrder(OrderBean order, CartBean item) {
+		return addOrder(order) &&
+				new CartServiceImpl().removeAProduct(item.getUserId(), item.getProdId()) &&
+				new ProductServiceImpl().sellNProduct(item.getProdId(), item.getQuantity());
+	}
+
+	private boolean addTransactionAndNotify(TransactionBean transaction, String userName) {
+		boolean added = new OrderServiceImpl().addTransaction(transaction);
+		if (added) {
+			MailMessage.transactionSuccess(userName, new UserServiceImpl().getFName(userName),
+					transaction.getTransactionId(), transaction.getTransAmount());
+		}
+		return added;
 	}
 
 	@Override
