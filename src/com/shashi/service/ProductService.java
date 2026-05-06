@@ -36,3 +36,4 @@ public interface ProductService {
 
 	public int getProductQuantity(String prodId);
 }
+

@@ -106,3 +106,4 @@ public class MailMessage {
 		return "SUCCESS";
 	}
 }
+

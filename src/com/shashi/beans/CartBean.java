@@ -46,3 +46,4 @@ public class CartBean implements Serializable {
 	}
 
 }
+
