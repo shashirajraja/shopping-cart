@@ -25,3 +25,4 @@ public interface UserService {
 	public String getUserAddr(String userId);
 
 }
+

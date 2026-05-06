@@ -15,3 +15,4 @@ public interface DemandService {
 	public List<DemandBean> haveDemanded(String prodId);
 
 }
+
