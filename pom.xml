@@ -49,17 +49,15 @@
 			<version>3.1.0</version>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/jakarta.mail/jakarta.mail-api -->
+		<!-- Jakarta Mail implementation with its Activation provider. -->
 		<dependency>
-			<groupId>jakarta.mail</groupId>
-			<artifactId>jakarta.mail-api</artifactId>
-			<version>2.1.1</version>
+			<groupId>org.eclipse.angus</groupId>
+			<artifactId>angus-mail</artifactId>
+			<version>2.0.3</version>
 		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/com.sun.mail/jakarta.mail -->
 		<dependency>
-			<groupId>com.sun.mail</groupId>
-			<artifactId>jakarta.mail</artifactId>
+			<groupId>org.eclipse.angus</groupId>
+			<artifactId>angus-activation</artifactId>
 			<version>2.0.1</version>
 		</dependency>
 

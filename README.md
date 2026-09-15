@@ -1,158 +1,188 @@
-# Online Shopping Cart (E-Commerce Website)
-- Youtube Video for introduction, demo and setup for this Project: https://www.youtube.com/watch?v=RgQG0_orFpM
-<!-- - YouTube video for step by step local setup of similar project: https://www.youtube.com/watch?v=mLFPodZO8Iw&t=8s -->
-<!-- Live site url: https://ellisonelectronics.herokuapp.com -->
-This is an E-Commerce Website build for selling of any electronics products online.
+# Shopping Cart
 
-### About
+Java JSP/Servlet shopping-cart application packaged as a Maven WAR and deployed to Apache Tomcat. MySQL stores products, users, carts, orders, and transactions.
 
-In this projects a user can visit the websites, registers and login to the website. They can check all the products available for shopping, filter and search item based on different categories, and then add to cart. They can add multiple item to the cart and also plus or minus the quantity in the cart. Once the cart is updated, the user can proceed to checkout and click the credit card payment details to proceed. Once the payment is success the orders will be placed and users will be able to see the orders details in the orders section along with the shipping status of the product.
+This project does not include a Dockerfile, Compose file, or CI/CD workflow. The supported run path in this repository is:
 
-The admin also plays an important role for this project as the admin is the one responsible for adding any product to the store, updating the items, removing the item from the store as well as managing the inventory. The admin can see all the product orders placed and also can mark them as shipped or delivered based on the conditions.
+```text
+MySQL 8 -> application.properties -> Maven WAR -> Apache Tomcat -> browser
+```
 
-One of the best functionality that the projects include is mailing the customers, so once a user registers to the website, they will recieve a mail for the successful registration to the website, and along with that whenever a user orders any product or the product got shipped from the store, then the user will also receive the email for its confirmation.
-Sometimes, if the user tried to add any item which is out of stock, them they will get an email one the item is available again the stock.
+## Repository Layout
 
-Note: The payment page is created only for demo purpose and its not fully integrated with any payment gateway. So for now any credit card details will be accepted and the demo orders will be placed.
+```text
+src/                          Java source and runtime configuration
+WebContent/                   JSP pages, static assets, and WEB-INF/web.xml
+databases/mysql_query.sql     Schema and demo data
+pom.xml                       Maven WAR build definition
+```
 
-## Highlights :--
+## Compatibility
 
-### The users will get a mail to their registered mail Id during:-
-- New User Registration
-- Order Successfully Placed
-- The Item was out of stock while exploring but now it got available in the store
-- Successful shipment and delivery of the Item
+Use the following runtime versions for predictable builds:
 
-### Technologies used:-
-1. Front-End Development:
-- HTML
-- CSS
-- Javascript
-- BootStrap
+- JDK 8 or newer with Java 8 source/target support
+- Maven 3.8 or newer
+- MySQL 8.x
+- Apache Tomcat 9.x or another Tomcat runtime compatible with `javax.servlet-api` 3.1
 
-2. Back-End Development:
-- Java [JDK 8+]
-- JDBC
-- Servlet
-- JSP
+Tomcat 10+ uses the Jakarta Servlet namespace and is not the default choice for this application because the project depends on `javax.servlet`. Confirm the selected Tomcat version before deployment.
 
-3. Database:
-- MySql
+Verify the tools:
 
-### ================ Software And Tools Required ================
-- : Git [https://www.youtube.com/watch?v=gv7VPQ4LZ7g]
-- : Java JDK 8+ [https://www.youtube.com/watch?v=O9PWH9SeTTE]
-- : Eclipse EE (Enterprise Edition) [https://www.youtube.com/watch?v=8aDsEV7txXE]
-- : Apache Maven [https://www.youtube.com/watch?v=jd2zx3dLjuw]
-- : Tomcat v8.0+ [https://youtu.be/mLFPodZO8Iw?t=903]
-- : MySQL Server [https://www.youtube.com/watch?v=Ydh5jYA6Frs]
-- : MySQL Workbench [https://www.youtube.com/watch?v=t79oCeTXHwg]
+```bash
+java -version
+mvn -version
+mysql --version
+```
 
-### ================= Dummy Database Initialization =================
-STEP 1: Open MySQL Command Prompt or MySQL Workbench
+## Configuration
 
-STEP 2: Login to the administrator user of MySql:
-	 ```mysql -u <username> -p``` (Enter Password if asked)
+Runtime settings are stored in `src/application.properties` and are packaged into the WAR. Before building, set values appropriate for the target environment:
 
-STEP 3: Copy paste and execute the MySQL Query from the following file:-
-- Run the Sql Query From this file: [databases/mysql_query.sql](./databases/mysql_query.sql)
+```properties
+db.driverName=com.mysql.cj.jdbc.Driver
+db.connectionString=jdbc:mysql://DB_HOST:3306/shopping-cart
+db.username=DB_USER
+db.password=DB_PASSWORD
+mailer.email=MAILBOX
+mailer.password=MAIL_APP_PASSWORD
+```
 
-### ======GENERATING GMAIL APP PASSWORD [For Mailing Functionalities]========
-Step 1: Create a gmail account or login to existing account in any browser
+The mail settings are only needed for email notification features. Do not commit production passwords or app passwords. For production, use a deployment-time configuration strategy or a protected build workspace rather than storing secrets in source control.
 
-Step 2 : Go to [https://myaccount.google.com/security](https://myaccount.google.com/security) and check if 2 step verifications is enabled or not, enable it if not enabled
+The current application reads `application.properties` from the classpath, so changing database settings requires rebuilding and redeploying the WAR.
 
-Step 3: Go to [https://myaccount.google.com/apppasswords](https://myaccount.google.com/apppasswords) and enter password if asked
+## Database Setup
 
-Step 4: In Select an App Section: select Other (custom name) => enter "Ellison Electronics" => Generate
+Create a dedicated MySQL user for the application instead of using `root` in a deployed environment. From the project directory, create the database and sample data:
 
-Step 5: After that it will generate 16 digits app password which you need to copy and save for future configurations.
+```bash
+mysql -u root -p < databases/mysql_query.sql
+```
 
-Step 6: Done : Now continue to importing the project. [Don't share the above password generated to anyone]
+The script creates the `shopping-cart` schema, tables, products, a sample order, and demo users. It contains `DROP TABLE` statements, so treat it as an initialisation script and do not run it against an existing environment without a backup and an explicit data-loss review.
 
-### ========== Importing and Running The Project Through Eclipse EE ==========
+For a non-local database, make sure the MySQL account can connect from the Tomcat host and that the database firewall allows access on port `3306`.
 
-Step 1: Open Eclipse Enterprise Edition. [Install, if not already installed.]
+Check that the schema is available:
 
-Step 2: Click On File > Import > Git > Projects From Git > Clone Uri > Paste The Repository Url as: ```https://github.com/shashirajraja/shopping-cart.git```> Select master Branch > Next > Next > Finish.
+```bash
+mysql -u DB_USER -p -e "USE \`shopping-cart\`; SHOW TABLES;"
+```
 
-Step 3: Go inside ```Java Resources > src > application.properties``` and update the values as below:
-- a) Update value for db.username and db.password according to your installed mysql credentials.
-- b) Update value for mailer.email and mailer.password, with the same email and app password that you generated earlier in above section [ NOTE:Actual gmail password will not work]
+## Build the WAR
 
-Step 4: Right Click on Project > Run as > Maven Build > In the goals field enter "clean install" > apply > run
+Run from the repository root:
 
-Step 5: Right Click On Project > Build Path > Configure Build Path > Libraries > Remove and Update Any Libraries if Red Mark Exists > Finish.
+```bash
+mvn clean package
+```
 
-Step 6: Right Click on Project > maven > update project > select force update > apply > close
+The build artifact is:
 
-Step 7: Tomcat Configurations:
-- If Tomcat Server is not configured in Eclipse :
-	-  Right Click On Project > Run As > Run On Server > Manually Define a new server > Select server type > select Tomcat v8.0+ > (Select Tomcat V8.0+ Installation Location If Asked) > Next > Add the current project > Finish.
+```text
+target/shopping-cart.war
+```
 
-- Else If Tomcat Server is already configured in Eclipse:
-	- Right Click On Project > Run As > Run On Server > Select Tomcat Version > Next > Add the project > Finish.
-		<p align='center'>or</p>
-	- You can directly goto server tab, select the tomcat server and use the debug or run button to start the previously ran project
+The Maven build compiles Java with source and target level 1.8 and includes the `WebContent` directory as the WAR web root. A successful build is the first deployment check.
 
-Step 8: Check Running The Site At  [http://localhost:8080/shopping-cart/](http://localhost:8080/shopping-cart/)
+## Run With Tomcat
 
-Step 9:  [To Change the Port, if getting error like 'port already in use'] Open The Server Tab > Double Click On Tomcat Server > Ports > Change The Port Number For Http/1.1 To 8083 > Close And Save. Now Start and you can access the project on [http://localhost:8083/shopping-cart/](http://localhost:8083/shopping-cart/)
+Copy the WAR into Tomcat's deployment directory:
 
-Step 10: Default Username And Password For Admin Is "admin@gmail.com" And "admin"
+```bash
+cp target/shopping-cart.war /path/to/tomcat/webapps/
+```
 
-Step 11: The default Username And Password For User Is "guest@gmail.com" And "guest"
+Start Tomcat:
 
-## FAQ
-**Question:1** Unable to Connect to Database?
+```bash
+/path/to/tomcat/bin/startup.sh
+```
 
-**Answer:** Please check you have installed the mysql correctly and have updated the correct db details in application.properties file. Also you can try doing maven clean install and force update the project and restart.
-<hr>
+Tomcat normally deploys the application using the WAR filename as its context path. Open:
 
-Note:- This is a Sample Project for learning purpose, we have not much considered of web security.
+```text
+http://TOMCAT_HOST:8080/shopping-cart/
+```
 
-#### Some Screenshots for the project:
-- Home Page
-![image](https://github.com/shashirajraja/shopping-cart/assets/34605595/6161fb90-ac83-445d-9fb2-56681f6a52b4)
-- Login Page
-![image](https://github.com/shashirajraja/shopping-cart/assets/34605595/c5451416-a669-4d76-ad84-9b8ea26bf6b4)
-- Register Page
-![image](https://github.com/shashirajraja/shopping-cart/assets/34605595/19f06ec9-70aa-4700-8846-a2e6514d88c2)
-- Category Wise Product Filter
-![image](https://github.com/shashirajraja/shopping-cart/assets/34605595/757e552c-1526-4142-869b-ffbf27a232e0)
-- Cart Items
-![image](https://github.com/shashirajraja/shopping-cart/assets/34605595/12963112-1276-49ca-8b9c-f3272c6b9b7b)
-- Credit Card Payment
-![image](https://github.com/shashirajraja/shopping-cart/assets/34605595/990595ce-856c-46fe-8182-052a127d67b4)
-- Order Details & Status
-![image](https://github.com/shashirajraja/shopping-cart/assets/34605595/db8b4511-cac0-41df-930a-ef3bdebe5c24)
-- User Profile
-![image](https://github.com/shashirajraja/shopping-cart/assets/34605595/aa22b0cd-726b-4e5c-85cd-5409b7fc5391)
+For a server deployment, place a reverse proxy or load balancer in front of Tomcat for TLS termination. Keep Tomcat and MySQL private to the application network where possible, and expose only the proxy's required ports.
 
-- Admin Home
-![image](https://github.com/shashirajraja/shopping-cart/assets/34605595/0e909800-b9a2-4ece-884c-24cdc8ca931a)
-- Stock Items
-![image](https://github.com/shashirajraja/shopping-cart/assets/34605595/e94e519b-e65c-4f51-8b37-e1b555208f2d)
-- Shipped Items
-![image](https://github.com/shashirajraja/shopping-cart/assets/34605595/e34de1d9-91ae-4d3b-a38e-7d78aae1f410)
-- Recent Orders yet to be shipped
-![image](https://github.com/shashirajraja/shopping-cart/assets/34605595/ed2df621-3256-41bd-8739-d3872474403c)
-- Add Product to the stock
-![image](https://github.com/shashirajraja/shopping-cart/assets/34605595/3f38b7cf-c120-4523-abec-cdb2238c17b0)
-- Remove Product from the stock
-![image](https://github.com/shashirajraja/shopping-cart/assets/34605595/1e9c6565-6a14-4cb3-834e-8d7f5d273927)
-- Update the stock item
-![image](https://github.com/shashirajraja/shopping-cart/assets/34605595/1529a9a7-19a3-4381-ac58-29dbc55229d9)
-- Sample Email for order placed
-<img width="404" alt="image" src="https://github.com/shashirajraja/shopping-cart/assets/34605595/cb60c616-c32c-42eb-abe5-494d8574c09a">
+## Smoke Checks
 
-- Class Diagram
-<img width="589" alt="image" src="https://github.com/shashirajraja/shopping-cart/assets/34605595/d6dbfdb9-5108-4071-b4b6-d055f0370acd">
+Check that Tomcat is listening:
 
-#### "Suggestions and project improvement ideas are welcomed!"
+```bash
+ss -ltnp | grep 8080
+```
 
-<bold>Thanks a lot,</bold><br/>
-                                                                                                        Project Leader<br/>
-                                                                                                         <b>Shashi Raj</b>
+Check the application response:
 
+```bash
+curl -I http://127.0.0.1:8080/shopping-cart/
+```
 
+Check deployment and application logs:
+
+```bash
+tail -f /path/to/tomcat/logs/catalina.out
+ls -lt /path/to/tomcat/logs/
+```
+
+A successful smoke test should return an HTTP response from the application and show no database connection errors in the Tomcat logs.
+
+## Demo Accounts
+
+The SQL seed data includes these accounts:
+
+```text
+Admin: admin@gmail.com / admin
+User:  guest@gmail.com / guest
+```
+
+They are demonstration credentials with plaintext passwords in the seed script. Do not use them in a real environment. Replace or remove seeded accounts before production use.
+
+## Deploying an Update
+
+Build a new artifact, stop or undeploy the current application according to the team's change procedure, then replace the WAR:
+
+```bash
+mvn clean package
+cp target/shopping-cart.war /path/to/tomcat/webapps/
+```
+
+For a controlled deployment, keep the previous WAR and database backup until the new version passes smoke checks. Monitor Tomcat logs after deployment and verify login, product browsing, cart actions, and order creation.
+
+## Rollback
+
+Keep the last known-good WAR outside Tomcat's `webapps` directory. To roll back:
+
+```bash
+/path/to/tomcat/bin/shutdown.sh
+cp /path/to/releases/shopping-cart-known-good.war /path/to/tomcat/webapps/shopping-cart.war
+/path/to/tomcat/bin/startup.sh
+```
+
+If the release changed database structure or data, restore the corresponding MySQL backup according to the database recovery procedure. The repository does not provide migrations or automated rollback scripts.
+
+## Stop Tomcat
+
+```bash
+/path/to/tomcat/bin/shutdown.sh
+```
+
+If Tomcat does not stop cleanly, inspect the process and logs before terminating it:
+
+```bash
+ps -ef | grep '[o]rg.apache.catalina.startup.Bootstrap'
+tail -n 100 /path/to/tomcat/logs/catalina.out
+```
+
+## Operational Notes
+
+- The application has no dedicated health endpoint. Use the context URL, Tomcat status, logs, and a database connectivity check for monitoring.
+- Back up MySQL before running `databases/mysql_query.sql` or deploying changes that may affect persisted data.
+- Back up the database separately from the WAR and Tomcat installation.
+- Store credentials outside Git and restrict file permissions on configuration and deployment files.
+- The application uses server-side JSP/Servlet rendering; there is no separate frontend build or Node.js runtime.
