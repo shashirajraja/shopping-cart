@@ -56,6 +56,18 @@ STEP 2: Login to the administrator user of MySql:
 
 STEP 3: Copy paste and execute the MySQL Query from the following file:-
 - Run the Sql Query From this file: [databases/mysql_query.sql](./databases/mysql_query.sql)
+STEP 4: Verify Database Initialization
+
+After executing `databases/mysql_query.sql` in MySQL Workbench, select the `shopping-cart` schema and refresh the Tables section.
+
+To verify that the required tables were created, execute:
+
+```sql
+USE `shopping-cart`;
+SHOW TABLES;
+```
+
+Confirm that the `product`, `user`, `orders`, `transactions`, and `usercart` tables are listed. If a required table is missing, check the SQL execution output in MySQL Workbench for errors and resolve them before running the initialization script again.
 
 ### ======GENERATING GMAIL APP PASSWORD [For Mailing Functionalities]========
 Step 1: Create a gmail account or login to existing account in any browser
