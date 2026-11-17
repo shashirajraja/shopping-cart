@@ -34,12 +34,14 @@ public class AddProductSrv extends HttpServlet {
 		if (userType == null || !userType.equals("admin")) {
 
 			response.sendRedirect("login.jsp?message=Access Denied!");
+			return;
 
 		}
 
 		else if (userName == null || password == null) {
 
 			response.sendRedirect("login.jsp?message=Session Expired, Login Again to Continue!");
+			return;
 		}
 
 		String status = "Product Registration Failed!";
